@@ -1,7 +1,7 @@
 {
-  "last_updated": "2026-08-27T03:13:13+00:00",
+  "last_updated": "2026-08-27T04:40:08+00:00",
   "latest_day": "2026-08-26",
-  "total_today": 24,
+  "total_today": 30,
   "categories": [
     "Jailbreaking & Red Teaming",
     "Prompt Injection & LLM Attacks",
@@ -19,22 +19,22 @@
     "Defenses, Privacy & Robustness": "#60a5fa"
   },
   "proportions": {
-    "Jailbreaking & Red Teaming": 25.0,
-    "Prompt Injection & LLM Attacks": 25.0,
-    "Reward Hacking & Deceptive Alignment": 4.2,
-    "Agentic AI Safety": 4.2,
-    "Safety Training & Alignment": 20.8,
-    "Defenses, Privacy & Robustness": 20.8
+    "Jailbreaking & Red Teaming": 26.7,
+    "Prompt Injection & LLM Attacks": 20.0,
+    "Reward Hacking & Deceptive Alignment": 10.0,
+    "Agentic AI Safety": 6.7,
+    "Safety Training & Alignment": 16.7,
+    "Defenses, Privacy & Robustness": 20.0
   },
   "category_counts": {
-    "Jailbreaking & Red Teaming": 6,
+    "Jailbreaking & Red Teaming": 8,
     "Prompt Injection & LLM Attacks": 6,
-    "Reward Hacking & Deceptive Alignment": 1,
-    "Agentic AI Safety": 1,
+    "Reward Hacking & Deceptive Alignment": 3,
+    "Agentic AI Safety": 2,
     "Safety Training & Alignment": 5,
-    "Defenses, Privacy & Robustness": 5
+    "Defenses, Privacy & Robustness": 6
   },
-  "total_papers": 24,
+  "total_papers": 30,
   "days": [
     {
       "batch_date": "2026-08-26",
@@ -441,9 +441,122 @@
           "url": "https://arxiv.org/abs/2608.19729",
           "repo": null,
           "score": 3
+        },
+        {
+          "id": "2608.17776",
+          "title": "Debate Training Reduces Reward Hacking in RLAIF",
+          "authors": [
+            "Zachary Kenton",
+            "Lili Janzer",
+            "Rory Greig",
+            "Tian Huey Teh",
+            "Kirill Tyshchuk",
+            "Jonah Brown-Cohen",
+            "Harri Edwards",
+            "Senthooran Rajamanoharan",
+            "Noah Y. Siegel",
+            "Natasha Jaques",
+            "Rohin Shah"
+          ],
+          "abstract": "We demonstrate that RL finetuning an LLM using debate, a two-player adversarial game between a generator and a critic adjudicated by a weaker LLM judge, reduces reward hacking compared to a reinforcement learning from AI feedback (RLAIF) baseline. Reward hacking is a central obstacle in RLAIF: as training progresses, the policy learns to exploit systematic errors in its AI judge, degrading task performance, a problem that worsens precisely when the judge is weaker than the policy, the setting most relevant to overseeing increasingly capable AI systems. We study mathematics tasks, where final-answer correctness is verifiable, allowing us to measure reward hacking dynamics. We train a Gemini~2.5 Flash-class policy with a frozen, weaker Gemini~2.5 Flash Lite judge, comparing a single-player RLAIF baseline against debate. While the baseline quickly hacks the judge, debate maintains judge performance throughout training, leading to a higher peak validation accuracy (45\\% performance gap recovered) that persists through many RL steps. Additional experiments show that: 1) further weakening the judge leads to faster hacking, but this can be compensated by adding an additional debate round; 2) debate incentives override prompted misalignment; 3) RL using an LLM judge has a smaller train/validation reward gap than RL from verifiable rewards; 4) learning to critique to convince the judge using ground truth labels is possible but slow. Taken together, our results are a positive update on the feasibility of debate, while highlighting that balancing multi-agent training is critical: without player constraints, adversarial training risks defaulting to critic judge-hacking. We show that critique word limits (effective up to 150 words) successfully balance the game and avoid judge hacking, though this introduces a trade-off by restricting critic expressive clarity.",
+          "category": "Reward Hacking & Deceptive Alignment",
+          "date": "2026-08-18",
+          "url": "https://arxiv.org/abs/2608.17776",
+          "repo": null,
+          "score": 6
+        },
+        {
+          "id": "2608.17659",
+          "title": "MobileWorldSafety: Benchmarking GUI Agent Safety Against Environmental Injection Attacks in Android Apps",
+          "authors": [
+            "Sujin Chen",
+            "Lijun Li",
+            "Tianyi Du",
+            "Jing Shao"
+          ],
+          "abstract": "LLM-powered GUI agents that autonomously operate smartphones are rapidly transitioning from research prototypes to early real-world deployment. However, because these agents routinely process untrusted environmental content, they are highly vulnerable to environmental injection attacks, which include indirect prompt injections and adversarial instructions. Such attacks can manipulate the behavior of agents without user awareness through diverse channels encountered in everyday mobile use. Despite these risks, existing benchmarks often fail to capture everyday user scenarios, lacking a systematic evaluation of GUI agents under environmental injection attacks on mobile devices. To address this gap, we introduce MobileWorldSafety, a benchmark of 142 risk tasks built on real Android applications. For each task, we define a programmatically verifiable risk indicator over the final system state and evaluate outcomes with a two-stage pipeline: rule-based verification handles unambiguous cases, while an LLM judge adjudicates ambiguous ones. This distinguishes safety failures from capability failures and enables objective and reproducible assessment. Evaluations on six agents, including both general agents and specialized GUI agents, demonstrate that all agents remain highly vulnerable, with attack success rates ranging from 40.4% to 66.9%. These findings indicate that current agents often fail to maintain safety alignment when adversarial content is presented as ordinary mobile context. MobileWorldSafety provides a foundation for quantifying these vulnerabilities and advancing research on robust mobile GUI agents.",
+          "category": "Agentic AI Safety",
+          "date": "2026-08-18",
+          "url": "https://arxiv.org/abs/2608.17659",
+          "repo": null,
+          "score": 6
+        },
+        {
+          "id": "2608.16465",
+          "title": "JailbreakSkill: Scaling Automated Red-Teaming with Reusable and Ever-Evolving Skills",
+          "authors": [
+            "Xiaoyu Wen",
+            "Jiajia Li",
+            "Zhida He",
+            "Peng Yu",
+            "Chenxu Wang",
+            "Han Qi",
+            "Ziyuan Zhou",
+            "Cheng Jin",
+            "Ying Wen",
+            "Xingcheng Xu",
+            "Shuyue Hu",
+            "Tianhang Zheng",
+            "Chaochao Lu",
+            "Qiaosheng Zhang"
+          ],
+          "abstract": "Automated red-teaming has produced a growing collection of attack strategies, yet they typically remain scattered across prompts and workflows, making them difficult to systematically integrate, reuse, and improve at scale. We introduce \\textsc{JailbreakSkill}, a skill-centric framework for scaling automated red-teaming through reusable and continuously evolving attack capabilities. \\textsc{JailbreakSkill} packages existing attack strategies into modular, agent-ready skills that can be directly reused and adaptively selected across tasks and target models. Beyond reuse, it closes the loop between attacking and learning: attack experience is used to diagnose, refine, combine, and discover new skills, which are added back to an ever-growing skill library. This evolution lifts macro-average ASR by 17.5 percentage points on AdvBench and 13.4 points on HarmBench, including a 48.6-point gain against GPT-5.4 on AdvBench, while yielding novel attack strategies such as reframing a direct request as an unfinished document-completion task. Several evolved skills also generalize to unseen prompts and target models without further adaptation. Our code is available at https://github.com/BattleWen/JailbreakSkill.",
+          "category": "Jailbreaking & Red Teaming",
+          "date": "2026-08-17",
+          "url": "https://arxiv.org/abs/2608.16465",
+          "repo": "https://github.com/BattleWen/JailbreakSkill",
+          "score": 6
+        },
+        {
+          "id": "2608.15445",
+          "title": "Measuring Reward Hacking and Reasoning-Answer Decoupling Under Position-Confounded Optimization",
+          "authors": [
+            "Suyash Maniyar",
+            "Armaan Sandhu",
+            "Abhishek Mishra"
+          ],
+          "abstract": "When a reward is correct on every training example yet consistent with more than one goal, a model can acquire an unintended one, a failure known as goal misgeneralization. Endpoint accuracy on the training distribution cannot tell the two apart, because solving the task and exploiting a surface feature can satisfy the reward equally well. We treat this as a measurement problem: what does a benchmark score measure once a model has been optimized against a correct but confounded signal? We train language models with GRPO on multiple-choice math problems where the correct answer is always option A, then evaluate on an unseen test set with unbiased answer positions. Across Qwen2.5, Llama 3.x and Gemma-3 models, biased training often drives option-A rates above 0.90 in smaller models and collapses unbiased accuracy toward chance, so accuracy stops measuring math ability and instead measures an answer-position policy. We further find reasoning-answer decoupling: capable models generate reasoning that reaches the correct numeric answer while still selecting A. We track this with numeric extraction and an LLM judge (GPT-4.1-mini; Qwen2.5-3B decoupling rate is about 0.66). The broken construct generalizes beyond the training domain: biased models inflate A-rates on out-of-domain MMLU and value-laden prompts. Continued training on unbiased data reverses the in-domain shift unevenly and only partially reverses the out-of-domain one, so a model can appear restored on its training distribution while remaining biased on unseen inputs. Reasoning-answer decoupling rate, together with answer distributions and out-of-domain behavior, separates capability loss from a learned, transferable shortcut.",
+          "category": "Reward Hacking & Deceptive Alignment",
+          "date": "2026-08-15",
+          "url": "https://arxiv.org/abs/2608.15445",
+          "repo": null,
+          "score": 6
+        },
+        {
+          "id": "2608.17202",
+          "title": "Fool's Gold: Defensive Deception Against Safety-Removal Attacks on Open-Weight Models",
+          "authors": [
+            "Mark Russinovich"
+          ],
+          "abstract": "Safety alignment in open-weight language models is trivially removable: abliteration projects a refusal-mediating direction out of the weights in minutes, and no release-time defense we are aware of prevents it durably. What cannot be prevented can be deceived. Our defense, decoy hardening (\"Fool's Gold\"), concedes the refusal strip and poisons its payoff: once refusal is stripped, most answers to hazardous operational requests are confident, fluent decoys whose critical elements are falsified. Decoys are trained inside a differentiable simulation of the attack, expressing only in the attacked state; a refusal pin and benign leash hold clean-state behavior to the original. We instantiate it on seven models from five families (9B-122B, dense and mixture-of-experts). On the six models passing our pre-registered efficacy gate, 0.51-0.90 of attacked-state responses to held-out prompts are decoys, +0.27-0.84 attributable to the defense; all six stay within registered benign-behavior and capability budgets; the seventh (smaller) fails the gate (boundary case). Rates replicate on a frozen test split or untouched strata. The claim is epistemic: without independent ground truth, no observation surface we tested separates falsified answers from correct ones - on external red-team benchmarks' CBRNE-adjacent slice, the defended 122B is fatally wrong on 0.82-0.86 of matched-quality answers vs at most 0.10 undefended. Repeated sampling does not restore trust: element-wise consensus at K=64 reconstructs a fully usable procedure on 0.083-0.625 of prompts where the instrument validates, vs 0.58-0.96 undefended, with no label-free way to tell the regimes apart; on the weakest such model the claim is per-draw only. We evaluate chemical and biological hazards; the defense does not address in-context jailbreaks and protects only the initially released defended weights.",
+          "category": "Jailbreaking & Red Teaming",
+          "date": "2026-08-17",
+          "url": "https://arxiv.org/abs/2608.17202",
+          "repo": null,
+          "score": 5
+        },
+        {
+          "id": "2608.16026",
+          "title": "SkillWatermark: An Embedded Skill Watermark of Progressive Privacy Inference via Benign Prompts",
+          "authors": [
+            "Yu Li",
+            "Liqi Zhuang",
+            "Dong Wei",
+            "Jiwen Luo",
+            "Hang Zhang",
+            "Meng Zhang",
+            "Xiaona Li",
+            "Weiqing Huang"
+          ],
+          "abstract": "Skills for large language model (LLM) agents have been widely deployed across diverse application domains. However, we observe that these skills generate specific traffic patterns during execution. In this paper, we design a pipeline that generates specific traffic patterns by inserting carefully designed skill descriptions, which we term skill watermarks, so that a passive network attacker can establish a covert channel to encode private information within observable traffic across multiple conversation turns. Specifically, we insert prompt constraint terms, referred to as watermarks, into the original skill descriptions and embed them within multi-turn conversations. The key information in the user's original prompt is thereby triggered by these watermarks, producing clearly observable encodings in the traffic. The adversary need only decode the traffic patterns to recover the encoded information. In particular, our modifications are benign in the sense that they do not directly exfiltrate any private data and do not execute any malicious instructions. Extensive experiments demonstrate that our watermarks produce highly consistent and distinguishable traffic patterns, and that the transformed skills pass existing LLM-based security auditing tools. This study highlights that generating specific traffic patterns can be exploited as a novel attack surface and offers critical insights for future security hardening.",
+          "category": "Defenses, Privacy & Robustness",
+          "date": "2026-08-17",
+          "url": "https://arxiv.org/abs/2608.16026",
+          "repo": null,
+          "score": 4
         }
       ],
-      "total_count": 24
+      "total_count": 30
     }
   ]
 }
