@@ -25,6 +25,9 @@ import urllib.request
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import curate  # noqa: E402 - sibling module shipped with this script
+
 try:
     import feedparser
 except ImportError:  # pragma: no cover
@@ -277,14 +280,18 @@ def fetch_hf_upvotes(days_back: int) -> dict[str, int]:
     return votes
 
 
-def rank_score(score: int, upvotes: int) -> tuple:
-    """Blend topic-match evidence with HF community signal (bounded)."""
+def rank_score(paper: dict) -> float:
+    """Blend rule evidence, HF community signal and LLM judgment (bounded)."""
+    upvotes = paper.get("upvotes", 0)
     hf_bonus = min(4.0, math.log1p(upvotes)) if upvotes else 0.0
-    return (round(score + hf_bonus, 2), upvotes)
+    composite = paper["score"] + hf_bonus
+    if paper.get("ai_rel") is not None:
+        composite += 0.6 * paper["ai_rel"] + 0.4 * paper.get("ai_imp", 0)
+    return round(composite, 2)
 
 
-def select_papers(candidates: list[dict], hf_votes: dict[str, int]) -> list[dict]:
-    """De-dupe, classify, rank; apply per-topic and per-day caps."""
+def build_ranked(candidates: list[dict], hf_votes: dict[str, int]) -> list[dict]:
+    """De-duplicate, gate and classify candidates into scored papers."""
     seen: set[str] = set()
     uniq: list[dict] = []
     for e in sorted(candidates, key=lambda x: x["published"], reverse=True):
@@ -308,15 +315,50 @@ def select_papers(candidates: list[dict], hf_votes: dict[str, int]) -> list[dict
         paper = build_paper(e, topic, score)
         paper["upvotes"] = hf_votes.get(paper["id"], 0)
         ranked_by_topic[topic].append(paper)
+    print(f"[rank ] kept {sum(len(v) for v in ranked_by_topic.values())} "
+          f"| gated/capped off {rejected} candidates")
 
-    chosen: list[dict] = []
+    flat: list[dict] = []
     for plist in ranked_by_topic.values():
-        # Strongest blended evidence first; date as final tiebreaker.
         plist.sort(key=lambda p: p["date"], reverse=True)
-        plist.sort(key=lambda p: rank_score(p["score"], p["upvotes"]), reverse=True)
-        chosen.extend(plist[:PER_CATEGORY_CAP])
-    chosen.sort(key=lambda p: rank_score(p["score"], p["upvotes"]), reverse=True)
+        plist.sort(key=lambda p: rank_score(p), reverse=True)
+        flat.extend(plist)
+    return flat
+
+
+def _top_per_topic(papers: list[dict], cap: int) -> list[dict]:
+    """Keep the best `cap` papers per topic (stable, rank-based)."""
+    buckets: dict[str, list[dict]] = {}
+    for p in sorted(papers, key=lambda p: p["date"], reverse=True):
+        buckets.setdefault(p["category"], []).append(p)
+    out: list[dict] = []
+    for plist in buckets.values():
+        plist.sort(key=lambda p: rank_score(p), reverse=True)
+        out.extend(plist[:cap])
+    return out
+
+
+def apply_caps(papers: list[dict]) -> list[dict]:
+    chosen = _top_per_topic(papers, PER_CATEGORY_CAP)
+    chosen.sort(key=lambda p: rank_score(p), reverse=True)
     return chosen[:DAILY_CAP]
+
+
+def select_papers(candidates: list[dict], hf_votes: dict[str, int]):
+    """Full selection stage; optionally refines with the LLM curator."""
+    papers = build_ranked(candidates, hf_votes)
+    curator = None
+    if curate.llm_available():
+        mult = max(2, int(os.environ.get("LLM_PRE_CAP_MULTIPLIER", 3)))
+        loose = _top_per_topic(papers, PER_CATEGORY_CAP * mult)
+        print(f"[pre  ] {len(loose)} candidates sent to LLM curation")
+        curated, stats = curate.curate(loose)
+        curated.sort(key=lambda p: rank_score(p), reverse=True)
+        selected = apply_caps(curated)
+        curator = stats.get("model")
+    else:
+        selected = apply_caps(papers)
+    return selected, curator
 
 
 def recompute_totals(days: list[dict]) -> tuple[dict[str, int], float, int]:
@@ -346,7 +388,8 @@ def load_dataset() -> dict:
 
 
 def merge_into_dataset(batch_date: str, selected: list[dict],
-                       hf_votes: dict[str, int] | None = None) -> None:
+                       hf_votes: dict[str, int] | None = None,
+                       curator: str | None = None) -> None:
     """Merge this run's selection into data/papers.json."""
     dataset = load_dataset()
     hf_votes = hf_votes or {}
@@ -376,6 +419,7 @@ def merge_into_dataset(batch_date: str, selected: list[dict],
     out = {
         "last_updated": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "latest_day": merged_days[0]["batch_date"] if merged_days else None,
+        "curated_by": curator or "rule-based",
         "total_today": next(
             (d["total_count"] for d in merged_days if d["batch_date"] == batch_date), 0
         ),
@@ -392,7 +436,7 @@ def merge_into_dataset(batch_date: str, selected: list[dict],
     print(f"[write] data/papers.json | cumulative total {total}")
 
 
-def collect(days_back: int) -> list[dict]:
+def collect(days_back: int):
     pool: list[dict] = []
     for tk, rules in CATEGORY_RULES.items():
         pool.extend(fetch_category_batch(tk, rules["queries"]))
@@ -400,8 +444,8 @@ def collect(days_back: int) -> list[dict]:
     recent = [e for e in pool if e["published"][:10] >= cutoff]
     print(f"[pool ] {len(pool)} raw entries | {len(recent)} within last {days_back} days")
     hf_votes = fetch_hf_upvotes(days_back)
-    selected = select_papers(recent, hf_votes)
-    return selected, hf_votes
+    selected, curator = select_papers(recent, hf_votes)
+    return selected, hf_votes, curator
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -410,12 +454,12 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
 
     days_back = FETCH_DAYS * (6 if args.full else 1)
-    selected, hf_votes = collect(days_back)
+    selected, hf_votes, curator = collect(days_back)
     if not selected:
         print("[warn] nothing selected this run; dataset unchanged")
         return 0
     latest_batch = max(p["date"] for p in selected)
-    merge_into_dataset(latest_batch, selected, hf_votes)
+    merge_into_dataset(latest_batch, selected, hf_votes, curator)
     return 0
 
 

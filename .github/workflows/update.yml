@@ -37,6 +37,8 @@ jobs:
       - name: Fetch & classify latest arXiv papers
         env:
           FETCH_DAYS: ${{ github.event.inputs.fetch_days || '7' }}
+          ZENMUX_API_KEY: ${{ secrets.ZENMUX_API_KEY }}
+          LLM_MODEL: ${{ vars.LLM_MODEL }}
         run: python scripts/update_data.py
 
       - name: Commit refreshed dataset

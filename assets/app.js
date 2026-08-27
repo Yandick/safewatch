@@ -53,6 +53,11 @@
       d.days.flatMap((day) => day.papers.filter((p) => p.repo).map((p) => p.repo))
     );
     $("#stat-repos").textContent = repos.size;
+    const badge = $("#curatedBadge");
+    if (badge && d.curated_by && d.curated_by !== "rule-based") {
+      badge.textContent = `✨ AI-curated · ${d.curated_by}`;
+      badge.hidden = false;
+    }
   }
 
   function renderDayOptions() {
@@ -296,6 +301,7 @@
           <span class="cat-badge">${esc(shortCat(p.category))}</span>
         </div>
         <p class="paper-authors">${esc(authors)} · ${esc(fmtDate(p.date))}</p>
+        ${p.tldr ? `<p class="paper-tldr"><span class="tldr-tag">AI</span>${esc(p.tldr)}</p>` : ""}
         <p class="paper-abstract">${esc(p.abstract)}</p>
         <button class="abs-toggle">Show abstract ▾</button>
         <div class="card-links">

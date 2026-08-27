@@ -1,7 +1,8 @@
 {
-  "last_updated": "2026-08-27T05:46:33+00:00",
+  "last_updated": "2026-08-27T09:34:51+00:00",
   "latest_day": "2026-08-26",
-  "total_today": 31,
+  "curated_by": "rule-based",
+  "total_today": 32,
   "categories": [
     "Jailbreaking & Red Teaming",
     "Prompt Injection & LLM Attacks",
@@ -19,12 +20,12 @@
     "Defenses, Privacy & Robustness": "#60a5fa"
   },
   "proportions": {
-    "Jailbreaking & Red Teaming": 25.8,
-    "Prompt Injection & LLM Attacks": 19.4,
-    "Reward Hacking & Deceptive Alignment": 9.7,
-    "Agentic AI Safety": 6.5,
-    "Safety Training & Alignment": 19.4,
-    "Defenses, Privacy & Robustness": 19.4
+    "Jailbreaking & Red Teaming": 25.0,
+    "Prompt Injection & LLM Attacks": 18.8,
+    "Reward Hacking & Deceptive Alignment": 9.4,
+    "Agentic AI Safety": 6.2,
+    "Safety Training & Alignment": 18.8,
+    "Defenses, Privacy & Robustness": 21.9
   },
   "category_counts": {
     "Jailbreaking & Red Teaming": 8,
@@ -32,9 +33,9 @@
     "Reward Hacking & Deceptive Alignment": 3,
     "Agentic AI Safety": 2,
     "Safety Training & Alignment": 6,
-    "Defenses, Privacy & Robustness": 6
+    "Defenses, Privacy & Robustness": 7
   },
-  "total_papers": 31,
+  "total_papers": 32,
   "days": [
     {
       "batch_date": "2026-08-26",
@@ -373,7 +374,7 @@
           "url": "https://arxiv.org/abs/2608.21500",
           "repo": "https://github.com/pppyb/SecOPD",
           "score": 3,
-          "upvotes": 36
+          "upvotes": 37
         },
         {
           "id": "2608.20991",
@@ -603,9 +604,28 @@
           "repo": null,
           "score": 3,
           "upvotes": 0
+        },
+        {
+          "id": "2608.20047",
+          "title": "Auditing Cross-Lingual Fairness in Language Model Watermarking",
+          "authors": [
+            "Alexander Nemecek",
+            "Osama Zafar",
+            "Debargha Ganguly",
+            "Vikash Singh",
+            "Vipin Chaudhary",
+            "Erman Ayday"
+          ],
+          "abstract": "Watermarking schemes for large language model output are evaluated almost exclusively on English text using each scheme's detection threshold and a narrow set of quality measurements. Multilingual deployment exposes evaluation-design choices that are inconsequential on English but determine conclusions cross-lingually. We propose an evaluation framework with four components: detection thresholds calibrated empirically per deployment context, a threshold-independent companion measurement that distinguishes calibration failures from detection failures, three disjoint quality measurement paradigms (distributional, paired-semantic, and reference-perplexity), and a generalized-entropy decomposition of cross-language disparity over a typological family partition. Applied to six watermarking schemes, three open-weight generators, eleven languages spanning four scripts and eight typological families, and both base and instruction-tuned regimes, the framework reveals failure modes that single-language single-paradigm evaluation cannot surface. Across detection and quality, observed disparity is predominantly between-family on the typological partition, indicating that cross-lingual fairness gaps in watermarking are structural to language properties rather than idiosyncratic to particular languages.",
+          "category": "Defenses, Privacy & Robustness",
+          "date": "2026-08-20",
+          "url": "https://arxiv.org/abs/2608.20047",
+          "repo": null,
+          "score": 3,
+          "upvotes": 0
         }
       ],
-      "total_count": 31
+      "total_count": 32
     }
   ]
 }
