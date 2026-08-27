@@ -1,0 +1,75 @@
+name: Update papers & deploy
+
+on:
+  schedule:
+    # Daily at 06:30 UTC (~14:30 Beijing / 02:30 New York)
+    - cron: "30 6 * * *"
+  workflow_dispatch:
+    inputs:
+      fetch_days:
+        description: "How many days back to scan (overrides FETCH_DAYS)"
+        required: false
+        default: "7"
+
+permissions:
+  contents: write   # commit the refreshed dataset
+  pages: write      # publish the site
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  update-and-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Fetch & classify latest arXiv papers
+        env:
+          FETCH_DAYS: ${{ github.event.inputs.fetch_days || '7' }}
+        run: python scripts/update_data.py
+
+      - name: Commit refreshed dataset
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/papers.json
+          if git diff --cached --quiet; then
+            echo "No new papers; nothing to commit."
+          else
+            git commit -m "data: daily arXiv safety update ($(date -u +%F))"
+            git push
+          fi
+
+      - name: Assemble site
+        run: |
+          mkdir -p _site/assets _site/data
+          cp index.html _site/
+          cp assets/* _site/assets/
+          cp data/papers.json _site/data/
+          touch _site/.nojekyll
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: update-and-build
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
