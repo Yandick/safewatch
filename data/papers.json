@@ -1,7 +1,7 @@
 {
-  "last_updated": "2026-08-27T10:15:22+00:00",
+  "last_updated": "2026-08-27T11:27:27+00:00",
   "latest_day": "2026-08-26",
-  "curated_by": "z-ai/glm-5.3-flash",
+  "curated_by": "rule-based",
   "total_today": 38,
   "categories": [
     "Jailbreaking & Red Teaming",
@@ -20,22 +20,23 @@
     "Defenses, Privacy & Robustness": "#60a5fa"
   },
   "proportions": {
-    "Jailbreaking & Red Teaming": 21.1,
-    "Prompt Injection & LLM Attacks": 18.4,
-    "Reward Hacking & Deceptive Alignment": 7.9,
-    "Agentic AI Safety": 13.2,
-    "Safety Training & Alignment": 18.4,
-    "Defenses, Privacy & Robustness": 21.1
+    "Jailbreaking & Red Teaming": 19.2,
+    "Prompt Injection & LLM Attacks": 16.4,
+    "Reward Hacking & Deceptive Alignment": 8.2,
+    "Agentic AI Safety": 11.0,
+    "Safety Training & Alignment": 28.8,
+    "Defenses, Privacy & Robustness": 16.4
   },
   "category_counts": {
-    "Jailbreaking & Red Teaming": 8,
-    "Prompt Injection & LLM Attacks": 7,
-    "Reward Hacking & Deceptive Alignment": 3,
-    "Agentic AI Safety": 5,
-    "Safety Training & Alignment": 7,
-    "Defenses, Privacy & Robustness": 8
+    "Jailbreaking & Red Teaming": 14,
+    "Prompt Injection & LLM Attacks": 12,
+    "Reward Hacking & Deceptive Alignment": 6,
+    "Agentic AI Safety": 8,
+    "Safety Training & Alignment": 21,
+    "Defenses, Privacy & Robustness": 12
   },
-  "total_papers": 38,
+  "total_papers": 73,
+  "total_picks": 38,
   "days": [
     {
       "batch_date": "2026-08-26",
@@ -753,7 +754,325 @@
           "tldr": "提出经社交媒体向智能体记忆注入偏见的新攻击，威胁持久记忆。"
         }
       ],
-      "total_count": 38
+      "total_count": 38,
+      "collected": [
+        {
+          "id": "2608.25817",
+          "title": "SkillShield: Prompt-Space Security Skills for LLM Coding Agents",
+          "category": "Jailbreaking & Red Teaming",
+          "date": "2026-08-26",
+          "url": "https://arxiv.org/abs/2608.25817",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.25390",
+          "title": "Refusal geometry reflects refusal training: diverse refusal prefixes can raise stable rank and weaken refusal vector ablation attacks",
+          "category": "Jailbreaking & Red Teaming",
+          "date": "2026-08-26",
+          "url": "https://arxiv.org/abs/2608.25390",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.23663",
+          "title": "Confidently Wrong, Silently So: Auditing Undetectable Failures of a Deployed On-Device Language Model",
+          "category": "Jailbreaking & Red Teaming",
+          "date": "2026-08-24",
+          "url": "https://arxiv.org/abs/2608.23663",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.23185",
+          "title": "Towards Automated Cyber Threat Intelligence Elicitation in Underground Forums",
+          "category": "Jailbreaking & Red Teaming",
+          "date": "2026-08-24",
+          "url": "https://arxiv.org/abs/2608.23185",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.20820",
+          "title": "Certified Multi-Turn Robustness for LLM Safety via Compositional Bounds and Safety Persistence",
+          "category": "Jailbreaking & Red Teaming",
+          "date": "2026-08-21",
+          "url": "https://arxiv.org/abs/2608.20820",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.20554",
+          "title": "aiXamine: Unified Black-Box Evaluation of Cross-Dimensional Trade-offs in LLM Safety, Security, and Privacy",
+          "category": "Jailbreaking & Red Teaming",
+          "date": "2026-08-20",
+          "url": "https://arxiv.org/abs/2608.20554",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.24022",
+          "title": "What Guides the Agent? Adjudicating Unauthorized Behavior via Localizing Behavior-Guiding Instructions",
+          "category": "Prompt Injection & LLM Attacks",
+          "date": "2026-08-25",
+          "url": "https://arxiv.org/abs/2608.24022",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.24017",
+          "title": "WebMCP-Phalanx: Enforcing and Characterizing Trust Boundaries for Browser-Integrated LLM Agents",
+          "category": "Prompt Injection & LLM Attacks",
+          "date": "2026-08-25",
+          "url": "https://arxiv.org/abs/2608.24017",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.23763",
+          "title": "TrustShiftProbe: Characterizing, Benchmarking, and Defending Staged Trust Attacks on MCP Servers",
+          "category": "Prompt Injection & LLM Attacks",
+          "date": "2026-08-24",
+          "url": "https://arxiv.org/abs/2608.23763",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.21656",
+          "title": "Mitigating Database Leakage in RAG Systems with Keyword-Grounded Fact Substitution",
+          "category": "Prompt Injection & LLM Attacks",
+          "date": "2026-08-21",
+          "url": "https://arxiv.org/abs/2608.21656",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.21126",
+          "title": "TraceGrant: A Contract-Governed Security Framework for the Task-Effect Lifecycle of Networked LLM Agents",
+          "category": "Prompt Injection & LLM Attacks",
+          "date": "2026-08-21",
+          "url": "https://arxiv.org/abs/2608.21126",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.24135",
+          "title": "Robust Code RL via Faulty-Code-Driven Test case Synthesis and Dense Reward Shaping",
+          "category": "Reward Hacking & Deceptive Alignment",
+          "date": "2026-08-25",
+          "url": "https://arxiv.org/abs/2608.24135",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.24037",
+          "title": "Curved Inference II: Sleeper Agent Geometry - Extending Interpretability Beyond Probes",
+          "category": "Reward Hacking & Deceptive Alignment",
+          "date": "2026-08-25",
+          "url": "https://arxiv.org/abs/2608.24037",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.19653",
+          "title": "DeltaML-Bench: Evaluating Machine Learning Agents on Real-World Research Repositories",
+          "category": "Reward Hacking & Deceptive Alignment",
+          "date": "2026-08-20",
+          "url": "https://arxiv.org/abs/2608.19653",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.24275",
+          "title": "RePolicy: Reinforcement Learning for Safety-Policy Invocation in Agent Safeguards",
+          "category": "Agentic AI Safety",
+          "date": "2026-08-25",
+          "url": "https://arxiv.org/abs/2608.24275",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.23858",
+          "title": "Beyond the Mandate: A Systematic Security Analysis of the Agent Payments Protocol (AP2)",
+          "category": "Agentic AI Safety",
+          "date": "2026-08-24",
+          "url": "https://arxiv.org/abs/2608.23858",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.23179",
+          "title": "NetConfArena: An Executable Benchmark for LLM Agents in Closed-Loop Network Configuration",
+          "category": "Agentic AI Safety",
+          "date": "2026-08-24",
+          "url": "https://arxiv.org/abs/2608.23179",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.25618",
+          "title": "AWM: Answerable Working Memory for Long-Document VQA Agents",
+          "category": "Safety Training & Alignment",
+          "date": "2026-08-26",
+          "url": "https://arxiv.org/abs/2608.25618",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.25429",
+          "title": "Distance Is Not Enough: Forget-Retain Alignment Gap Predicts LLM Relearning Robustness",
+          "category": "Safety Training & Alignment",
+          "date": "2026-08-26",
+          "url": "https://arxiv.org/abs/2608.25429",
+          "repo": "https://github.com/Yi1-Chen/FRAG",
+          "upvotes": 0
+        },
+        {
+          "id": "2608.24534",
+          "title": "Neurosymbolic Alignment for Physiologically-Safe Clinical Language Models",
+          "category": "Safety Training & Alignment",
+          "date": "2026-08-25",
+          "url": "https://arxiv.org/abs/2608.24534",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.24192",
+          "title": "Preference Data Selection for Mitigating the Alignment Tax in Large Language Models",
+          "category": "Safety Training & Alignment",
+          "date": "2026-08-25",
+          "url": "https://arxiv.org/abs/2608.24192",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.24114",
+          "title": "AHEAD: Adaptive Hindsight with Environment-Augmented Distillation for Agentic RL",
+          "category": "Safety Training & Alignment",
+          "date": "2026-08-25",
+          "url": "https://arxiv.org/abs/2608.24114",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.23811",
+          "title": "Generating Biomedical Fact-Checking Reports with RL-Enhanced Agentic Search",
+          "category": "Safety Training & Alignment",
+          "date": "2026-08-24",
+          "url": "https://arxiv.org/abs/2608.23811",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.23719",
+          "title": "ADE: Agentic Data Evolution Framework for Human-Centered Objectives",
+          "category": "Safety Training & Alignment",
+          "date": "2026-08-24",
+          "url": "https://arxiv.org/abs/2608.23719",
+          "repo": "https://github.com/ZeroLoss-Lab/Agentic-Data-Evolution",
+          "upvotes": 0
+        },
+        {
+          "id": "2608.23264",
+          "title": "Hidden in the Request: Explaining Unethical LLM Compliance through Token Relevance",
+          "category": "Safety Training & Alignment",
+          "date": "2026-08-24",
+          "url": "https://arxiv.org/abs/2608.23264",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.22527",
+          "title": "Stress Testing Unlearning Algorithms",
+          "category": "Safety Training & Alignment",
+          "date": "2026-08-23",
+          "url": "https://arxiv.org/abs/2608.22527",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.21606",
+          "title": "Can LLMs Truly Forget? Revealing Unlearning Gaps Through Adversarial Evaluation",
+          "category": "Safety Training & Alignment",
+          "date": "2026-08-21",
+          "url": "https://arxiv.org/abs/2608.21606",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.21570",
+          "title": "A Reproducible, License-Aware Distillation Recipe for CPUDeployable Safety Classification",
+          "category": "Safety Training & Alignment",
+          "date": "2026-08-21",
+          "url": "https://arxiv.org/abs/2608.21570",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.21544",
+          "title": "Forgotten in Weights, Recovered by Tools: Agentic Tool Unlearning for LLM Agents",
+          "category": "Safety Training & Alignment",
+          "date": "2026-08-21",
+          "url": "https://arxiv.org/abs/2608.21544",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.21057",
+          "title": "Designing a Robust LLM-Based Evaluation System for Agentic AI in Drug Discovery Through Human Alignment",
+          "category": "Safety Training & Alignment",
+          "date": "2026-08-21",
+          "url": "https://arxiv.org/abs/2608.21057",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.20960",
+          "title": "Can Scientific Claims Be Removed from Large Language Models? A Systematic Evaluation of Claim-Level Unlearning",
+          "category": "Safety Training & Alignment",
+          "date": "2026-08-21",
+          "url": "https://arxiv.org/abs/2608.20960",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.25727",
+          "title": "Are LLM-Enhanced GNNs Privacy-Safe?",
+          "category": "Defenses, Privacy & Robustness",
+          "date": "2026-08-26",
+          "url": "https://arxiv.org/abs/2608.25727",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.25667",
+          "title": "AI Slop and Hallucinations in Vulnerability Assessment: A Survey on Reasoning Failures and Trustworthy Mitigation",
+          "category": "Defenses, Privacy & Robustness",
+          "date": "2026-08-26",
+          "url": "https://arxiv.org/abs/2608.25667",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.24650",
+          "title": "Simthesizer: An Agent-Driven Simulation Framework for LLM Serving Systems",
+          "category": "Defenses, Privacy & Robustness",
+          "date": "2026-08-25",
+          "url": "https://arxiv.org/abs/2608.24650",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.24191",
+          "title": "'Ghaib in Translation' aka Unseen Harm: Measuring Cross-Script Safety Inconsistency with 'Missed-in-Urdu' Scores in LLM Hate Speech Detection",
+          "category": "Defenses, Privacy & Robustness",
+          "date": "2026-08-25",
+          "url": "https://arxiv.org/abs/2608.24191",
+          "repo": null,
+          "upvotes": 0
+        }
+      ],
+      "archived_count": 35
     }
   ]
 }
