@@ -3,6 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="%2338bdf8"/><stop offset="1" stop-color="%23a78bfa"/></linearGradient></defs><path d="M32 4 8 13v18c0 15 10.2 26.4 24 31 13.8-4.6 24-16 24-31V13L32 4z" fill="url(%23g)"/><circle cx="32" cy="30" r="7" fill="%230b0e17"/><circle cx="42" cy="40" r="4" fill="%230b0e17"/><path d="M35.5 33.5 44 43" stroke="%230b0e17" stroke-width="3.4" stroke-linecap="round"/></svg>' />
+  <!-- OpenGraph / social preview -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="SafeWatch" />
+  <meta property="og:title" content="SafeWatch · LLM & Agent Safety Radar" />
+  <meta property="og:description" content="Auto-updated daily radar of LLM/agent safety research: jailbreaking, prompt injection, reward hacking, alignment. AI-curated daily picks + complete searchable archive." />
+  <meta property="og:url" content="https://yandick.github.io/safewatch/" />
+  <meta property="og:image" content="https://yandick.github.io/safewatch/assets/og-card.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
   <title>SafeWatch · LLM &amp; Agent Safety Radar</title>
   <meta name="description" content="A self-updating radar tracking the latest research on LLM & agent safety: jailbreaking, prompt injection, reward hacking, alignment and more." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -46,41 +57,45 @@
 
   <!-- ================= HOME VIEW ================= -->
   <main id="view-home">
-    <section class="hero" aria-label="Overview statistics">
-      <div class="stat-card reveal">
-        <div class="stat-icon s-cyan">◈</div>
-        <div><span class="stat-value" id="stat-total">–</span><span class="stat-label">On-topic papers</span></div>
+    <section class="cockpit panel reveal" aria-label="Overview">
+      <div class="kpi-strip">
+        <div class="kpi">
+          <span class="kpi-ico s-cyan">◈</span>
+          <div><span class="stat-value mono" id="stat-total">·</span><span class="stat-label">On-topic papers</span></div>
+        </div>
+        <div class="kpi">
+          <span class="kpi-ico s-pink">⚡</span>
+          <div><span class="stat-value mono" id="stat-today">·</span><span class="stat-label">Curated · latest batch</span></div>
+        </div>
+        <div class="kpi">
+          <span class="kpi-ico s-green">⧉</span>
+          <div><span class="stat-value mono" id="stat-repos">·</span><span class="stat-label">Open-source repos</span></div>
+        </div>
+        <div class="kpi">
+          <span class="kpi-ico s-violet">◷</span>
+          <div><span class="stat-value mono stat-updated-val" id="stat-updated">·</span><span class="stat-label">Last updated (UTC)</span></div>
+        </div>
       </div>
-      <div class="stat-card reveal">
-        <div class="stat-icon s-pink">⚡</div>
-        <div><span class="stat-value" id="stat-today">–</span><span class="stat-label">Curated · latest batch</span></div>
-      </div>
-      <div class="stat-card reveal">
-        <div class="stat-icon s-violet">◷</div>
-        <div><span class="stat-value mono" id="stat-updated">–</span><span class="stat-label">Last updated (UTC)</span></div>
-      </div>
-      <div class="stat-card reveal">
-        <div class="stat-icon s-green">⧉</div>
-        <div><span class="stat-value" id="stat-repos">–</span><span class="stat-label">Open-source repos</span></div>
-      </div>
-    </section>
 
-    <section id="trend" class="panel reveal" aria-label="Collection trend">
-      <div class="panel-head">
-        <h2>Collection Trend</h2>
-        <p class="panel-sub">Complete on-topic collection per batch, stacked by topic — the gold line shows how many made the curated reading feed.</p>
-      </div>
-      <div id="trendChart" class="trend-chart"></div>
-    </section>
-
-    <section id="topics" class="panel reveal" aria-label="Topic proportions">
-      <div class="panel-head">
-        <h2>Topic Proportions</h2>
-        <p class="panel-sub">Share of all collected safety papers by sub-topic — click a slice to open it in the Library.</p>
-      </div>
-      <div class="chart-row">
-        <div id="pieChart" class="pie-chart"></div>
-        <ul id="legendList" class="legend-list"></ul>
+      <div class="cockpit-charts">
+        <div class="chart-cell">
+          <h3 class="cell-title">Collection Trend</h3>
+          <p class="cell-sub">Complete on-topic collection per batch — gold line = curated picks.</p>
+          <div class="chart-holder">
+            <div id="trendChart" class="chart-tall"></div>
+            <div class="chart-skel" aria-hidden="true"><div class="sk sk-line"></div><div class="sk-bars"></div></div>
+          </div>
+        </div>
+        <div class="chart-cell">
+          <h3 class="cell-title">Topic Mix <span class="cell-hint">click a slice to open it in the Library</span></h3>
+          <div class="pie-stack">
+            <div class="chart-holder pie-holder">
+              <div id="pieChart" class="chart-donut"></div>
+              <div class="chart-skel" aria-hidden="true"><div class="sk sk-donut"></div></div>
+            </div>
+            <ul id="legendList" class="legend-list"></ul>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -92,7 +107,9 @@
         </div>
         <a href="#library" class="more-link" data-route>Browse full library →</a>
       </div>
-      <div id="picksList" class="paper-list"></div>
+      <div id="picksList" class="picks-grid">
+        <div class="sk sk-card"></div><div class="sk sk-card"></div><div class="sk sk-card"></div>
+      </div>
       <p id="picksEmpty" class="empty-state" hidden>No curated picks in this batch yet.</p>
     </section>
   </main>
@@ -102,8 +119,8 @@
     <section class="panel reveal is-active-view" aria-label="Paper library">
       <div class="panel-head panel-head--row">
         <div>
-          <h2>Library <span id="libCount" class="lib-count mono"></span></h2>
-          <p class="panel-sub">Every on-topic paper we've collected, across all batches.</p>
+          <h2>Library <span id="libCount" class="lib-count mono">…</span></h2>
+          <p class="panel-sub">Every on-topic paper we've collected, across all batches. Filters are in the URL — share them freely.</p>
         </div>
         <label class="sort-wrap">
           <span>Sort</span>
@@ -120,7 +137,10 @@
         <input id="searchInput" type="search" placeholder="Search title / author / abstract…" spellcheck="false" />
       </div>
 
-      <div id="libList" class="paper-list" aria-live="polite"></div>
+      <div id="libList" class="paper-list">
+        <div class="sk sk-row"></div><div class="sk sk-row"></div><div class="sk sk-row"></div>
+        <div class="sk sk-row"></div><div class="sk sk-row"></div>
+      </div>
       <p id="libEmpty" class="empty-state" hidden>No papers match your filters.</p>
 
       <nav id="pager" class="pager" aria-label="Pagination"></nav>
