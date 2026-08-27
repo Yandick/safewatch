@@ -11,6 +11,7 @@
     day: null,
     cat: null,
     query: "",
+    mode: "picks", // "picks" = curated feed, "archive" = complete collection
   };
 
   const $ = (sel) => document.querySelector(sel);
@@ -39,8 +40,26 @@
     const days = state.data.days;
     return (
       days.find((d) => d.batch_date === state.day) ||
-      days[0] || { papers: [] }
+      days[0] || { papers: [], collected: [] }
     );
+  }
+
+  const bucketAll = (bucket) => [
+    ...(bucket.papers || []),
+    ...(bucket.collected || []),
+  ];
+
+  /* ---------- mode switch ---------- */
+  function initModeSwitch() {
+    document.querySelectorAll("#modeSwitch .seg-btn").forEach((btn) => {
+      btn.onclick = () => {
+        state.mode = btn.dataset.mode;
+        document
+          .querySelectorAll("#modeSwitch .seg-btn")
+          .forEach((b) => b.classList.toggle("active", b === btn));
+        renderPapers();
+      };
+    });
   }
 
   /* ---------- stats & header ---------- */
@@ -50,7 +69,11 @@
     $("#stat-today").textContent = d.total_today ?? 0;
     $("#stat-updated").textContent = (d.last_updated || "").replace("T", " ");
     const repos = new Set(
-      d.days.flatMap((day) => day.papers.filter((p) => p.repo).map((p) => p.repo))
+      state.data.days.flatMap((day) =>
+        [...(day.papers || []), ...(day.collected || [])]
+          .filter((p) => p.repo)
+          .map((p) => p.repo)
+      )
     );
     $("#stat-repos").textContent = repos.size;
     const badge = $("#curatedBadge");
@@ -64,9 +87,14 @@
     const sel = $("#daySelect");
     sel.innerHTML = "";
     state.data.days.forEach((d, i) => {
+      const picks = (d.papers || []).length;
+      const all = new Set([
+        ...(d.papers || []).map((p) => p.id),
+        ...(d.collected || []).map((p) => p.id),
+      ]).size;
       const opt = document.createElement("option");
       opt.value = d.batch_date;
-      opt.textContent = `${fmtDate(d.batch_date)} · ${d.papers.length} papers`;
+      opt.textContent = `${fmtDate(d.batch_date)} · ${picks} picks / ${all} collected`;
       sel.appendChild(opt);
       if (i === 0) sel.value = d.batch_date;
     });
@@ -225,8 +253,30 @@
       barMaxWidth: 34,
       itemStyle: { color: catColor(c) },
       emphasis: { focus: "series" },
-      data: days.map((d) => d.papers.filter((p) => p.category === c).length),
+      data: days.map(
+        (d) =>
+          (d.collected && d.collected.length
+            ? d.collected
+            : d.papers || []
+          ).filter((p) => p.category === c).length
+      ),
     }));
+
+    // Overlay: how many of each batch made the curated reading feed.
+    const hasBoth = days.some(
+      (d) => d.collected && d.papers && d.collected.length !== d.papers.length
+    );
+    if (hasBoth) {
+      series.push({
+        name: "★ Curated picks",
+        type: "line",
+        smooth: true,
+        symbolSize: 6,
+        lineStyle: { width: 2.5, color: "#fbbf24" },
+        itemStyle: { color: "#fbbf24" },
+        data: days.map((d) => (d.papers || []).length),
+      });
+    }
 
     trendChart.setOption({
       backgroundColor: "transparent",
@@ -281,7 +331,12 @@
 
   function renderPapers() {
     const bucket = currentDayBucket();
-    const papers = bucket.papers.filter(paperMatches);
+    const source =
+      state.mode === "archive" ? (bucket.collected || []) : (bucket.papers || []);
+    // Archive arrives topic-grouped; chronological reads better.
+    const papers = source
+      .filter(paperMatches)
+      .sort((a, b) => String(b.date).localeCompare(String(a.date)));
     listEl.innerHTML = "";
     emptyEl.hidden = papers.length > 0;
 
@@ -290,8 +345,11 @@
       card.className = "paper-card";
       card.style.setProperty("--pc", catColor(p.category));
 
-      const authors = p.authors.slice(0, 6).join(", ") +
-        (p.authors.length > 6 ? " et al." : "");
+      const slim = state.mode === "archive" || !p.abstract;
+      const authors = p.authors
+        ? p.authors.slice(0, 6).join(", ") +
+          (p.authors.length > 6 ? " et al." : "")
+        : "";
 
       card.innerHTML = `
         <div class="card-top">
@@ -300,10 +358,10 @@
           </h3>
           <span class="cat-badge">${esc(shortCat(p.category))}</span>
         </div>
-        <p class="paper-authors">${esc(authors)} · ${esc(fmtDate(p.date))}</p>
-        ${p.tldr ? `<p class="paper-tldr"><span class="tldr-tag">AI</span>${esc(p.tldr)}</p>` : ""}
-        <p class="paper-abstract">${esc(p.abstract)}</p>
-        <button class="abs-toggle">Show abstract ▾</button>
+        ${authors ? `<p class="paper-authors">${esc(authors)} · ${esc(fmtDate(p.date))}</p>` : ""}
+        ${!slim ? `<p class="paper-abstract">${esc(p.abstract)}</p>
+        <button class="abs-toggle">Show abstract ▾</button>` : ""}
+        ${p.tldr && !slim ? `<p class="paper-tldr"><span class="tldr-tag">AI</span>${esc(p.tldr)}</p>` : ""}
         <div class="card-links">
           <a class="pill" href="${esc(p.url)}" target="_blank" rel="noopener">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5"/></svg>
@@ -315,44 +373,46 @@
             Code repository
           </a>` : ""}
           ${p.upvotes ? `<span class="pill upv" title="Hugging Face community upvotes">♥ ${esc(p.upvotes)}</span>` : ""}
+          ${slim ? "" : `
           <button class="pill bib" type="button">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
             BibTeX
-          </button>
+          </button>`}
         </div>`;
 
-      const btn = card.querySelector(".abs-toggle");
-      const abs = card.querySelector(".paper-abstract");
-      btn.onclick = (e) => {
-        e.stopPropagation();
-        abs.classList.toggle("open");
-        btn.textContent = abs.classList.contains("open")
-          ? "Hide abstract ▴"
-          : "Show abstract ▾";
-      };
+      if (!slim) {
+        const btn = card.querySelector(".abs-toggle");
+        const abs = card.querySelector(".paper-abstract");
+        btn.onclick = (e) => {
+          e.stopPropagation();
+          abs.classList.toggle("open");
+          btn.textContent = abs.classList.contains("open")
+            ? "Hide abstract ▴"
+            : "Show abstract ▾";
+        };
 
-      const bibBtn = card.querySelector(".pill.bib");
-      bibBtn.onclick = async () => {
-        const tex = buildBibtex(p);
-        try {
-          await navigator.clipboard.writeText(tex);
-        } catch {
-          // clipboard API blocked — fall back to a hidden textarea
-          const ta = document.createElement("textarea");
-          ta.value = tex;
-          document.body.appendChild(ta);
-          ta.select();
-          document.execCommand("copy");
-          ta.remove();
-        }
-        bibBtn.classList.add("copied");
-        bibBtn.innerHTML = "Copied ✓";
-        setTimeout(() => {
-          bibBtn.classList.remove("copied");
-          bibBtn.innerHTML =
-            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg> BibTeX';
-        }, 1600);
-      };
+        const bibBtn = card.querySelector(".pill.bib");
+        bibBtn.onclick = async () => {
+          const tex = buildBibtex(p);
+          try {
+            await navigator.clipboard.writeText(tex);
+          } catch {
+            const ta = document.createElement("textarea");
+            ta.value = tex;
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand("copy");
+            ta.remove();
+          }
+          bibBtn.classList.add("copied");
+          bibBtn.innerHTML = "Copied ✓";
+          setTimeout(() => {
+            bibBtn.classList.remove("copied");
+            bibBtn.innerHTML =
+              '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg> BibTeX';
+          }, 1600);
+        };
+      }
 
       listEl.appendChild(card);
     }
@@ -427,6 +487,7 @@
 
     initChart();
     initTrendChart();
+    initModeSwitch();
     renderStats();
     renderDayOptions();
     renderChips();

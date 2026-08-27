@@ -48,11 +48,11 @@
     <section class="hero" aria-label="Overview statistics">
       <div class="stat-card reveal">
         <div class="stat-icon s-cyan">◈</div>
-        <div><span class="stat-value" id="stat-total">–</span><span class="stat-label">Papers tracked</span></div>
+        <div><span class="stat-value" id="stat-total">–</span><span class="stat-label">On-topic papers</span></div>
       </div>
       <div class="stat-card reveal">
         <div class="stat-icon s-pink">⚡</div>
-        <div><span class="stat-value" id="stat-today">–</span><span class="stat-label">Latest batch</span></div>
+        <div><span class="stat-value" id="stat-today">–</span><span class="stat-label">Curated · latest batch</span></div>
       </div>
       <div class="stat-card reveal">
         <div class="stat-icon s-violet">◷</div>
@@ -68,7 +68,7 @@
     <section id="trend" class="panel reveal" aria-label="Collection trend">
       <div class="panel-head">
         <h2>Collection Trend</h2>
-        <p class="panel-sub">Papers gathered per update batch, stacked by topic — the chart fills in as the archive grows.</p>
+        <p class="panel-sub">Complete on-topic collection per batch, stacked by topic — the gold line shows how many made the curated reading feed.</p>
       </div>
       <div id="trendChart" class="trend-chart"></div>
     </section>
@@ -92,10 +92,16 @@
           <h2>Daily Collections <span id="curatedBadge" class="curated-badge" hidden></span></h2>
           <p class="panel-sub">Curated picks per update batch — newest first, with arXiv links and code repositories when available.</p>
         </div>
-        <label class="day-select-wrap">
-          <span>Batch&nbsp;date</span>
-          <select id="daySelect" class="day-select"></select>
-        </label>
+        <div class="head-controls">
+          <label class="day-select-wrap">
+            <span>Batch&nbsp;date</span>
+            <select id="daySelect" class="day-select"></select>
+          </label>
+          <div id="modeSwitch" class="seg-switch">
+            <button class="seg-btn active" data-mode="picks">✦ Curated picks</button>
+            <button class="seg-btn" data-mode="archive">☰ Full archive</button>
+          </div>
+        </div>
       </div>
 
       <div class="filter-bar">

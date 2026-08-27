@@ -43,6 +43,8 @@ FETCH_MAX = int(os.environ.get("FETCH_MAX", 110))
 
 ARXIV_API = "https://export.arxiv.org/api/query"
 DATE_FORMAT = "%Y-%m-%d"
+# Fields kept for the complete-collection tier (no abstract -> compact JSON).
+COMPACT_KEYS = ("id", "title", "category", "date", "url", "repo", "upvotes")
 ARXIV_ID_RE = re.compile(r"arxiv\.org/abs/([0-9]{4}\.[0-9]{4,5})v?[0-9]*")
 GITHUB_RE = re.compile(r"https?://(?:www\.)?github\.com/([\w.-]+/[\w.-]+)", re.I)
 
@@ -344,6 +346,10 @@ def apply_caps(papers: list[dict]) -> list[dict]:
     return chosen[:DAILY_CAP]
 
 
+def compact_paper(p: dict) -> dict:
+    return {k: p.get(k) for k in COMPACT_KEYS}
+
+
 def select_papers(candidates: list[dict], hf_votes: dict[str, int]):
     """Full selection stage; optionally refines with the LLM curator."""
     papers = build_ranked(candidates, hf_votes)
@@ -358,16 +364,21 @@ def select_papers(candidates: list[dict], hf_votes: dict[str, int]):
         curator = stats.get("model")
     else:
         selected = apply_caps(papers)
-    return selected, curator
+    return selected, curator, papers
 
 
 def recompute_totals(days: list[dict]) -> tuple[dict[str, int], float, int]:
-    """Recount per-topic totals across the entire accumulated history."""
+    """Recount per-topic totals across all tiers, de-duplicated by paper id."""
     counts: dict[str, int] = {c: 0 for c in TOPIC_COLORS}
-    total = sum(len(d["papers"]) for d in days)
+    seen: set[str] = set()
+    total = 0
     for d in days:
-        for p in d["papers"]:
+        for p in d.get("papers", []) + d.get("collected", []):
+            if not isinstance(p, dict) or p.get("id") in seen:
+                continue
+            seen.add(p["id"])
             counts[p["category"]] = counts.get(p["category"], 0) + 1
+    total = len(seen)
     proportions = {
         c: round(counts.get(c, 0) * 100 / total, 1) if total else 0.0
         for c in TOPIC_COLORS
@@ -389,32 +400,55 @@ def load_dataset() -> dict:
 
 def merge_into_dataset(batch_date: str, selected: list[dict],
                        hf_votes: dict[str, int] | None = None,
-                       curator: str | None = None) -> None:
-    """Merge this run's selection into data/papers.json."""
+                       curator: str | None = None,
+                       collected_all: list[dict] | None = None) -> None:
+    """Merge this run's picks + complete collection into data/papers.json.
+
+    Two tiers per batch bucket:
+      papers    -- curated picks (small reading feed, LLM-filtered)
+      collected -- complete on-topic collection (powers stats & trends)
+    """
     dataset = load_dataset()
     hf_votes = hf_votes or {}
     existing_ids = {
         p["id"]
-        for d in dataset["days"] + dataset.get("pending", [])
-        for p in d["papers"]
+        for d in dataset["days"]
+        for arr in ("papers", "collected")
+        for p in d.get(arr, [])
+        if isinstance(p, dict) and "id" in p
     }
 
     days_by_date = {d["batch_date"]: d for d in dataset["days"]}
     fresh = [p for p in selected if p["id"] not in existing_ids]
     bucket = days_by_date.setdefault(
-        batch_date, {"batch_date": batch_date, "papers": [], "total_count": 0}
+        batch_date, {"batch_date": batch_date, "papers": [], "collected": [],
+                     "total_count": 0}
     )
+    bucket.setdefault("collected", [])
     known_in_bucket = {p["id"] for p in bucket["papers"]}
     added = [p for p in fresh if p["id"] not in known_in_bucket]
     bucket["papers"].extend(added)
+
+    # Complete-collection tier: everything on-topic from this run.
+    known_in_archive = {p["id"] for p in bucket["collected"]}
+    arch_added = [
+        compact_paper(p) for p in (collected_all or [])
+        if p["id"] not in existing_ids and p["id"] not in known_in_archive
+    ]
+    bucket["collected"].extend(arch_added)
+
     # Re-apply the latest HF community signal to every stored paper so
     # badges and rankings stay current even for previously collected items.
     for p in bucket["papers"]:
         p["upvotes"] = max(p.get("upvotes", 0), hf_votes.get(p["id"], 0))
+    for p in bucket["collected"]:
+        p["upvotes"] = max(p.get("upvotes") or 0, hf_votes.get(p["id"], 0))
     bucket["total_count"] = len(bucket["papers"])
+    bucket["archived_count"] = len(bucket["collected"])
 
     merged_days = sorted(days_by_date.values(), key=lambda d: d["batch_date"], reverse=True)
     counts, proportions, total = recompute_totals(merged_days)
+    total_picks = sum(len(d.get("papers", [])) for d in merged_days)
 
     out = {
         "last_updated": datetime.now(timezone.utc).isoformat(timespec="seconds"),
@@ -428,12 +462,13 @@ def merge_into_dataset(batch_date: str, selected: list[dict],
         "proportions": proportions,
         "category_counts": counts,
         "total_papers": total,
+        "total_picks": total_picks,
         "days": merged_days,
     }
     DATA_FILE.parent.mkdir(parents=True, exist_ok=True)
     DATA_FILE.write_text(json.dumps(out, indent=2, ensure_ascii=False), encoding="utf-8")
-    print(f"[merge] +{len(added)} new papers into {batch_date}")
-    print(f"[write] data/papers.json | cumulative total {total}")
+    print(f"[merge] +{len(added)} picks, +{len(arch_added)} archived into {batch_date}")
+    print(f"[write] data/papers.json | corpus {total} on-topic ({total_picks} curated)")
 
 
 def collect(days_back: int):
@@ -444,8 +479,8 @@ def collect(days_back: int):
     recent = [e for e in pool if e["published"][:10] >= cutoff]
     print(f"[pool ] {len(pool)} raw entries | {len(recent)} within last {days_back} days")
     hf_votes = fetch_hf_upvotes(days_back)
-    selected, curator = select_papers(recent, hf_votes)
-    return selected, hf_votes, curator
+    selected, curator, ranked_all = select_papers(recent, hf_votes)
+    return selected, hf_votes, curator, ranked_all
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -454,12 +489,13 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
 
     days_back = FETCH_DAYS * (6 if args.full else 1)
-    selected, hf_votes, curator = collect(days_back)
-    if not selected:
-        print("[warn] nothing selected this run; dataset unchanged")
+    selected, hf_votes, curator, ranked_all = collect(days_back)
+    if not selected and not ranked_all:
+        print("[warn] nothing collected this run; dataset unchanged")
         return 0
-    latest_batch = max(p["date"] for p in selected)
-    merge_into_dataset(latest_batch, selected, hf_votes, curator)
+    batch = max((p["date"] for p in ranked_all), default=None) or \
+        max(p["date"] for p in selected)
+    merge_into_dataset(batch, selected, hf_votes, curator, ranked_all)
     return 0
 
 
