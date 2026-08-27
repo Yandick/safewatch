@@ -1,8 +1,8 @@
 {
-  "last_updated": "2026-08-27T09:36:08+00:00",
+  "last_updated": "2026-08-27T10:15:22+00:00",
   "latest_day": "2026-08-26",
-  "curated_by": "rule-based",
-  "total_today": 32,
+  "curated_by": "z-ai/glm-5.3-flash",
+  "total_today": 38,
   "categories": [
     "Jailbreaking & Red Teaming",
     "Prompt Injection & LLM Attacks",
@@ -20,22 +20,22 @@
     "Defenses, Privacy & Robustness": "#60a5fa"
   },
   "proportions": {
-    "Jailbreaking & Red Teaming": 25.0,
-    "Prompt Injection & LLM Attacks": 18.8,
-    "Reward Hacking & Deceptive Alignment": 9.4,
-    "Agentic AI Safety": 6.2,
-    "Safety Training & Alignment": 18.8,
-    "Defenses, Privacy & Robustness": 21.9
+    "Jailbreaking & Red Teaming": 21.1,
+    "Prompt Injection & LLM Attacks": 18.4,
+    "Reward Hacking & Deceptive Alignment": 7.9,
+    "Agentic AI Safety": 13.2,
+    "Safety Training & Alignment": 18.4,
+    "Defenses, Privacy & Robustness": 21.1
   },
   "category_counts": {
     "Jailbreaking & Red Teaming": 8,
-    "Prompt Injection & LLM Attacks": 6,
+    "Prompt Injection & LLM Attacks": 7,
     "Reward Hacking & Deceptive Alignment": 3,
-    "Agentic AI Safety": 2,
-    "Safety Training & Alignment": 6,
-    "Defenses, Privacy & Robustness": 7
+    "Agentic AI Safety": 5,
+    "Safety Training & Alignment": 7,
+    "Defenses, Privacy & Robustness": 8
   },
-  "total_papers": 32,
+  "total_papers": 38,
   "days": [
     {
       "batch_date": "2026-08-26",
@@ -623,9 +623,137 @@
           "repo": null,
           "score": 3,
           "upvotes": 0
+        },
+        {
+          "id": "2608.21101",
+          "title": "ClawSentry: A Progressive Multi-Tier Security Monitor for Safeguarding Autonomous LLM Agents",
+          "authors": [
+            "Kai Wang",
+            "Zeming Wei",
+            "BiaoJie Zeng",
+            "Chang Jin",
+            "An Wang",
+            "Xiaokun Luan",
+            "Zhixiao Lin",
+            "Jingjing Qu",
+            "Xia Hu",
+            "Xingcheng Xu"
+          ],
+          "abstract": "As large language model (LLM) agents move from conversation to executing code, reading local files, and orchestrating external tools, a single agent hijacked by a malicious third-party skill can cause data exfiltration, privilege escalation, or cascading compromise. We argue that agentic risk is progressive: it can enter at four loci of the agent control loop--skill admission, invocation-time intent, execution-time effect, and post-action consequence--while a denied dangerous objective can reappear across surface forms, tools, or turns; existing safeguards are typically local to one lifecycle boundary or one call. Guided by this threat model, we present ClawSentry, an open-source, framework-agnostic security supervision gateway for agent runtimes. Before a skill package is ever executed, First-use Skill Package Review (FSPR) audits it under a deterministic evidence floor, escalating unresolved cases to bounded read-only agentic review (locus A). At runtime, a three-tier progressive decision engine--a deterministic L1 layer, a rule-anchored L2 semantic reviewer, and a read-only L3 evidence-seeking agent--spends contextual review only on the residual ambiguity, while a session-level anti-bypass mechanism recognizes tool-switching and rephrased retries (loci B--C); a post-action path feeds high-severity evidence non-retroactively into later review (locus D). An Agent Harness Protocol (AHP) abstraction applies one policy across Codex, Claude Code, Kimi CLI, and Gemini CLI without modifying agent internals. On SkillInject with Codex/GPT-5.4, contextual ASR falls from 39.55% to 2.61% while contextual TSR moves only from 83.78% to 83.05%. Across five Work Agents on the full SkillsSafety benchmark, ClawSentry confines ASR to 9.09--15.03% from 33.5--49.7% unprotected, and aggregate TSR on clean skills remains 98.7%.",
+          "category": "Agentic AI Safety",
+          "date": "2026-08-21",
+          "url": "https://arxiv.org/abs/2608.21101",
+          "repo": null,
+          "score": 2,
+          "upvotes": 0,
+          "ai_rel": 9,
+          "ai_imp": 7,
+          "tldr": "构建覆盖技能准入到执行后果的多层代理安全网关，开源实用性强。"
+        },
+        {
+          "id": "2608.19982",
+          "title": "COPA: Continual Preference Optimization for Adaptive Prompt Injection Defense",
+          "authors": [
+            "Roshan Sood",
+            "Onat Gungor",
+            "Tajana Rosing"
+          ],
+          "abstract": "LLMs remain vulnerable to prompt injection attacks, where adversarial instructions embedded in user inputs or external content manipulate model behavior and bypass safeguards. Existing defenses are predominantly static, relying on fixed alignment objectives or attack-specific filtering mechanisms that require redesign as new attack strategies emerge. While recent lifelong alignment methods address shifting user preferences, they do not account for adaptive adversaries that continually evolve to exploit weaknesses in previously learned defenses. This limitation is particularly important in real-world deployments, where evolving attack distributions necessitate continual adaptation without sacrificing robustness to previously encountered threats. We present COPA, a continual preference optimization framework that treats prompt-injection defense as a lifelong learning problem. Instead of one-time alignment, COPA incrementally incorporates feedback from newly observed attacks via GRPO-based optimization and uses margin-weighted experience replay to retain defenses against prior attack classes. This enables continuous adaptation to emerging threats while mitigating catastrophic forgetting and preserving general-purpose model capabilities. Across lifelong prompt injection attack streams, COPA reduces attack success rate by up to 6.3x and 4.4x on average compared to state-of-the-art defenses. These results highlight continual preference optimization as an effective paradigm for defending LLMs against adaptive adversaries.",
+          "category": "Prompt Injection & LLM Attacks",
+          "date": "2026-08-20",
+          "url": "https://arxiv.org/abs/2608.19982",
+          "repo": null,
+          "score": 3,
+          "upvotes": 0,
+          "ai_rel": 8,
+          "ai_imp": 5,
+          "tldr": "把提示注入防御建模为终身学习问题，GRPO持续吸收新攻击并回放旧类，较实用。"
+        },
+        {
+          "id": "2608.22868",
+          "title": "AgentFlow: A Flow-Centric Policy Language and Framework for Securing LLM Agent Systems",
+          "authors": [
+            "Basavesh Ammanaghatta Shivakumar",
+            "Swarn Priya",
+            "Peng Gao"
+          ],
+          "abstract": "LLM agents increasingly read untrusted content, invoke external tools, access private data, and delegate work to other agents. Harm often arises not from a single unsafe action but from the flow of sensitive data across a sequence of otherwise plausible steps. We present AgentFlow, a flow-centric policy language and runtime enforcement model for specifying where data may travel in agent systems. Policies are defined over labeled runtime edges and constrain which tools may receive sensitive fields, which sinks may receive released data, and what authority may cross delegation boundaries. The language supports flow and path rules, task-scoped capabilities, controlled release, and stateful taint semantics. A runtime reference monitor mediates agent actions, and a bounded SMT-based verifier checks safety properties for a structured policy fragment. We evaluate AgentFlow on multiple agent benchmarks. In our prototype, seven safety properties verify in under 0.5 seconds each, and the verifier catches all seeded unsafe policy variants in our study. On 949 AgentDojo injected cases across four suites, AgentFlow reduces confirmed compromise from 33.0\\% to 0.0\\% while improving aggregate utility from 46.7\\% to 63.3\\%. On a 200-case AgentDyn Dailylife benchmark, it reduces confirmed compromise from 73.5\\% to 0.0\\% while preserving near-baseline utility (44.5\\% to 43.5\\%). Breadth checks across ASB, InjecAgent, BIPIA, AgentHarm, and MCPTox replays suggest that the configured policies block the benchmark-specified policy-visible attacker flows; in ASB's direct-prompt-injection harness, attack success is 0/1{,}200. These results are preliminary and scoped to the modeled policy-visible agent behaviors and evaluated benchmarks.",
+          "category": "Agentic AI Safety",
+          "date": "2026-08-24",
+          "url": "https://arxiv.org/abs/2608.22868",
+          "repo": null,
+          "score": 1,
+          "upvotes": 0,
+          "ai_rel": 9,
+          "ai_imp": 8,
+          "tldr": "提出流为中心的代理数据流策略语言与运行时监控，含SMT形式验证。"
+        },
+        {
+          "id": "2608.25091",
+          "title": "Auto-Policy, not Auto-Skill: Compiled Agent Skills for the Physical World",
+          "authors": [
+            "Zhonghao Zhan",
+            "Hamed Haddadi"
+          ],
+          "abstract": "Self-evolving Skill harnesses (AutoSkills, Hermes Agent) generate more advisory orchestration automatically; their reported gains are efficiency, not safety. This misses the actual gap: a Skill describes how an agent should behave; a Policy decides which behavior is allowed to become an action. Today's format covers the first with markdown and scripts; the second is left to the model. Generating more Skills scales the gap, not the safety, especially when a wrong invocation can unlock a door or move money. Two adjacent attacks are documented: malicious skills compromising cloud software, and jailbroken LLM-controlled robots causing physical harm. Their intersection, malicious agent skills causing physical harm, follows directly but has not been reported. We name this class Borrowed Authority: Skills format gives the receiving agent no typed way to reject an inter-agent permission claim, so a malicious or misused Skill can drive actuation by attaching one. We propose Edge Skillguard, a typed authority layer that lives inside the Skill artifact rather than between tools as workflow engines do, with guards over world state and sensor evidence. On a live edge control-plane testbed, the guards reject 60/60 borrowed-authority requests across five attack variants without blocking benign requests, and the result holds at 5x scale and across hosts over a Tailscale mesh. These results suggest that high-risk Skills should co-package typed invocation policy with procedural knowledge, so that physical actions depend on machine-checkable evidence rather than peer-agent claims.",
+          "category": "Agentic AI Safety",
+          "date": "2026-08-25",
+          "url": "https://arxiv.org/abs/2608.25091",
+          "repo": null,
+          "score": 2,
+          "upvotes": 0,
+          "ai_rel": 8,
+          "ai_imp": 6,
+          "tldr": "指出恶意技能致物理伤害的借权新攻击类，提出类型化权限层方案。"
+        },
+        {
+          "id": "2608.21736",
+          "title": "Adaptive Multilevel Twisted Sequential Monte Carlo for Rare Events Estimation in Language Models",
+          "authors": [
+            "Zixuan Liu",
+            "Fangzheng Wu",
+            "Brian Summa",
+            "Zizhan Zheng"
+          ],
+          "abstract": "Rare unsafe behaviors in large language models can remain practically significant even when their probability is extremely small, particularly at deployment scales involving millions or billions of interactions. Twisted Sequential Monte Carlo (SMC) provides a principled framework for rare-event probability estimation by learning twist functions that guide generation toward a target event. However, the standard twist learning framework relies on positive samples from the rare-event target distribution, which may be nearly absent before an informative twist has been learned, resulting in unreliable rare-event estimation. We propose Adaptive Multilevel Twisted SMC, which learns the rare-event twist through a sequence of progressively rarer intermediate events. At each level, the learned twist provides more informative positive examples for learning the next twist, ultimately leading to a more accurate final twist for the target rare event. Experiments across diverse tasks and model scales show that the proposed method produces more accurate rare-event probability estimates. By enabling more reliable discovery of hard-to-observe unsafe behaviors, our method provides a practical tool for strengthening the evaluation and safety alignment of deployed language models.",
+          "category": "Safety Training & Alignment",
+          "date": "2026-08-22",
+          "url": "https://arxiv.org/abs/2608.21736",
+          "repo": null,
+          "score": 1,
+          "upvotes": 0,
+          "ai_rel": 9,
+          "ai_imp": 7,
+          "tldr": "多层级扭曲SMC估计LLM罕见不安全行为概率，提升安全评估方法论。"
+        },
+        {
+          "id": "2608.22061",
+          "title": "MEMORY Wins All: Indirect Bias Injection Attacks via Social Media Feeds",
+          "authors": [
+            "Minjae Seo",
+            "Wonwoo Choi",
+            "Geonwoo Han",
+            "Taekyoung Kwon",
+            "Yongsu Kim",
+            "Sang Seo",
+            "Jaewon Noh",
+            "Hankyul Baek",
+            "Seongyun Seo",
+            "Myoungsung You"
+          ],
+          "abstract": "Personal AI agents routinely consume external content while performing tasks such as web browsing, email processing, and SNS feed summarization, and they retain selected information or execution results in persistent memory for later use. We show that this ordinary ingestion of external content opens an indirect path for manipulating subsequent agent behavior. Based on this observation, we present IBIA, an Indirect Bias Injection Attack that plants an adversary-aligned stance on a specific topic into a victim agent's memory through external content, without direct access to the agent, its memory, or future user queries. For this, IBIA combines three mechanisms: comment cloaking, which keeps the crafted content consistent with the surrounding discussion, comment watermarking, which enables lightweight identification during curation, and category anchoring, which makes the retained stance salient under later related requests. We evaluate IBIA on BiasBench, a benchmark of 6,000 adversary-crafted social comments and 120 email instances. The watermark-based curation identifies 95.9% of the injected comments. Under the OpenClaw setting, IBIA achieves adversary-aligned response rates (AARs) of 91.2% on average across four downstream tasks, including 86.6% on the frontier GPT-5.5. We further propose a memory boundary defense that detects the injected bias and reduces AARs to 80.6%.",
+          "category": "Defenses, Privacy & Robustness",
+          "date": "2026-08-22",
+          "url": "https://arxiv.org/abs/2608.22061",
+          "repo": null,
+          "score": 1,
+          "upvotes": 0,
+          "ai_rel": 9,
+          "ai_imp": 7,
+          "tldr": "提出经社交媒体向智能体记忆注入偏见的新攻击，威胁持久记忆。"
         }
       ],
-      "total_count": 32
+      "total_count": 38
     }
   ]
 }
