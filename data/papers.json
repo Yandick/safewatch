@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-08-27T05:43:11+00:00",
+  "last_updated": "2026-08-27T05:46:33+00:00",
   "latest_day": "2026-08-26",
   "total_today": 31,
   "categories": [
@@ -54,7 +54,8 @@
           "date": "2026-08-25",
           "url": "https://arxiv.org/abs/2608.23959",
           "repo": null,
-          "score": 6
+          "score": 6,
+          "upvotes": 0
         },
         {
           "id": "2608.22103",
@@ -69,7 +70,8 @@
           "date": "2026-08-22",
           "url": "https://arxiv.org/abs/2608.22103",
           "repo": null,
-          "score": 6
+          "score": 6,
+          "upvotes": 0
         },
         {
           "id": "2608.21278",
@@ -85,7 +87,8 @@
           "date": "2026-08-21",
           "url": "https://arxiv.org/abs/2608.21278",
           "repo": null,
-          "score": 5
+          "score": 5,
+          "upvotes": 5
         },
         {
           "id": "2608.26008",
@@ -99,7 +102,8 @@
           "date": "2026-08-26",
           "url": "https://arxiv.org/abs/2608.26008",
           "repo": null,
-          "score": 4
+          "score": 4,
+          "upvotes": 0
         },
         {
           "id": "2608.23028",
@@ -115,7 +119,8 @@
           "date": "2026-08-24",
           "url": "https://arxiv.org/abs/2608.23028",
           "repo": null,
-          "score": 4
+          "score": 4,
+          "upvotes": 0
         },
         {
           "id": "2608.22248",
@@ -136,7 +141,8 @@
           "date": "2026-08-23",
           "url": "https://arxiv.org/abs/2608.22248",
           "repo": "https://github.com/xaddwell/AEGIS",
-          "score": 4
+          "score": 4,
+          "upvotes": 0
         },
         {
           "id": "2608.25490",
@@ -154,7 +160,8 @@
           "date": "2026-08-26",
           "url": "https://arxiv.org/abs/2608.25490",
           "repo": null,
-          "score": 3
+          "score": 3,
+          "upvotes": 0
         },
         {
           "id": "2608.25711",
@@ -170,7 +177,8 @@
           "date": "2026-08-26",
           "url": "https://arxiv.org/abs/2608.25711",
           "repo": null,
-          "score": 3
+          "score": 3,
+          "upvotes": 0
         },
         {
           "id": "2608.24354",
@@ -191,7 +199,8 @@
           "date": "2026-08-25",
           "url": "https://arxiv.org/abs/2608.24354",
           "repo": null,
-          "score": 3
+          "score": 3,
+          "upvotes": 0
         },
         {
           "id": "2608.24777",
@@ -211,7 +220,8 @@
           "date": "2026-08-25",
           "url": "https://arxiv.org/abs/2608.24777",
           "repo": null,
-          "score": 3
+          "score": 3,
+          "upvotes": 0
         },
         {
           "id": "2608.23873",
@@ -224,7 +234,8 @@
           "date": "2026-08-24",
           "url": "https://arxiv.org/abs/2608.23873",
           "repo": null,
-          "score": 3
+          "score": 3,
+          "upvotes": 0
         },
         {
           "id": "2608.23867",
@@ -243,7 +254,8 @@
           "date": "2026-08-24",
           "url": "https://arxiv.org/abs/2608.23867",
           "repo": null,
-          "score": 3
+          "score": 3,
+          "upvotes": 0
         },
         {
           "id": "2608.22312",
@@ -259,7 +271,8 @@
           "date": "2026-08-23",
           "url": "https://arxiv.org/abs/2608.22312",
           "repo": null,
-          "score": 3
+          "score": 3,
+          "upvotes": 0
         },
         {
           "id": "2608.22230",
@@ -281,7 +294,8 @@
           "date": "2026-08-23",
           "url": "https://arxiv.org/abs/2608.22230",
           "repo": null,
-          "score": 3
+          "score": 3,
+          "upvotes": 0
         },
         {
           "id": "2608.21895",
@@ -296,7 +310,8 @@
           "date": "2026-08-22",
           "url": "https://arxiv.org/abs/2608.21895",
           "repo": null,
-          "score": 3
+          "score": 3,
+          "upvotes": 0
         },
         {
           "id": "2608.21880",
@@ -310,7 +325,8 @@
           "date": "2026-08-22",
           "url": "https://arxiv.org/abs/2608.21880",
           "repo": null,
-          "score": 3
+          "score": 3,
+          "upvotes": 0
         },
         {
           "id": "2608.21775",
@@ -324,7 +340,8 @@
           "date": "2026-08-22",
           "url": "https://arxiv.org/abs/2608.21775",
           "repo": null,
-          "score": 3
+          "score": 3,
+          "upvotes": 0
         },
         {
           "id": "2608.21577",
@@ -338,7 +355,8 @@
           "date": "2026-08-21",
           "url": "https://arxiv.org/abs/2608.21577",
           "repo": "https://github.com/lyygua/PFBA",
-          "score": 3
+          "score": 3,
+          "upvotes": 0
         },
         {
           "id": "2608.21500",
@@ -354,7 +372,8 @@
           "date": "2026-08-21",
           "url": "https://arxiv.org/abs/2608.21500",
           "repo": "https://github.com/pppyb/SecOPD",
-          "score": 3
+          "score": 3,
+          "upvotes": 36
         },
         {
           "id": "2608.20991",
@@ -372,7 +391,8 @@
           "date": "2026-08-21",
           "url": "https://arxiv.org/abs/2608.20991",
           "repo": "https://github.com/ventr1c/STAG",
-          "score": 3
+          "score": 3,
+          "upvotes": 0
         },
         {
           "id": "2608.21100",
@@ -389,7 +409,8 @@
           "date": "2026-08-21",
           "url": "https://arxiv.org/abs/2608.21100",
           "repo": null,
-          "score": 3
+          "score": 3,
+          "upvotes": 0
         },
         {
           "id": "2608.20839",
@@ -403,7 +424,8 @@
           "date": "2026-08-21",
           "url": "https://arxiv.org/abs/2608.20839",
           "repo": null,
-          "score": 3
+          "score": 3,
+          "upvotes": 0
         },
         {
           "id": "2608.19737",
@@ -422,7 +444,8 @@
           "date": "2026-08-20",
           "url": "https://arxiv.org/abs/2608.19737",
           "repo": null,
-          "score": 3
+          "score": 3,
+          "upvotes": 0
         },
         {
           "id": "2608.19729",
@@ -440,7 +463,8 @@
           "date": "2026-08-20",
           "url": "https://arxiv.org/abs/2608.19729",
           "repo": null,
-          "score": 3
+          "score": 3,
+          "upvotes": 0
         },
         {
           "id": "2608.17776",
@@ -463,7 +487,8 @@
           "date": "2026-08-18",
           "url": "https://arxiv.org/abs/2608.17776",
           "repo": null,
-          "score": 6
+          "score": 6,
+          "upvotes": 0
         },
         {
           "id": "2608.17659",
@@ -479,7 +504,8 @@
           "date": "2026-08-18",
           "url": "https://arxiv.org/abs/2608.17659",
           "repo": null,
-          "score": 6
+          "score": 6,
+          "upvotes": 0
         },
         {
           "id": "2608.16465",
@@ -505,7 +531,8 @@
           "date": "2026-08-17",
           "url": "https://arxiv.org/abs/2608.16465",
           "repo": "https://github.com/BattleWen/JailbreakSkill",
-          "score": 6
+          "score": 6,
+          "upvotes": 0
         },
         {
           "id": "2608.15445",
@@ -520,7 +547,8 @@
           "date": "2026-08-15",
           "url": "https://arxiv.org/abs/2608.15445",
           "repo": null,
-          "score": 6
+          "score": 6,
+          "upvotes": 0
         },
         {
           "id": "2608.17202",
@@ -533,7 +561,8 @@
           "date": "2026-08-17",
           "url": "https://arxiv.org/abs/2608.17202",
           "repo": null,
-          "score": 5
+          "score": 5,
+          "upvotes": 0
         },
         {
           "id": "2608.16026",
@@ -553,7 +582,8 @@
           "date": "2026-08-17",
           "url": "https://arxiv.org/abs/2608.16026",
           "repo": null,
-          "score": 4
+          "score": 4,
+          "upvotes": 0
         },
         {
           "id": "2608.19598",
