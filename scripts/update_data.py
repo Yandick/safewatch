@@ -345,9 +345,11 @@ def load_dataset() -> dict:
     return {"days": [], "pending": []}
 
 
-def merge_into_dataset(batch_date: str, selected: list[dict]) -> None:
+def merge_into_dataset(batch_date: str, selected: list[dict],
+                       hf_votes: dict[str, int] | None = None) -> None:
     """Merge this run's selection into data/papers.json."""
     dataset = load_dataset()
+    hf_votes = hf_votes or {}
     existing_ids = {
         p["id"]
         for d in dataset["days"] + dataset.get("pending", [])
@@ -362,6 +364,10 @@ def merge_into_dataset(batch_date: str, selected: list[dict]) -> None:
     known_in_bucket = {p["id"] for p in bucket["papers"]}
     added = [p for p in fresh if p["id"] not in known_in_bucket]
     bucket["papers"].extend(added)
+    # Re-apply the latest HF community signal to every stored paper so
+    # badges and rankings stay current even for previously collected items.
+    for p in bucket["papers"]:
+        p["upvotes"] = max(p.get("upvotes", 0), hf_votes.get(p["id"], 0))
     bucket["total_count"] = len(bucket["papers"])
 
     merged_days = sorted(days_by_date.values(), key=lambda d: d["batch_date"], reverse=True)
@@ -394,7 +400,8 @@ def collect(days_back: int) -> list[dict]:
     recent = [e for e in pool if e["published"][:10] >= cutoff]
     print(f"[pool ] {len(pool)} raw entries | {len(recent)} within last {days_back} days")
     hf_votes = fetch_hf_upvotes(days_back)
-    return select_papers(recent, hf_votes)
+    selected = select_papers(recent, hf_votes)
+    return selected, hf_votes
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -403,12 +410,12 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
 
     days_back = FETCH_DAYS * (6 if args.full else 1)
-    selected = collect(days_back)
+    selected, hf_votes = collect(days_back)
     if not selected:
         print("[warn] nothing selected this run; dataset unchanged")
         return 0
     latest_batch = max(p["date"] for p in selected)
-    merge_into_dataset(latest_batch, selected)
+    merge_into_dataset(latest_batch, selected, hf_votes)
     return 0
 
 
