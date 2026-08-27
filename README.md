@@ -41,6 +41,44 @@ Environment knobs: `FETCH_DAYS=7 DAILY_CAP=24 PER_CATEGORY_CAP=6 FETCH_MAX=110`.
 > `scripts/update_data.py` (e.g. an OpenAI-compatible API key stored in repo
 > secrets) to write one-line takeaways or re-rank picks.
 
+## AI curation (optional but recommended)
+
+The pipeline has a built-in LLM stage: after rule-based classification, an
+LLM scores every candidate for **relevance** and **impact** (0-10) and writes
+a one-line Chinese TL;DR shown on each card. Papers below the bar are dropped,
+so you read ~8–14 picks/day instead of 30.
+
+Enable it in three steps:
+
+```powershell
+# 1. store your zenmux key as a repo secret (never paste keys into chat/repo)
+gh secret set ZENMUX_API_KEY   # paste when prompted
+
+# 2. (optional) pick another model — defaults to z-ai/glm-5.3-flash
+gh variable set LLM_MODEL --body "qwen/qwen3.7-flash"
+
+# 3. run the workflow once, or wait for the daily cron
+gh workflow run update.yml
+```
+
+The next daily run is fully automatic — GitHub Actions calls zenmux.ai from its
+own servers, so your computer/router/VPN play no role.
+
+Candidate models seen on zenmux (Aug 2026, price per M tokens):
+
+| Model | In | Out | Notes |
+|---|---|---|---|
+| `z-ai/glm-5.3-flash` *(default)* | $0.075 | $0.25 | ≈$0.004/day, reliable JSON |
+| `qwen/qwen3.7-flash` | $0.03 | $0.13 | cheapest capable |
+| `z-ai/glm-4.7-flash-free` | free | free | weaker judgment |
+| `deepseek/deepseek-v4-flash` | $0.22 | $0.66 | strongest cheap reasoner |
+| `openai/gpt-5.4-nano` | $0.20 | $1.25 | OpenAI-flavored fallback |
+
+Strictness knobs (repo variables): `PAPER_REL_MIN` (default 6),
+`PAPER_IMP_MIN` (default 5), `LLM_PRE_CAP_MULTIPLIER` (default 3).
+If the key is absent or the API fails, curation silently skips and the site
+runs purely rule-based — never breaks the daily update.
+
 ## Project layout
 
 ```
