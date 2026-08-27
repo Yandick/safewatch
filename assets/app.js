@@ -219,9 +219,12 @@
           .map((p) => p.repo)
       )
     ).size;
-    $("#stat-updated").textContent = (d.last_updated || "").replace(
-      "T", " "
-    );
+    const ts = (d.last_updated || "");
+    // "2026-08-27T13:15:35+00:00" -> "08-27 13:15 UTC" (year lives in tooltip)
+    $("#stat-updated").textContent = ts.length >= 16
+      ? `${ts.slice(5, 10)} ${ts.slice(11, 16)} UTC`
+      : ts;
+    $("#stat-updated").title = ts.replace("T", " ");
 
     const badge = $("#curatedBadge");
     if (badge && d.curated_by && d.curated_by !== "rule-based") {

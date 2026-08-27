@@ -117,6 +117,8 @@ main { max-width: 1180px; margin: 0 auto; padding: 30px 22px 60px; }
   border-bottom: 1px solid var(--panel-border);
 }
 .kpi { display: flex; align-items: center; gap: 12px; min-width: 0; }
+.kpi > div { min-width: 0; }
+.stat-updated-val { font-size: 1.08rem; }
 .kpi-ico {
   width: 40px; height: 40px; flex: none; border-radius: 11px;
   display: grid; place-items: center; font-size: 1rem;
