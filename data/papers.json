@@ -1,7 +1,7 @@
 {
-  "last_updated": "2026-08-27T04:40:08+00:00",
+  "last_updated": "2026-08-27T05:43:11+00:00",
   "latest_day": "2026-08-26",
-  "total_today": 30,
+  "total_today": 31,
   "categories": [
     "Jailbreaking & Red Teaming",
     "Prompt Injection & LLM Attacks",
@@ -19,22 +19,22 @@
     "Defenses, Privacy & Robustness": "#60a5fa"
   },
   "proportions": {
-    "Jailbreaking & Red Teaming": 26.7,
-    "Prompt Injection & LLM Attacks": 20.0,
-    "Reward Hacking & Deceptive Alignment": 10.0,
-    "Agentic AI Safety": 6.7,
-    "Safety Training & Alignment": 16.7,
-    "Defenses, Privacy & Robustness": 20.0
+    "Jailbreaking & Red Teaming": 25.8,
+    "Prompt Injection & LLM Attacks": 19.4,
+    "Reward Hacking & Deceptive Alignment": 9.7,
+    "Agentic AI Safety": 6.5,
+    "Safety Training & Alignment": 19.4,
+    "Defenses, Privacy & Robustness": 19.4
   },
   "category_counts": {
     "Jailbreaking & Red Teaming": 8,
     "Prompt Injection & LLM Attacks": 6,
     "Reward Hacking & Deceptive Alignment": 3,
     "Agentic AI Safety": 2,
-    "Safety Training & Alignment": 5,
+    "Safety Training & Alignment": 6,
     "Defenses, Privacy & Robustness": 6
   },
-  "total_papers": 30,
+  "total_papers": 31,
   "days": [
     {
       "batch_date": "2026-08-26",
@@ -554,9 +554,28 @@
           "url": "https://arxiv.org/abs/2608.16026",
           "repo": null,
           "score": 4
+        },
+        {
+          "id": "2608.19598",
+          "title": "PEA-DPO: Perception-Enhanced Alignment Direct Preference Optimization for MLLMs Alignment",
+          "authors": [
+            "Jiawei Feng",
+            "Jiancan Wu",
+            "Xingyu Zhu",
+            "Junkang Wu",
+            "Xiang Wang",
+            "Xiangnan He"
+          ],
+          "abstract": "Direct Preference Optimization (DPO) has emerged as an effective approach for aligning large language models (LLMs) with human preferences. However, its adaptation to multimodal settings remains unexplored. Through representational analysis, we identify a key limitation in multimodal preference optimization, which we term visual insensitivity: models often fail to distinguish between images and those with critical visual context removed. Our theoretical analysis further uncovers two manifestations of this problem, namely Across-Image Insensitivity and Within-Image Insensitivity. To address these challenges, we propose Perception-Enhanced Alignment DPO (PEA-DPO), a framework for multimodal LLMs alignment, which explicitly leverages visual preference signals to overcome visual insensitivity. We further provide a theoretical analysis demonstrating that PEA-DPO provably mitigates both failure modes. Empirical results demonstrate that PEA-DPO enhances sensitivity to visual context while preserving the language modeling capacity of the base model. Evaluations across three hallucination benchmarks using MLLMs of varying scales show that PEA-DPO effectively mitigates visual insensitivity, achieves stronger multimodal alignment, and substantially reduces hallucinations.",
+          "category": "Safety Training & Alignment",
+          "date": "2026-08-20",
+          "url": "https://arxiv.org/abs/2608.19598",
+          "repo": null,
+          "score": 3,
+          "upvotes": 0
         }
       ],
-      "total_count": 30
+      "total_count": 31
     }
   ]
 }
