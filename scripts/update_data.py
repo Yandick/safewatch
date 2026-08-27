@@ -15,6 +15,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import math
 import os
 import re
 import sys
@@ -249,7 +250,40 @@ def build_paper(entry: dict, topic: str, score: int) -> dict:
     }
 
 
-def select_papers(candidates: list[dict]) -> list[dict]:
+def fetch_hf_upvotes(days_back: int) -> dict[str, int]:
+    """Fetch Hugging Face daily-papers upvotes for the last ``days_back`` days.
+
+    Community upvotes are used as an "interestingness" boost. GitHub Actions
+    runners reach huggingface.co directly; locally without a proxy this
+    degrades gracefully to an empty map and ranking falls back to regex score.
+    """
+    votes: dict[str, int] = {}
+    for offset in range(1, days_back + 1):
+        day = (datetime.now(timezone.utc) - timedelta(days=offset)).strftime(DATE_FORMAT)
+        url = f"https://huggingface.co/api/daily_papers?date={day}"
+        try:
+            req = urllib.request.Request(url, headers={"User-Agent": "SafeWatch/1.0"})
+            with urllib.request.urlopen(req, timeout=20) as resp:
+                items = json.loads(resp.read())
+        except Exception as exc:  # noqa: BLE001 - signal source must never break the run
+            print(f"[hf   ] {day}: unavailable ({exc}); continuing")
+            continue
+        for item in items:
+            pid = ((item.get("paper") or {}).get("id") or "").strip()
+            if pid:
+                votes[pid] = int((item.get("paper") or {}).get("upvotes") or 0)
+        time.sleep(0.8)
+    print(f"[hf   ] collected upvotes for {len(votes)} papers")
+    return votes
+
+
+def rank_score(score: int, upvotes: int) -> tuple:
+    """Blend topic-match evidence with HF community signal (bounded)."""
+    hf_bonus = min(4.0, math.log1p(upvotes)) if upvotes else 0.0
+    return (round(score + hf_bonus, 2), upvotes)
+
+
+def select_papers(candidates: list[dict], hf_votes: dict[str, int]) -> list[dict]:
     """De-dupe, classify, rank; apply per-topic and per-day caps."""
     seen: set[str] = set()
     uniq: list[dict] = []
@@ -271,16 +305,17 @@ def select_papers(candidates: list[dict]) -> list[dict]:
         if topic is None:
             rejected += 1
             continue
-        ranked_by_topic[topic].append(build_paper(e, topic, score))
+        paper = build_paper(e, topic, score)
+        paper["upvotes"] = hf_votes.get(paper["id"], 0)
+        ranked_by_topic[topic].append(paper)
 
     chosen: list[dict] = []
     for plist in ranked_by_topic.values():
-        # Best evidence first; among ties prefer the newest submission date.
+        # Strongest blended evidence first; date as final tiebreaker.
         plist.sort(key=lambda p: p["date"], reverse=True)
-        plist.sort(key=lambda p: p["score"], reverse=True)
+        plist.sort(key=lambda p: rank_score(p["score"], p["upvotes"]), reverse=True)
         chosen.extend(plist[:PER_CATEGORY_CAP])
-    chosen.sort(key=lambda p: p["date"], reverse=True)
-    chosen.sort(key=lambda p: p["score"], reverse=True)
+    chosen.sort(key=lambda p: rank_score(p["score"], p["upvotes"]), reverse=True)
     return chosen[:DAILY_CAP]
 
 
@@ -358,7 +393,8 @@ def collect(days_back: int) -> list[dict]:
     cutoff = (datetime.now(timezone.utc) - timedelta(days=days_back)).strftime(DATE_FORMAT)
     recent = [e for e in pool if e["published"][:10] >= cutoff]
     print(f"[pool ] {len(pool)} raw entries | {len(recent)} within last {days_back} days")
-    return select_papers(recent)
+    hf_votes = fetch_hf_upvotes(days_back)
+    return select_papers(recent, hf_votes)
 
 
 def main(argv: list[str] | None = None) -> int:

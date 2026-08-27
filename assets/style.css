@@ -152,6 +152,7 @@ main { max-width: 1180px; margin: 0 auto; padding: 30px 22px 60px; }
 }
 @media (max-width: 800px) { .chart-row { grid-template-columns: 1fr; } }
 .pie-chart { width: 100%; height: 320px; }
+.trend-chart { width: 100%; height: 300px; }
 .legend-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 9px; }
 .legend-item {
   display: flex; align-items: center; gap: 11px; cursor: pointer;
@@ -256,6 +257,14 @@ main { max-width: 1180px; margin: 0 auto; padding: 30px 22px 60px; }
 .pill:hover { color: var(--text); border-color: var(--text-faint); transform: translateY(-1px); }
 .pill.repo { color: var(--green); border-color: color-mix(in srgb, var(--green) 40%, transparent); }
 .pill.repo:hover { background: rgba(52, 211, 153, 0.1); }
+.pill.upv {
+  color: var(--pink);
+  border-color: color-mix(in srgb, var(--pink) 38%, transparent);
+  cursor: default;
+}
+.pill.bib { cursor: pointer; }
+.pill.bib:hover { color: var(--accent-2); border-color: color-mix(in srgb, var(--accent-2) 50%, transparent); }
+.pill.bib.copied { color: var(--green); border-color: color-mix(in srgb, var(--green) 45%, transparent); }
 .pill svg { width: 13px; height: 13px; }
 .empty-state { text-align: center; color: var(--text-faint); padding: 44px 0; }
 
