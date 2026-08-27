@@ -33,8 +33,9 @@
         </div>
       </div>
       <nav class="header-nav">
-        <a href="#papers">Papers</a>
-        <a href="#topics">Topics</a>
+        <a href="#home" data-route>Home</a>
+        <a href="#library" data-route>Library</a>
+        <a href="#topics" data-scroll>Topics</a>
         <button id="themeToggle" class="icon-btn" title="Toggle light / dark" aria-label="Toggle theme">
           <svg class="ico-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
           <svg class="ico-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4m11.4-11.4 1.4-1.4"/></svg>
@@ -43,8 +44,8 @@
     </div>
   </header>
 
-  <main>
-    <!-- HERO STATS -->
+  <!-- ================= HOME VIEW ================= -->
+  <main id="view-home">
     <section class="hero" aria-label="Overview statistics">
       <div class="stat-card reveal">
         <div class="stat-icon s-cyan">◈</div>
@@ -64,7 +65,6 @@
       </div>
     </section>
 
-    <!-- TREND CHART -->
     <section id="trend" class="panel reveal" aria-label="Collection trend">
       <div class="panel-head">
         <h2>Collection Trend</h2>
@@ -73,11 +73,10 @@
       <div id="trendChart" class="trend-chart"></div>
     </section>
 
-    <!-- PIE CHART -->
     <section id="topics" class="panel reveal" aria-label="Topic proportions">
       <div class="panel-head">
         <h2>Topic Proportions</h2>
-        <p class="panel-sub">Share of curated safety papers by sub-topic — click a slice to filter the feed below.</p>
+        <p class="panel-sub">Share of all collected safety papers by sub-topic — click a slice to open it in the Library.</p>
       </div>
       <div class="chart-row">
         <div id="pieChart" class="pie-chart"></div>
@@ -85,23 +84,35 @@
       </div>
     </section>
 
-    <!-- PAPERS -->
-    <section id="papers" class="panel reveal" aria-label="Collected papers">
+    <section id="latestPicks" class="panel reveal" aria-label="Today's curated picks">
       <div class="panel-head panel-head--row">
         <div>
-          <h2>Daily Collections <span id="curatedBadge" class="curated-badge" hidden></span></h2>
-          <p class="panel-sub">Curated picks per update batch — newest first, with arXiv links and code repositories when available.</p>
+          <h2>Latest Picks <span id="curatedBadge" class="curated-badge" hidden></span></h2>
+          <p class="panel-sub" id="picksSub">Hand-picked reading from the newest update batch.</p>
         </div>
-        <div class="head-controls">
-          <label class="day-select-wrap">
-            <span>Batch&nbsp;date</span>
-            <select id="daySelect" class="day-select"></select>
-          </label>
-          <div id="modeSwitch" class="seg-switch">
-            <button class="seg-btn active" data-mode="picks">✦ Curated picks</button>
-            <button class="seg-btn" data-mode="archive">☰ Full archive</button>
-          </div>
+        <a href="#library" class="more-link" data-route>Browse full library →</a>
+      </div>
+      <div id="picksList" class="paper-list"></div>
+      <p id="picksEmpty" class="empty-state" hidden>No curated picks in this batch yet.</p>
+    </section>
+  </main>
+
+  <!-- ================= LIBRARY VIEW ================= -->
+  <main id="view-library" hidden>
+    <section class="panel reveal is-active-view" aria-label="Paper library">
+      <div class="panel-head panel-head--row">
+        <div>
+          <h2>Library <span id="libCount" class="lib-count mono"></span></h2>
+          <p class="panel-sub">Every on-topic paper we've collected, across all batches.</p>
         </div>
+        <label class="sort-wrap">
+          <span>Sort</span>
+          <select id="libSort" class="day-select">
+            <option value="newest">Newest first</option>
+            <option value="upvotes">Most upvoted</option>
+            <option value="score">Top-ranked</option>
+          </select>
+        </label>
       </div>
 
       <div class="filter-bar">
@@ -109,8 +120,10 @@
         <input id="searchInput" type="search" placeholder="Search title / author / abstract…" spellcheck="false" />
       </div>
 
-      <div id="paperList" class="paper-list" aria-live="polite"></div>
-      <p id="emptyState" class="empty-state" hidden>No papers match your filters.</p>
+      <div id="libList" class="paper-list" aria-live="polite"></div>
+      <p id="libEmpty" class="empty-state" hidden>No papers match your filters.</p>
+
+      <nav id="pager" class="pager" aria-label="Pagination"></nav>
     </section>
   </main>
 
