@@ -1,8 +1,8 @@
 {
-  "last_updated": "2026-08-27T17:50:43+00:00",
-  "latest_day": "2026-08-26",
+  "last_updated": "2026-08-28T19:01:13+00:00",
+  "latest_day": "2026-08-27",
   "curated_by": "z-ai/glm-5.3-flash",
-  "total_today": 38,
+  "total_today": 7,
   "categories": [
     "Jailbreaking & Red Teaming",
     "Prompt Injection & LLM Attacks",
@@ -20,24 +20,310 @@
     "Defenses, Privacy & Robustness": "#60a5fa"
   },
   "proportions": {
-    "Jailbreaking & Red Teaming": 11.0,
-    "Prompt Injection & LLM Attacks": 12.3,
-    "Reward Hacking & Deceptive Alignment": 6.8,
-    "Agentic AI Safety": 26.0,
-    "Safety Training & Alignment": 9.6,
-    "Defenses, Privacy & Robustness": 34.2
+    "Jailbreaking & Red Teaming": 12.8,
+    "Prompt Injection & LLM Attacks": 11.6,
+    "Reward Hacking & Deceptive Alignment": 7.0,
+    "Agentic AI Safety": 27.9,
+    "Safety Training & Alignment": 8.1,
+    "Defenses, Privacy & Robustness": 32.6
   },
   "category_counts": {
-    "Jailbreaking & Red Teaming": 8,
-    "Prompt Injection & LLM Attacks": 9,
-    "Reward Hacking & Deceptive Alignment": 5,
-    "Agentic AI Safety": 19,
+    "Jailbreaking & Red Teaming": 11,
+    "Prompt Injection & LLM Attacks": 10,
+    "Reward Hacking & Deceptive Alignment": 6,
+    "Agentic AI Safety": 24,
     "Safety Training & Alignment": 7,
-    "Defenses, Privacy & Robustness": 25
+    "Defenses, Privacy & Robustness": 28
   },
-  "total_papers": 73,
-  "total_picks": 38,
+  "total_papers": 86,
+  "total_picks": 45,
   "days": [
+    {
+      "batch_date": "2026-08-27",
+      "papers": [
+        {
+          "id": "2608.27439",
+          "title": "RedEvoAgent: Automatic Red-Teaming Agent with Experience-Driven Skill Evolution",
+          "authors": [
+            "Junjie Zhang",
+            "Hui Liu",
+            "Kecheng Chen",
+            "Xianbo Mo",
+            "Changsheng Chen",
+            "Haoliang Li"
+          ],
+          "abstract": "LLM-based agents are increasingly deployed in product-level execution harnesses, where jailbreaks can trigger harmful tool use and persistent state changes, creating greater risks than unsafe text generation alone. Existing automatic red-teaming methods often rely on fixed attacks, while recent agentic attackers coordinate multiple jailbreak tools and show stronger potential through trajectory-based retrieval. However, such retrieval can reuse misleading experiences due to retrieval bias and unclear tool credit, and full trajectories add context overhead while reducing interpretability. We propose RedEvoAgent, a black-box red-teaming agent that distills cross-case attack trajectories into a concise, human-readable attack skill. The attack skill adaptively evolves through tool-effectiveness profiling and Deciding-Tool Attribution for skill updates, and a validation ratchet that retains only updates improving validation performance. Experiments on multiple benchmarks, target models, and target execution harnesses show that RedEvoAgent outperforms fixed and agentic baselines, improves tool efficiency, and transfers across attacker models and target execution harnesses.",
+          "category": "Jailbreaking & Red Teaming",
+          "date": "2026-08-27",
+          "url": "https://arxiv.org/abs/2608.27439",
+          "repo": null,
+          "score": 4,
+          "upvotes": 0,
+          "ai_rel": 9,
+          "ai_imp": 7,
+          "tldr": "提出技能演化的自动红队智能体，攻击产品级执行环境，方法新颖有效。"
+        },
+        {
+          "id": "2608.26506",
+          "title": "A Single Suffix to Break Them All: Basin-Aware Jailbreaks for Merged Model Families",
+          "authors": [
+            "Yu Zhe",
+            "Yixin Tan",
+            "Junhao Wei",
+            "Wang Chen"
+          ],
+          "abstract": "Model merging enables combining multiple fine-tuned models without additional training, but its safety implications remain poorly understood. Prior work primarily attributes merging risks to unsafe constituent models, implicitly assuming that merging individually aligned models preserves safety. In contrast, we show that model merging reveals a previously overlooked jailbreak risk rooted in the pretrained foundation model, even when all constituent models are individually safety-aligned. Motivated by this observation, we study a new threat setting where an attacker constructs jailbreak prompts that generalize across merged models sharing the same pretrained backbone, without access to the exact merging coefficients or constituent checkpoints. To exploit this phenomenon, we propose \\textbf{Basin-Aware Jailbreak (BAJ)}, which formulates jailbreak generation as a min--max optimization over the merging space to produce transferable adversarial suffixes across merged model families. Experiments across diverse backbones and merging settings show that BAJ achieves consistently high transfer success rates and remains effective under existing defenses.",
+          "category": "Jailbreaking & Red Teaming",
+          "date": "2026-08-27",
+          "url": "https://arxiv.org/abs/2608.26506",
+          "repo": null,
+          "score": 3,
+          "upvotes": 0,
+          "ai_rel": 8,
+          "ai_imp": 7,
+          "tldr": "揭示模型合并即使各成员已对齐仍产生可迁移越狱后缀，威胁模型新颖。"
+        },
+        {
+          "id": "2608.26237",
+          "title": "How Do LLM Agents Actually Get the Flag? Trace-Level Provenance for Agentic Offensive Security Evaluation",
+          "authors": [
+            "Kimberly Milner",
+            "Minghao Shao",
+            "Nanda Rani",
+            "Haoran Xi",
+            "Venkata Sai Charan Putrevu",
+            "Meet Udeshi",
+            "Sandeep K. Shukla",
+            "Prashanth Krishnamurthy",
+            "Farshad Khorrami",
+            "Muhammad Shafique",
+            "Ramesh Karri"
+          ],
+          "abstract": "Capture-the-Flag (CTF) benchmarks are widely used to assess the offensive security capabilities of autonomous language-model agents. Evaluations rely on shallow binary judgments or aggregate scores, overlooking the agent's trajectory to the flag. Consequently actual exploitation is conflated with direct flag exposure, memorized recall, external lookup, guessing, and unsupported claims, potentially overstating the agent's cybersecurity capability. We introduce CTF-ABACUS, a trace-based agent auditing framework that reconstructs each run as an evidence-grounded solve profile. By decomposing agent actions into penetration-testing phases and categorical techniques, it identifies where exploitation occurs, where the flag first appears, and whether the recovered flag is supported by demonstrated behavior. Aggregating solve profiles across agents yields challenge signatures that reveal whether success was achieved via the intended exploit or via shortcut pathways. We apply CTF-ABACUS to 1,435 CTF attempts by six frontier and open-source models on 240 challenges, yielding 2,870 solve profiles under two judge lenses. Trace-verified exploits account for only 62-87% of recovered flags across benchmarks, while shortcut recoveries follow substantially shallower trajectories. These findings shift CTF evaluation from counting recovered flags to verifying demonstrated exploitation and provide a basis for designing benchmarks that better isolate the offensive capabilities.",
+          "category": "Agentic AI Safety",
+          "date": "2026-08-26",
+          "url": "https://arxiv.org/abs/2608.26237",
+          "repo": null,
+          "score": 3,
+          "upvotes": 0,
+          "ai_rel": 7,
+          "ai_imp": 7,
+          "tldr": "审计CTF智能体解题轨迹,区分真实利用与记忆猜测,提升攻击力评估可信度。"
+        },
+        {
+          "id": "2608.27141",
+          "title": "Safety Does Not Compose: Non-Decaying Loop State for Autonomous LLM Agents",
+          "authors": [
+            "Chenhao Wu",
+            "Haoxuan Jia",
+            "Yang Liu",
+            "Yingguang Yang",
+            "Yuhan Lin",
+            "Chongyang Zhang",
+            "Hao Zheng",
+            "Yulin Huang",
+            "Jianshen Zhang",
+            "Yongzhi Qi",
+            "Shang Luo",
+            "Kefu Xu",
+            "Jifeng Zhu",
+            "Bin Chong"
+          ],
+          "abstract": "Large language model agents are increasingly deployed as autonomous loops. Starting from one human goal, such a system repeatedly discovers work, plans, executes tool calls, verifies outcomes and persists state across many unattended iterations. The agent safeguards in wide use, however, are defined over a single trajectory, and their safety state is re-initialized when the next trajectory begins. We show that this is a failure of composition rather than an implementation detail. Our central result is a separation: against an attack whose evidence is fragmented across several iterations, every trajectory-scoped monitor has a true-positive rate equal to its false-positive rate, however expressive it is, because the evidence it would need never appears in the window it sees, whereas a monitor retaining cross-iteration state separates the two perfectly. We further show that the obvious repair of carrying a geometrically decaying risk score is insufficient, because the cooling-off period a patient adversary must wait is a constant that does not grow with the horizon $N$. We then present LoopHarness, which restores a persistent, non-decaying safety state at the loop level. Under mediated commits and an arbiter detection floor $δ_M$, it bounds the expected number of unauthorized irreversible actions by $B+m-1+m/δ_M$, a constant in $N$, of which the $B+m-1$ term is decided by a model-free rule and therefore survives a fully colluding verifier. We give a complete evaluation protocol on native Agent-SafetyBench tasks with paired clean and attacked episodes, an outer-state attack suite whose decisive evidence exists only across iterations, per-module ablations, and an adaptive white-box red team.",
+          "category": "Agentic AI Safety",
+          "date": "2026-08-27",
+          "url": "https://arxiv.org/abs/2608.27141",
+          "repo": null,
+          "score": 1,
+          "upvotes": 0,
+          "ai_rel": 9,
+          "ai_imp": 8,
+          "tldr": "证明轨迹级监控无法检测跨迭代碎片化攻击，提出跨循环安全状态，理论贡献突出。"
+        },
+        {
+          "id": "2608.27092",
+          "title": "The Framing Gap: Indirect Prompt-Injection Exfiltration Defeats Surface-Level Defenses in Tool-Using Agents",
+          "authors": [
+            "Md Habibur Rahman",
+            "Jaeho Kim"
+          ],
+          "abstract": "A tool-using LLM agent that reads attacker-controlled web content while holding a secret faces indirect prompt injection: the content may make it exfiltrate the secret. In a safe synthetic lab (canary secret, mock tools, matched clean-vs-poisoned metric) we report the framing gap: across six models, ten overt injection classes are refused (gpt-4o 0%), but reframing the identical leak as a mandatory integrity signature, config field, or look-alike \"trusted\" host drives gpt-4o 0% to 100%. The attack is cheap, and its cost is three-level: paraphrasing a known mechanism is trivial (96% at 3 wordings), swapping the field inside a known-effective template is also cheap (up to 60%), while authoring a fresh page around a new mechanism is hard (0/130) -- the reusable asset is the template, not the mechanism. An ablation shows the mechanism is instruction/data confusion, not defeated alignment: removing the confidentiality policy leaves base attacks at 0% and moves reframing only 31.9% to 38.1%. What closes the gap is payload-blind checks: a destination allow-list (0%, when destinations are closed) and a capability-isolating planner/reader split (0%). A broad \"in any form\" policy clause also closes it at the acting model (to 0%) but is brittle (dropping the catch-all reopens it to 48.8%). A published fine-tuning defense (SecAlign, CCS 2025) does not close it on a tool agent (32.5%, positive-control-validated), nor does channel separation (38.8%); an output-normalizing guard loses to a held-out encoding (ROT13, 100%). Robustness comes from constraining the destination or isolating the capability, not from the acting model recognizing the attack.",
+          "category": "Prompt Injection & LLM Attacks",
+          "date": "2026-08-27",
+          "url": "https://arxiv.org/abs/2608.27092",
+          "repo": null,
+          "score": 1,
+          "upvotes": 0,
+          "ai_rel": 9,
+          "ai_imp": 8,
+          "tldr": "系统揭示间接注入框架化话术可致机密外泄，指出目的地白名单等有效防御。"
+        },
+        {
+          "id": "2608.26372",
+          "title": "Knowledge-Verified Emergent Deception in LLM Agents Under Conflicting Incentives",
+          "authors": [
+            "Zheyuan Liu",
+            "Weiliang Zhao",
+            "Xiangchi Yuan",
+            "Ningshan Ma",
+            "Yue Huang",
+            "Meng Jiang"
+          ],
+          "abstract": "Large language models are increasingly deployed as autonomous agents serving users on behalf of companies, placing them in settings where user and deployer interests can conflict. When an agent knows that a user is owed something its deployer would prefer to deny, does it remain honest? Answering this is difficult because false statements can reflect either ignorance or hallucination rather than deception. To address this challenge, we introduce KnownLieBench , a knowledge-verified benchmark that first confirms through a neutral probe that an agent knows a user's entitlement, and then evaluates whether it makes false claims once an incentive to deny that entitlement is introduced. Specifically, KnownLieBench covers eight customer-service domains and 112 grounded cases, conducts multi-round dialogues with a trust-tracking customer agent, and separates deception emerging from incentive alone from deception produced under explicit instruction. Across eighteen proprietary and open-weight models, emergent deception varies substantially across model families and domains. We further use the benchmark for post-training, finding that honesty-directed fine-tuning reduces deception under incentive, while deception-graded fine-tuning increases lie success on honest-control dialogues without increasing lie frequency under incentive. By verifying entitlement knowledge before scoring deceptive behavior, KnownLieBench reduces the confound between lying and not knowing and enables more rigorous auditing and steering of agent honesty.",
+          "category": "Reward Hacking & Deceptive Alignment",
+          "date": "2026-08-26",
+          "url": "https://arxiv.org/abs/2608.26372",
+          "repo": null,
+          "score": 1,
+          "upvotes": 0,
+          "ai_rel": 9,
+          "ai_imp": 7,
+          "tldr": "构建知识核验基准，测出代理在利益冲突下的自发欺骗行为。"
+        },
+        {
+          "id": "2608.26222",
+          "title": "NeuronFuzz: Safety Neuron Guided Fuzzing for LLM Safety Evaluation",
+          "authors": [
+            "Zhiyuan Xu",
+            "Muhammad Firhard Roslan",
+            "Joseph Gardiner",
+            "Sana Belguith",
+            "Lichao Wu"
+          ],
+          "abstract": "Safety evaluation is critical for assessing whether aligned Large Language Models (LLMs) remain robust against jailbreak attacks. Existing automated testing methods, however, largely rely on response-level feedback: each candidate prompt typically requires generating a target-model response to evaluate its attack effectiveness. This process is expensive and, more importantly, provides only sparse guidance on strongly aligned models, where most candidates are rejected with the same failure outcome. This paper presents NeuronFuzz, a white-box fuzzing framework that exploits internal safety neurons as continuous execution feedback for LLM safety evaluation. A SafetyOracle converts safety-neuron activations into a continuous safety alarm score that serves as feedback for fuzzing and can be obtained during prefill, eliminating response generation from the fuzzing loop. To construct the SafetyOracle, NeuronFuzz uses template-invariant harmful and benign inputs and stability-aware selection to identify a compact set of safety neurons whose activations capture harmful-intent recognition. Moreover, since the safety alarm score is differentiable, NeuronFuzz uses its gradients to identify safety-sensitive template positions and a masked language model to generate fluent, context-compatible mutations while preserving original harmful payload and avoiding additional optimization variables. We evaluate NeuronFuzz across 21 text and multimodal models. Across five white-box source models, it achieves a 76-100% jailbreak discovery rate, outperforming baselines by up to 48 percentage points. Its optimized templates further transfer zero-shot to open-weight and six proprietary target models, achieving average ASR and top-5 ensemble ASR (EASR) of 69.6%/92.6% and 44.1%/60.0%, respectively.",
+          "category": "Jailbreaking & Red Teaming",
+          "date": "2026-08-26",
+          "url": "https://arxiv.org/abs/2608.26222",
+          "repo": null,
+          "score": 1,
+          "upvotes": 0,
+          "ai_rel": 8,
+          "ai_imp": 7,
+          "tldr": "用安全神经元激活作连续反馈加速模糊测试，降低安全评估成本，思路新颖。"
+        }
+      ],
+      "collected": [
+        {
+          "id": "2608.27439",
+          "title": "RedEvoAgent: Automatic Red-Teaming Agent with Experience-Driven Skill Evolution",
+          "category": "Jailbreaking & Red Teaming",
+          "date": "2026-08-27",
+          "url": "https://arxiv.org/abs/2608.27439",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.26506",
+          "title": "A Single Suffix to Break Them All: Basin-Aware Jailbreaks for Merged Model Families",
+          "category": "Jailbreaking & Red Teaming",
+          "date": "2026-08-27",
+          "url": "https://arxiv.org/abs/2608.26506",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.27141",
+          "title": "Safety Does Not Compose: Non-Decaying Loop State for Autonomous LLM Agents",
+          "category": "Agentic AI Safety",
+          "date": "2026-08-27",
+          "url": "https://arxiv.org/abs/2608.27141",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.26222",
+          "title": "NeuronFuzz: Safety Neuron Guided Fuzzing for LLM Safety Evaluation",
+          "category": "Jailbreaking & Red Teaming",
+          "date": "2026-08-26",
+          "url": "https://arxiv.org/abs/2608.26222",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.27092",
+          "title": "The Framing Gap: Indirect Prompt-Injection Exfiltration Defeats Surface-Level Defenses in Tool-Using Agents",
+          "category": "Prompt Injection & LLM Attacks",
+          "date": "2026-08-27",
+          "url": "https://arxiv.org/abs/2608.27092",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.26324",
+          "title": "Privacy Without Regret: Differentially Private Inference-Time Alignment",
+          "category": "Defenses, Privacy & Robustness",
+          "date": "2026-08-26",
+          "url": "https://arxiv.org/abs/2608.26324",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.26372",
+          "title": "Knowledge-Verified Emergent Deception in LLM Agents Under Conflicting Incentives",
+          "category": "Reward Hacking & Deceptive Alignment",
+          "date": "2026-08-26",
+          "url": "https://arxiv.org/abs/2608.26372",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.26237",
+          "title": "How Do LLM Agents Actually Get the Flag? Trace-Level Provenance for Agentic Offensive Security Evaluation",
+          "category": "Agentic AI Safety",
+          "date": "2026-08-26",
+          "url": "https://arxiv.org/abs/2608.26237",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.27348",
+          "title": "INTENT-AS-A-TOOL Makes it Easy to Track Agentic Misalignment",
+          "category": "Agentic AI Safety",
+          "date": "2026-08-27",
+          "url": "https://arxiv.org/abs/2608.27348",
+          "repo": "https://github.com/RebeccaZhang22/intent-as-a-tool",
+          "upvotes": 0
+        },
+        {
+          "id": "2608.27338",
+          "title": "One Model, Many Minds: Unlocking Multi-Agent Synergy in a Single Agent via Mixture of Roles",
+          "category": "Agentic AI Safety",
+          "date": "2026-08-27",
+          "url": "https://arxiv.org/abs/2608.27338",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.27009",
+          "title": "The Guard That Cried Wolf: How Scary Words Make Agent Guardrails Refuse Legitimate Actions",
+          "category": "Defenses, Privacy & Robustness",
+          "date": "2026-08-27",
+          "url": "https://arxiv.org/abs/2608.27009",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.27443",
+          "title": "Do User-Authored Permission Policies Improve Protection Against AI Agent Overreach?",
+          "category": "Agentic AI Safety",
+          "date": "2026-08-27",
+          "url": "https://arxiv.org/abs/2608.27443",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.26306",
+          "title": "Approved Too Late: Verdict Staleness in LLM-Guarded Self-Adaptive Systems",
+          "category": "Defenses, Privacy & Robustness",
+          "date": "2026-08-26",
+          "url": "https://arxiv.org/abs/2608.26306",
+          "repo": null,
+          "upvotes": 0
+        }
+      ],
+      "total_count": 7,
+      "archived_count": 13
+    },
     {
       "batch_date": "2026-08-26",
       "papers": [
@@ -1295,6 +1581,5 @@
       ],
       "archived_count": 35
     }
-  ],
-  "pending": []
+  ]
 }
