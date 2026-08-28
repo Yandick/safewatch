@@ -10,6 +10,10 @@ on:
         description: "How many days back to scan (overrides FETCH_DAYS)"
         required: false
         default: "7"
+      reclassify:
+        description: "Re-run LLM classification over ALL stored papers"
+        required: false
+        default: "0"
 
 permissions:
   contents: write   # commit the refreshed dataset
@@ -40,6 +44,13 @@ jobs:
           ZENMUX_API_KEY: ${{ secrets.ZENMUX_API_KEY }}
           LLM_MODEL: ${{ vars.LLM_MODEL }}
         run: python scripts/update_data.py
+
+      - name: Retroactive reclassification of stored papers
+        if: ${{ github.event.inputs.reclassify == '1' }}
+        env:
+          ZENMUX_API_KEY: ${{ secrets.ZENMUX_API_KEY }}
+          LLM_MODEL: ${{ vars.LLM_MODEL }}
+        run: python scripts/reclassify.py
 
       - name: Commit refreshed dataset
         run: |

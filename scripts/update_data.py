@@ -204,12 +204,30 @@ def fetch_category_batch(topic_key: str, queries: list[str]) -> list[dict]:
     return out
 
 
+# Explicit defensive intent: the paper's contribution is countermeasure/
+# audit work, even when attack words dominate the title (user-reported issue).
+DEFENSE_CONTEXT_RE = re.compile(
+    r"defen[cs]e\w*|defending|mitigat\w+|counter\w*|auditing|audits\b"
+    r"|safeguard\w*|hardening|robust\w* against|protect\w* against"
+    r"|\b_against\b|\bagainst\b",
+    re.I,
+)
+# Topics whose papers are usually *attacks*; defense-intent redirects them.
+ATTACK_TOPICS = {
+    "Jailbreaking & Red Teaming",
+    "Prompt Injection & LLM Attacks",
+    "Reward Hacking & Deceptive Alignment",
+}
+
+
 def classify(text_low: str, title_low: str, hint: str | None) -> tuple[str | None, int]:
     """Score every topic's patterns; return (best_topic, score).
 
     Topic patterns scored by how often they appear (+2 bonus for hits inside
     titles). Ties between top scores fall back to the topic whose query found
-    the paper first (the hint).
+    the paper first (the hint). Defensive-intent papers whose best topic is
+    an attack category get redirected to the defense bucket -- this fallback
+    only runs when the LLM classifier is unavailable.
     """
     scores: dict[str, int] = {}
     for tk, rules in CATEGORY_RULES.items():
@@ -228,8 +246,18 @@ def classify(text_low: str, title_low: str, hint: str | None) -> tuple[str | Non
     best_score = max(scores.values())
     best_topics = [tk for tk, s in scores.items() if s == best_score]
     if hint in best_topics:
-        return hint, best_score
-    return best_topics[0], best_score
+        best = hint
+    else:
+        best = best_topics[0]
+
+    defense_topic = "Defenses, Privacy & Robustness"
+    if (
+        best in ATTACK_TOPICS
+        and scores.get(defense_topic, 0) >= 1
+        and DEFENSE_CONTEXT_RE.search(text_low)
+    ):
+        return defense_topic, max(best_score, scores[defense_topic])
+    return best, best_score
 
 
 def build_paper(entry: dict, topic: str, score: int) -> dict:
@@ -351,19 +379,20 @@ def compact_paper(p: dict) -> dict:
 
 
 def select_papers(candidates: list[dict], hf_votes: dict[str, int]):
-    """Full selection stage; optionally refines with the LLM curator."""
+    """Full selection stage; LLM (when keyed) classifies & scores everything.
+
+    The archive tier keeps ALL annotated papers; only the curated picks feed
+    applies the LLM relevance/impact threshold and caps.
+    """
     papers = build_ranked(candidates, hf_votes)
     curator = None
     if curate.llm_available():
-        mult = max(2, int(os.environ.get("LLM_PRE_CAP_MULTIPLIER", 3)))
-        loose = _top_per_topic(papers, PER_CATEGORY_CAP * mult)
-        print(f"[pre  ] {len(loose)} candidates sent to LLM curation")
-        curated, stats = curate.curate(loose)
-        curated.sort(key=lambda p: rank_score(p), reverse=True)
-        selected = apply_caps(curated)
+        papers, stats = curate.curate(papers, list(TOPIC_COLORS.keys()))
         curator = stats.get("model")
+        picks_pool = [p for p in papers if curate.passes_filter(p)]
     else:
-        selected = apply_caps(papers)
+        picks_pool = papers
+    selected = apply_caps(picks_pool)
     return selected, curator, papers
 
 
