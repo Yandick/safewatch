@@ -96,6 +96,24 @@ def _parse_json_blob(text: str) -> dict:
     return json.loads(text[start:end + 1])
 
 
+def _salvage_results(text: str) -> dict:
+    """Lenient recovery: parse individual {...} objects from a corrupt blob.
+
+    Models sometimes emit unescaped quotes inside Chinese sentences or get
+    cut by token limits; strict parsing then kills the whole batch. This
+    rescues every well-formed result object instead.
+    """
+    good = []
+    for m in re.finditer(r"\{[^{}]*\}", text):
+        try:
+            obj = json.loads(m.group(0))
+        except json.JSONDecodeError:
+            continue
+        if isinstance(obj, dict) and "i" in obj:
+            good.append(obj)
+    return {"results": good}
+
+
 def _score_batch(batch: list[tuple[int, dict]], topics: list[str]) -> dict[int, dict]:
     """One LLM call per numbered batch; returns {index: verdict}."""
     base, model = _settings()
@@ -107,7 +125,7 @@ def _score_batch(batch: list[tuple[int, dict]], topics: list[str]) -> dict[int, 
     payload = {
         "model": model,
         "temperature": 0.1,
-        "max_tokens": 2500,
+        "max_tokens": 4000,
         "messages": [
             {"role": "system", "content": build_system_prompt(topics)},
             {"role": "user", "content": json.dumps(lines, ensure_ascii=False)},
@@ -117,7 +135,12 @@ def _score_batch(batch: list[tuple[int, dict]], topics: list[str]) -> dict[int, 
     for attempt in range(3):
         try:
             content = _post_chat(base, api_key, payload)
-            data = _parse_json_blob(content)
+            try:
+                data = _parse_json_blob(content)
+            except (json.JSONDecodeError, ValueError):
+                data = _salvage_results(content)
+                if not data["results"]:
+                    raise ValueError("no salvageable result objects in output")
             return {r["i"]: r for r in data.get("results", []) if "i" in r}
         except Exception as exc:  # noqa: BLE001 - retry, then give up gracefully
             last_err = exc
@@ -142,7 +165,7 @@ def curate(papers: list[dict], topics: list[str]) -> tuple[list[dict], dict]:
     topic_set = set(topics)
 
     scored: dict[int, dict] = {}
-    batch_size = 10
+    batch_size = 8
     for start in range(0, len(papers), batch_size):
         batch = list(enumerate(papers))[start:start + batch_size]
         scored.update(_score_batch(batch, topics))
