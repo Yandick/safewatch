@@ -1,8 +1,8 @@
 {
-  "last_updated": "2026-08-30T12:09:56+00:00",
-  "latest_day": "2026-08-27",
+  "last_updated": "2026-08-31T14:20:33+00:00",
+  "latest_day": "2026-08-28",
   "curated_by": "z-ai/glm-5.3-flash",
-  "total_today": 7,
+  "total_today": 11,
   "categories": [
     "Jailbreaking & Red Teaming",
     "Prompt Injection & LLM Attacks",
@@ -20,24 +20,449 @@
     "Defenses, Privacy & Robustness": "#60a5fa"
   },
   "proportions": {
-    "Jailbreaking & Red Teaming": 12.8,
-    "Prompt Injection & LLM Attacks": 11.6,
-    "Reward Hacking & Deceptive Alignment": 7.0,
-    "Agentic AI Safety": 27.9,
-    "Safety Training & Alignment": 8.1,
-    "Defenses, Privacy & Robustness": 32.6
+    "Jailbreaking & Red Teaming": 14.2,
+    "Prompt Injection & LLM Attacks": 13.2,
+    "Reward Hacking & Deceptive Alignment": 5.7,
+    "Agentic AI Safety": 23.6,
+    "Safety Training & Alignment": 8.5,
+    "Defenses, Privacy & Robustness": 34.9
   },
   "category_counts": {
-    "Jailbreaking & Red Teaming": 11,
-    "Prompt Injection & LLM Attacks": 10,
+    "Jailbreaking & Red Teaming": 15,
+    "Prompt Injection & LLM Attacks": 14,
     "Reward Hacking & Deceptive Alignment": 6,
-    "Agentic AI Safety": 24,
-    "Safety Training & Alignment": 7,
-    "Defenses, Privacy & Robustness": 28
+    "Agentic AI Safety": 25,
+    "Safety Training & Alignment": 9,
+    "Defenses, Privacy & Robustness": 37
   },
-  "total_papers": 86,
-  "total_picks": 45,
+  "total_papers": 106,
+  "total_picks": 56,
   "days": [
+    {
+      "batch_date": "2026-08-28",
+      "papers": [
+        {
+          "id": "2608.28411",
+          "title": "LongPIBench: A Long-Context Benchmark for Prompt Injection",
+          "authors": [
+            "Yupei Liu",
+            "Yuqi Jia",
+            "Neil Zhenqiang Gong",
+            "Jinyuan Jia"
+          ],
+          "abstract": "Prompt injection attacks pose a serious security risk to large language models in real-world applications. However, existing prompt injection benchmarks primarily focus on short-context inputs, leaving the attacks and defenses in long-context settings largely unexplored. This gap leads to a substantial overestimation of the effectiveness of current defenses. In this paper, we bridge the gap by introducing LongPIBench, a long-context benchmark for prompt injection covering 4 realistic application scenarios: paper peer review, resume screening, code review, and email summary. For each scenario, we construct a synthetic dataset and a real-world dataset, with context lengths ranging from thousands to tens of thousands of tokens. The evaluation results on LongPIBench reveal significant vulnerabilities of prompt injection defenses under long-context settings: even simple heuristic prompt injection attacks achieve high success rates and frequently bypass state-of-the-art defenses. We hope LongPIBench can serve as a practical benchmark for systematically evaluating prompt injection defenses in realistic long-context scenarios.",
+          "category": "Prompt Injection & LLM Attacks",
+          "date": "2026-08-28",
+          "url": "https://arxiv.org/abs/2608.28411",
+          "repo": null,
+          "score": 3,
+          "upvotes": 0,
+          "ai_rel": 9,
+          "ai_imp": 8,
+          "tldr": "首个长上下文提示注入基准，揭示现有防御在长文本下大量失效。"
+        },
+        {
+          "id": "2608.27580",
+          "title": "LongGuard: Mechanistic Analysis and Training-Free Mitigation of Long-Context Failure in Safety Guardrails",
+          "authors": [
+            "Ziyang Chen",
+            "Xing Wu",
+            "Songlin Hu"
+          ],
+          "abstract": "Safety guardrails serve as the last line of defense against harmful inputs and outputs of large language models (LLMs), yet they are trained and evaluated almost exclusively on short text. We present LongGuard, a framework that evaluates, mechanistically analyzes, and mitigates long-context guardrail failure. We formulate the task as Safety Needle-in-a-Haystack (SafetyNIAH) over a 0.25k-32k length grid; across 15 mainstream guardrails, unsafe recall drops monotonically by more than 50% on average, and a paired Benign-Fill vs. Needle-Repeat design attributes the failure to proportional dilution of the unsafe needle rather than to absolute length. A three-layer attention-logit-behavior analysis on six guardrails locates the mechanism: attention mass on the unsafe needle is diluted, the unsafe-over-safe logit margin is compressed in lockstep, and the detection decision collapses accordingly, with this attention->logit->behavior chain remaining consistent after partialling out length. We further isolate a sparse set of guard-specialized retrieval heads that exhibit partial specificity relative to their base models. Building on the analysis, we propose two training-free mitigations - Chunked Detection (CD) and Attention-Head Sharpening (AHS) - and a deployment protocol, Context-Aware Hyperparameter Routing (CAHR), that selects configurations by context length and audit side. Across five benchmarks spanning synthetic data, long-context attacks, and reasoning-model outputs, CAHR-CD and CAHR-AHS improve the six-guardrail average by 22% and 13%, respectively. Code and data are available online.",
+          "category": "Defenses, Privacy & Robustness",
+          "date": "2026-08-27",
+          "url": "https://arxiv.org/abs/2608.27580",
+          "repo": null,
+          "score": 4,
+          "upvotes": 0,
+          "ai_rel": 8,
+          "ai_imp": 7,
+          "tldr": "构建长上下文安全护栏评测基准，定位注意力稀释机制并给出免训练缓解。"
+        },
+        {
+          "id": "2608.27800",
+          "title": "ContextLeak: Exfiltrating LLM Agent Context via Malicious Tools",
+          "authors": [
+            "Yuqi Jia",
+            "Ruiqi Wang",
+            "Patrick Li",
+            "Yuepeng Hu",
+            "Peinian Li",
+            "Neil Gong"
+          ],
+          "abstract": "Exfiltrating an LLM agent's runtime context -- such as the user prompt, execution trajectory, and tool list -- poses severe security and privacy risks to users. Such attacks can be carried out via malicious tools and typically require three conditions: (1) the agent selects the malicious tool for task execution, (2) the agent passes its runtime context as input arguments to the tool, and (3) the tool's implementation transmits these inputs to an attacker-controlled endpoint. Existing work primarily focuses on conditions (1) and (3), leaving condition (2) largely unexplored, despite its critical role in enabling successful context exfiltration. In this work, we bridge this gap by developing ContextLeak, a malicious tool attack that induces the agent to both select the tool and disclose its context as input arguments. We realize this attack by carefully crafting the tool's name and description using reinforcement learning. Specifically, ContextLeak employs an LLM, referred to as the attack LLM, to automatically generate the malicious tool's name and description. To improve attack effectiveness, we fine-tune the attack LLM via reinforcement learning on a set of shadow users with diverse, simulated agent contexts. Our key technical contribution is the design of novel reward functions tailored to the context exfiltration objective, enabling effective reinforcement-learning-based fine-tuning of the attack LLM. Extensive evaluation demonstrates that our attack remains highly effective even when the shadow users' contexts differ substantially from those of the victim users. Moreover, ContextLeak significantly outperforms existing malicious tool attacks when adapted to this setting.",
+          "category": "Prompt Injection & LLM Attacks",
+          "date": "2026-08-28",
+          "url": "https://arxiv.org/abs/2608.27800",
+          "repo": null,
+          "score": 3,
+          "upvotes": 0,
+          "ai_rel": 9,
+          "ai_imp": 7,
+          "tldr": "用强化学习生成恶意工具描述诱导代理泄露上下文，填补工具参数外泄攻击空白。"
+        },
+        {
+          "id": "2608.27496",
+          "title": "ROPE: Routed Origin Policy Enforcement against Indirect Prompt Injection",
+          "authors": [
+            "Xinhang Ma",
+            "Chaowei Xiao",
+            "William Yeoh",
+            "Ning Zhang",
+            "Yevgeniy Vorobeychik"
+          ],
+          "abstract": "Indirect prompt injection (IPI) plants instructions in the content a tool-using LLM agent reads, steering the agent into harmful tool calls. The strongest defenses are system-level, leveraging techniques such as task-conditional tool screening to prevent execution of malicious tools, and information-flow control to avoid tool execution with untrusted parameters. However, as agents grow more capable, users delegate more to automation. Consequently, tool execution sequences and parameter values are increasingly determined at runtime and cannot be reliably screened from solely user's query without significant utility loss. We present ROPE (Routed Origin Policy Enforcement), which is anchored in a structural notion of trust: a value may reach a state-changing tool only if it traces unforgeably to the user, a source the user explicitly named, or the user's own authoritative records. Enforcement is then a deterministic origin check over an audited set of sensitive tool parameters, and the only reliance on a language model involves solely the trusted user request, out of the attacker's reach. Our approach admits two provable guarantees: 1) at every step of a trajectory, no value whose only origin is attacker-writable content reaches an origin-guarded parameter, and 2) no rewording of an injection changes an admission decision. We evaluate across four agent models on open-ended agent suites, ROPE holds attack success rate to 1.6--2.6\\% while retaining 82--100\\% of undefended clean utility, significantly exceeding state-of-the-art system-level defenses in utility while attaining comparable or better security. Further, we show that optimizing the injection against ROPE is largely ineffective, while long-horizon attacks that defeat prior system-level defenses achieve zero success rate. Our code and logs are available at https://github.com/xhOwenMa/ROPE .",
+          "category": "Defenses, Privacy & Robustness",
+          "date": "2026-08-27",
+          "url": "https://arxiv.org/abs/2608.27496",
+          "repo": "https://github.com/xhOwenMa/ROPE",
+          "score": 3,
+          "upvotes": 0,
+          "ai_rel": 9,
+          "ai_imp": 7,
+          "tldr": "以不可伪造来源追踪约束敏感工具调用，确定性防御间接提示注入。"
+        },
+        {
+          "id": "2608.27844",
+          "title": "EvoHarmBench: Breaking Content Moderation with Iterative Human-Like Evasion",
+          "authors": [
+            "Ruijie Jian",
+            "Benlei Cui",
+            "Ting Ma",
+            "Haidong Ding",
+            "Kangwei Liu",
+            "Ziwen Xu",
+            "Longtao Huang",
+            "Hui Xue",
+            "Ziqiang Zhu",
+            "Junjie Li",
+            "Haiwen Hong"
+          ],
+          "abstract": "Existing evaluations of harmful content detection rely predominantly on static benchmarks, which struggle to reflect the interactive adversarial ecosystem of real-world content platforms where users continuously revise their expressions in response to moderation feedback. This mismatch creates a significant performance gap between offline benchmark scores and online deployment effectiveness. To the best of our knowledge, we present EvoHarmBench, the first dynamic adversarial evaluation framework for content moderation systems. The framework employs an iterative optimization loop that evolves evasion strategies at the semantic-cluster level, while simultaneously optimizing for evasion success and human readability. We systematically evaluate LLM-based defense models which are widely used in real world moderation systems. The evaluation covers 229 semantic sub-clusters across five violation categories, derived from 5,002 real-world adversarial samples collected from content platforms. Our experiments reveal substantial vulnerabilities even in leading commercial systems: after twelve optimization iterations, the attack success rate under readability constraints reaches 80.3% within SOTA LLM moderators. We will release the full benchmark data, evaluation framework, and code to encourage a shift from static benchmarking toward dynamic adversarial evaluation in content safety research.",
+          "category": "Jailbreaking & Red Teaming",
+          "date": "2026-08-28",
+          "url": "https://arxiv.org/abs/2608.27844",
+          "repo": null,
+          "score": 3,
+          "upvotes": 0,
+          "ai_rel": 8,
+          "ai_imp": 7,
+          "tldr": "首个动态对抗内容审核评测框架，揭示商业审核系统在迭代规避下的脆弱性。"
+        },
+        {
+          "id": "2608.27531",
+          "title": "Fully Unleashing the Multimodal Attacker: Meta-Adaptive Jailbreaking of Vision-Language Models",
+          "authors": [
+            "Benlei Cui",
+            "Shen Pang",
+            "Yuke Wang",
+            "Xuemei Dong",
+            "Yuwen Zhai",
+            "Jingqun Tang",
+            "Haiyang Yu",
+            "Hui Xue",
+            "Longtao Huang",
+            "Haiwen Hong"
+          ],
+          "abstract": "The safety of large vision-language models is increasingly stress-tested by multimodal jailbreaks, yet existing attacks remain largely static at the meta level: template-based attacks freeze the image--text layout, while iterative attacks adapt only the image--text content with fixed attack strategies and frozen attacker parameters. We propose Meta-Adaptive Multimodal Jailbreaking (MAMJ), which instead optimizes the attacker itself along two axes: an attack strategy prompt (ASP) $θ$ governing attack iteration and attacker weights $φ$ determining attack effectiveness. Across groups of multimodal attack trajectories, an LLM-based critique first refines $θ$, after which group-aggregated attack-success-rate (ASR) rewards update $φ$. On MM-SafetyBench, MAMJ achieves $81.0\\%$, $78.9\\%$, and $82.3\\%$ ASR against GPT-4o, Gemini-3-Pro-Preview, and Seed 2.0, respectively, outperforming the strongest sample-level baseline by up to $24.1$ percentage points. The learned attacker $(θ^\\star,φ^\\star)$ also transfers without retraining to unseen victims and remains effective under representative defenses. These results reveal a systemic vulnerability of frontier VLMs to meta-adaptive jailbreaks and motivate defenses against meta-level adversaries. Code is available at https://github.com/Alibaba-VELLDEPTH/MetaJailbreak-VLM.",
+          "category": "Jailbreaking & Red Teaming",
+          "date": "2026-08-27",
+          "url": "https://arxiv.org/abs/2608.27531",
+          "repo": "https://github.com/Alibaba-VELLDEPTH/MetaJailbreak-VLM",
+          "score": 3,
+          "upvotes": 0,
+          "ai_rel": 8,
+          "ai_imp": 7,
+          "tldr": "在元层面联合优化攻击策略与攻击者参数的多模态越狱方法，攻击成功率大幅领先。"
+        },
+        {
+          "id": "2608.27504",
+          "title": "Circuit Discovery Helps Detect LLM Jailbreaking: A Mechanistic Interpretability Study",
+          "authors": [
+            "Paria Mehrbod",
+            "Boris Knyazev",
+            "Guy Wolf",
+            "Eugene Belilovsky",
+            "Geraldin Nanfack"
+          ],
+          "abstract": "Despite extensive safety alignment, large language models (LLMs) remain vulnerable to jailbreak attacks that bypass safeguards to elicit harmful content. While prior work attributes this vulnerability to safety training limitations, the internal mechanisms by which LLMs process adversarial prompts remain poorly understood. We present a mechanistic analysis of the jailbreaking behavior in a large-scale, safety-aligned LLM, focusing on LLaMA-2-7B-chat-hf. Leveraging edge attribution patching and subnetwork probing, we systematically identify computational circuits responsible for generating affirmative responses to jailbreak prompts. Ablating these circuits during the first token prediction can reduce attack success rates by up to 80\\%, demonstrating its critical role in safety bypass. Our analysis uncovers key attention heads and MLP pathways that mediate adversarial prompt exploitation, revealing how important tokens propagate through these components to override safety constraints. These findings advance the understanding of adversarial vulnerabilities in aligned LLMs and pave the way for targeted, interpretable defense mechanisms based on mechanistic interpretability.",
+          "category": "Jailbreaking & Red Teaming",
+          "date": "2026-08-27",
+          "url": "https://arxiv.org/abs/2608.27504",
+          "repo": null,
+          "score": 4,
+          "upvotes": 0,
+          "ai_rel": 7,
+          "ai_imp": 6,
+          "tldr": "用电路发现揭示越狱攻击内部机制，消融电路可降八成攻击成功率。"
+        },
+        {
+          "id": "2608.27512",
+          "title": "Quantization-Triggered Backdoors in Language Models: Cross-Quantizer Transferability and the Validation--Deployment Gap",
+          "authors": [
+            "Jacopo Dardini",
+            "Claudio Stanzione",
+            "Giordano Colò",
+            "Giuseppe Fenza"
+          ],
+          "abstract": "Post-training quantization is often treated as a semantically neutral optimization for edge deployment of Large Language Models. When a full-precision source checkpoint is evaluated and quantization is applied downstream without equivalent re-evaluation, this workflow creates a structural validation--deployment gap: because quantization is a many-to-one mapping over parameter space, source-precision certification does not guarantee behavioral equivalence in the deployed configuration. We formalize this gap through Quantization Behavioral Equivalence Classes (QBECs) and prove that QBEC membership does not imply behavioral equivalence, providing a theoretical basis for quantization-triggered backdoor attacks. Building on a three-stage adversarial fine-tuning framework, we embed latent malicious payloads into models that satisfy the source-precision checks used in our evaluation, yet activate targeted adversarial behavior upon INT8 or 4-bit compression. We evaluate this threat in two operationally motivated scenarios, tactical machine translation and political content analysis, extending prior work from decoder-only causal LMs to multilingual encoder-decoder sequence-to-sequence models. Results show that backdoored translation models move from zero measured friend--foe corruption at repaired FP16 to up to 85.02% inversion after quantization, and that a paired stance classifier measures an ideological shift of up to $Δ\\mathrm{Bias}=0.33$ upon compression. A cross-quantizer transferability analysis further shows that attack persistence varies across quantization schemes and model architectures, rather than being determined by nominal bit-width alone. These findings demonstrate that source-precision auditing alone does not rule out quantization-triggered behavior and that the final deployed configuration must be included in behavioral certification for trustworthy edge AI.",
+          "category": "Prompt Injection & LLM Attacks",
+          "date": "2026-08-27",
+          "url": "https://arxiv.org/abs/2608.27512",
+          "repo": null,
+          "score": 3,
+          "upvotes": 0,
+          "ai_rel": 7,
+          "ai_imp": 7,
+          "tldr": "理论证明量化可触发后门，暴露精度验证与部署行为不等价的供应链风险。"
+        },
+        {
+          "id": "2608.28502",
+          "title": "Recognition Without Enforcement: Configuration-Dependent Failures in LLM Agent Instruction Arbitration and External Control",
+          "authors": [
+            "Jun Wen Leong"
+          ],
+          "abstract": "LLM agents arbitrate among instructions from system prompts, users, memory, and tools, but this arbitration cannot be assumed to enforce trust boundaries. We identify a recognition-enforcement gap: source-format features (role-template position, channel metadata, formatting cues) are linearly decodable from model activations, and models can explicitly identify forged authority when prompted, yet some configurations still produce the conflicting tool call. We use \"recognition\" in this specific decodable-source-format-plus-verbalized-detection sense; crossed-probe controls show it is not a unified abstract trust representation. The gap is not an immutable property of model weights. Restrictive policies and diverse prompts can eliminate execution on the same models, while permissive configurations and particular prompt-model pairs yield deterministic failures. Across a fleet evaluation (authority spoofing: 46 model endpoints across 6 vendors including open-weight; memory conflict: 48 models), average execution under diverse novel attacks is 1.21% [0.5-2.1%] (model-clustered CI over 14,294 spoofed trials from 29 models), but vulnerability is concentrated in reproducible cells and shifts across deployment windows (up to 47pp within-window per-fingerprint range). Prompt-layer defenses likewise fail to generalize across models and adaptive formulations. We therefore treat model self-arbitration as a capability rather than a security boundary and implement an external reference monitor combining authenticated source routing with capability-gated tool execution. It deterministically rejects all tested forged, tampered, replayed, and unsigned requests while preserving legitimate operations. A separate adaptive red-team found one implementation flaw (a since-patched clock-skew admission), not a cryptographic bypass. Secure agents require external enforcement, not merely better recognition.",
+          "category": "Prompt Injection & LLM Attacks",
+          "date": "2026-08-28",
+          "url": "https://arxiv.org/abs/2608.28502",
+          "repo": null,
+          "score": 1,
+          "upvotes": 0,
+          "ai_rel": 9,
+          "ai_imp": 8,
+          "tldr": "发现智能体能识别伪造指令来源却仍执行，揭示识别与执行间的安全鸿沟。"
+        },
+        {
+          "id": "2608.27910",
+          "title": "AI Alignment through a Game-theoretic Lens: A Survey",
+          "authors": [
+            "Yanan Cai",
+            "Zhongrui Zhao",
+            "Zhigang Lu",
+            "Ickjai Lee",
+            "Wei Emma Zhang",
+            "Minhui Xue",
+            "Yihong Zhang",
+            "Shuchao Pang",
+            "Wei Xiang"
+          ],
+          "abstract": "As large language models and increasingly capable AI agents are deployed in high-risk settings, aligning them with complex human values has become a central challenge. Existing alignment methods, while effective in improving helpfulness, harmlessness, and controllability, often struggle to capture real-world preferences that are context-dependent, non-transitive, and shaped by dynamic multi-party interactions. This survey reviews AI alignment through a game-theoretic lens. Specifically, it organizes recent progress around key game-theoretic elements and synthesizes the literature along three challenges: preference diversity, alignment priority, and temporal dynamics. This perspective clarifies where current alignment methods genuinely benefit from game-theoretic analysis, where the framework is looser, and what challenges remain in building robust, adaptive, and verifiable AI systems.",
+          "category": "Safety Training & Alignment",
+          "date": "2026-08-28",
+          "url": "https://arxiv.org/abs/2608.27910",
+          "repo": null,
+          "score": 2,
+          "upvotes": 0,
+          "ai_rel": 8,
+          "ai_imp": 7,
+          "tldr": "以博弈论视角系统梳理对齐研究,覆盖偏好多样性与动态性,综述价值高。"
+        },
+        {
+          "id": "2608.27836",
+          "title": "FISGuard: Defending Against Membership Inference via Fixed Input Subspaces",
+          "authors": [
+            "Haocheng Jiang",
+            "Hua Shen"
+          ],
+          "abstract": "As large language models are increasingly adopted in federated learning, protecting user privacy while performing parameter-efficient fine-tuning on distributed private data has become an important challenge. Although clients only share gradients instead of directly uploading raw data, the shared gradients may still leak membership information about training samples. ProjRes (S&P, 2026) further increases this risk: with less information and without accessing model outputs, an attacker can effectively distinguish members from non-members solely based on the projection residual between a candidate representation and the subspace induced by server-observable gradients. Existing defenses against membership inference mostly rely on gradient perturbation or regularization, which can not only degrade model utility but also fail to effectively defend against the membership inference attack introduced by ProjRes, which exploits the geometric structure of gradients. To address this issue, we propose FISGuard, a lightweight defense. Its key idea is to construct and fix a low-dimensional representation subspace using independent public data, thereby restricting the space through which private representations are exposed via gradients while preserving the primary information required for downstream tasks. This substantially reduces the projection-residual discrepancy between members and non-members. We evaluate FISGuard against five representative defense methods across three NLP datasets, two LLMs, and two fine-tuning strategies, Adapter and LoRA. The results show that FISGuard reduces the ProjRes attack AUC to near the random-guessing level of 0.5 in most settings, while maintaining downstream task performance close to that of the undefended model and introducing only limited computational overhead, thereby achieving a favorable privacy--utility trade-off.",
+          "category": "Defenses, Privacy & Robustness",
+          "date": "2026-08-28",
+          "url": "https://arxiv.org/abs/2608.27836",
+          "repo": null,
+          "score": 4,
+          "upvotes": 0,
+          "ai_rel": 6,
+          "ai_imp": 5,
+          "tldr": "提出固定输入子空间防御联邦微调中的成员推断攻击，兼顾隐私与效用。"
+        }
+      ],
+      "collected": [
+        {
+          "id": "2608.27531",
+          "title": "Fully Unleashing the Multimodal Attacker: Meta-Adaptive Jailbreaking of Vision-Language Models",
+          "category": "Jailbreaking & Red Teaming",
+          "date": "2026-08-27",
+          "url": "https://arxiv.org/abs/2608.27531",
+          "repo": "https://github.com/Alibaba-VELLDEPTH/MetaJailbreak-VLM",
+          "upvotes": 0
+        },
+        {
+          "id": "2608.28502",
+          "title": "Recognition Without Enforcement: Configuration-Dependent Failures in LLM Agent Instruction Arbitration and External Control",
+          "category": "Prompt Injection & LLM Attacks",
+          "date": "2026-08-28",
+          "url": "https://arxiv.org/abs/2608.28502",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.27548",
+          "title": "Nemotron 3.5 Content Safety Moderator: A Compact Multimodal, Multilingual, and Reasoning Enabled Content Safety Moderator",
+          "category": "Defenses, Privacy & Robustness",
+          "date": "2026-08-27",
+          "url": "https://arxiv.org/abs/2608.27548",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.28411",
+          "title": "LongPIBench: A Long-Context Benchmark for Prompt Injection",
+          "category": "Prompt Injection & LLM Attacks",
+          "date": "2026-08-28",
+          "url": "https://arxiv.org/abs/2608.28411",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.27512",
+          "title": "Quantization-Triggered Backdoors in Language Models: Cross-Quantizer Transferability and the Validation--Deployment Gap",
+          "category": "Prompt Injection & LLM Attacks",
+          "date": "2026-08-27",
+          "url": "https://arxiv.org/abs/2608.27512",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.27496",
+          "title": "ROPE: Routed Origin Policy Enforcement against Indirect Prompt Injection",
+          "category": "Defenses, Privacy & Robustness",
+          "date": "2026-08-27",
+          "url": "https://arxiv.org/abs/2608.27496",
+          "repo": "https://github.com/xhOwenMa/ROPE",
+          "upvotes": 0
+        },
+        {
+          "id": "2608.27505",
+          "title": "A Survey on Rubric-Guided Reinforcement Learning for Language Models",
+          "category": "Safety Training & Alignment",
+          "date": "2026-08-27",
+          "url": "https://arxiv.org/abs/2608.27505",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.27800",
+          "title": "ContextLeak: Exfiltrating LLM Agent Context via Malicious Tools",
+          "category": "Prompt Injection & LLM Attacks",
+          "date": "2026-08-28",
+          "url": "https://arxiv.org/abs/2608.27800",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.27910",
+          "title": "AI Alignment through a Game-theoretic Lens: A Survey",
+          "category": "Safety Training & Alignment",
+          "date": "2026-08-28",
+          "url": "https://arxiv.org/abs/2608.27910",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.28541",
+          "title": "An Enclosed Mode Is a Gauge Choice: Topology Relative to Reach in Certified Code World Models",
+          "category": "Defenses, Privacy & Robustness",
+          "date": "2026-08-28",
+          "url": "https://arxiv.org/abs/2608.28541",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.28361",
+          "title": "GRACE:Gradient-guided Coreset Selection for LLM Unlearning",
+          "category": "Defenses, Privacy & Robustness",
+          "date": "2026-08-28",
+          "url": "https://arxiv.org/abs/2608.28361",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.27836",
+          "title": "FISGuard: Defending Against Membership Inference via Fixed Input Subspaces",
+          "category": "Defenses, Privacy & Robustness",
+          "date": "2026-08-28",
+          "url": "https://arxiv.org/abs/2608.27836",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.27580",
+          "title": "LongGuard: Mechanistic Analysis and Training-Free Mitigation of Long-Context Failure in Safety Guardrails",
+          "category": "Defenses, Privacy & Robustness",
+          "date": "2026-08-27",
+          "url": "https://arxiv.org/abs/2608.27580",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.27504",
+          "title": "Circuit Discovery Helps Detect LLM Jailbreaking: A Mechanistic Interpretability Study",
+          "category": "Jailbreaking & Red Teaming",
+          "date": "2026-08-27",
+          "url": "https://arxiv.org/abs/2608.27504",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.27899",
+          "title": "OpenStamp: A Watermark for Open-Source Language Models",
+          "category": "Defenses, Privacy & Robustness",
+          "date": "2026-08-28",
+          "url": "https://arxiv.org/abs/2608.27899",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.27844",
+          "title": "EvoHarmBench: Breaking Content Moderation with Iterative Human-Like Evasion",
+          "category": "Jailbreaking & Red Teaming",
+          "date": "2026-08-28",
+          "url": "https://arxiv.org/abs/2608.27844",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.28312",
+          "title": "AIM: Anchor Identity Features, Then Match for Multimodal Large Language Model Unlearning",
+          "category": "Defenses, Privacy & Robustness",
+          "date": "2026-08-28",
+          "url": "https://arxiv.org/abs/2608.28312",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.27990",
+          "title": "CAITLYN: Can LLM Agents Autonomously Synthesize Defenses against Emerging Injection Attacks?",
+          "category": "Defenses, Privacy & Robustness",
+          "date": "2026-08-28",
+          "url": "https://arxiv.org/abs/2608.27990",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.27945",
+          "title": "Cross-Session Decomposition Attacks: Scaling Risk and Intent-Aligned Retrieval Defense",
+          "category": "Jailbreaking & Red Teaming",
+          "date": "2026-08-28",
+          "url": "https://arxiv.org/abs/2608.27945",
+          "repo": "https://github.com/liaodisen/Cross-Session-Decomposition-Attacks",
+          "upvotes": 0
+        },
+        {
+          "id": "2608.27856",
+          "title": "FedEHR-Agents: Federated Agentic Optimization for Automated EHR Modeling",
+          "category": "Agentic AI Safety",
+          "date": "2026-08-28",
+          "url": "https://arxiv.org/abs/2608.27856",
+          "repo": null,
+          "upvotes": 0
+        }
+      ],
+      "total_count": 11,
+      "archived_count": 20
+    },
     {
       "batch_date": "2026-08-27",
       "papers": [
