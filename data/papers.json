@@ -1,8 +1,8 @@
 {
-  "last_updated": "2026-08-31T14:20:33+00:00",
-  "latest_day": "2026-08-28",
+  "last_updated": "2026-09-01T02:00:51+00:00",
+  "latest_day": "2026-09-01",
   "curated_by": "z-ai/glm-5.3-flash",
-  "total_today": 11,
+  "total_today": 2,
   "categories": [
     "Jailbreaking & Red Teaming",
     "Prompt Injection & LLM Attacks",
@@ -20,24 +20,178 @@
     "Defenses, Privacy & Robustness": "#60a5fa"
   },
   "proportions": {
-    "Jailbreaking & Red Teaming": 14.2,
-    "Prompt Injection & LLM Attacks": 13.2,
-    "Reward Hacking & Deceptive Alignment": 5.7,
-    "Agentic AI Safety": 23.6,
-    "Safety Training & Alignment": 8.5,
-    "Defenses, Privacy & Robustness": 34.9
+    "Jailbreaking & Red Teaming": 13.6,
+    "Prompt Injection & LLM Attacks": 11.9,
+    "Reward Hacking & Deceptive Alignment": 5.9,
+    "Agentic AI Safety": 22.9,
+    "Safety Training & Alignment": 10.2,
+    "Defenses, Privacy & Robustness": 35.6
   },
   "category_counts": {
-    "Jailbreaking & Red Teaming": 15,
+    "Jailbreaking & Red Teaming": 16,
     "Prompt Injection & LLM Attacks": 14,
-    "Reward Hacking & Deceptive Alignment": 6,
-    "Agentic AI Safety": 25,
-    "Safety Training & Alignment": 9,
-    "Defenses, Privacy & Robustness": 37
+    "Reward Hacking & Deceptive Alignment": 7,
+    "Agentic AI Safety": 27,
+    "Safety Training & Alignment": 12,
+    "Defenses, Privacy & Robustness": 42
   },
-  "total_papers": 106,
-  "total_picks": 56,
+  "total_papers": 118,
+  "total_picks": 58,
   "days": [
+    {
+      "batch_date": "2026-09-01",
+      "papers": [
+        {
+          "id": "2608.29378",
+          "title": "Arabic Safety Alignment as Selective Refusal: An Empirical Study of SFT, DPO, and Guard Calibration",
+          "authors": [
+            "Mohamad Zbib",
+            "Ammar Mohanna"
+          ],
+          "abstract": "Arabic large language models must refuse harmful prompts without over-refusing benign or sensitive prompts, yet a single refusal rate hides this trade-off. We evaluate it using benign refusal B and harmful-prompt refusal H, where H measures refusal rather than harmful compliance. Across five Arabic-capable models and 130 runs on the full human-written AraSafe set, refusal-only supervised fine-tuning (SFT) collapses toward blanket refusal, whereas selected mixed-SFT configurations reach H = 90% to 93% at B = 14% to 23%; four selected configurations exceed the H = 90% target in all three runs, while Fanar does so in two of three. Direct Preference Optimization (DPO) and inference guards change B and H differently across models rather than acting as uniform upgrades. In a blinded 300-response audit, annotator binary-refusal agreement is 89.0% (kappa = 0.78); Qwen3Guard and Aya Expanse 32B reach 88.7% and 91.0% accuracy, respectively, with no conclusive paired difference. Selected SFT raises H on Arabizi for all five models, but none reaches 90%, showing only partial transfer from Modern Standard Arabic. Overall, the results support model-specific operating-point selection: set a deployment target and retain only interventions that improve it.",
+          "category": "Safety Training & Alignment",
+          "date": "2026-08-29",
+          "url": "https://arxiv.org/abs/2608.29378",
+          "repo": null,
+          "score": 6,
+          "upvotes": 0,
+          "ai_rel": 7,
+          "ai_imp": 5,
+          "tldr": "评估阿拉伯语安全对齐的拒答权衡,SFT混合配置达H90%以上。"
+        },
+        {
+          "id": "2608.29461",
+          "title": "A Causal Model for Locating and Unlocking Sandbagging in Model Organisms",
+          "authors": [
+            "Hong Kiat Tan",
+            "Linh Le",
+            "David Williams-King"
+          ],
+          "abstract": "Sandbagging models strategically underperform on evaluations while retaining the capabilities being measured. The evaluations that guide frontier-model deployment and governance then understate what these models can do. To understand the mechanism, we propose a causal model of how sandbagging is carried in the residual stream. Early layers write the sandbagging intent onto a single axis of the stream, and a later layer reads that axis and commits the answer. We study three instruction-tuned models (Qwen2.5-7B, Llama-3-8B, and Mistral-7B) and four ways of installing a sandbagging lock (prompting, fine-tuning, reinforcement learning, and circuit breaking). Each lock decides from the prompt whether to sandbag, and the fine-tuned and circuit-broken locks answer honestly whenever a password appears. The causal model predicts a window of layers, after the last sandbagging write and before the answer commit, in which a single-layer reference graft of the sandbagging axis to its honest value restores the full capability. The single-layer graft recovers the capability in 28 of the 33 runs of the prompted, fine-tuned, and RL-trained locks, with a median held-out recovery of 96%. The circuit-broken lock rewrites the whole state through a band of layers, and the single-layer graft fails at every layer. We therefore introduce a second intervention, context grafting, which replays the password's cached key/value activations so that every layer's attention reads them as additional context. Context grafting provably and empirically restores the full capability on all three models, and the recovery is surprisingly insensitive to the exact password content. More broadly, an auditor can use this causal model to design interventional auditing techniques for sandbagging models.",
+          "category": "Reward Hacking & Deceptive Alignment",
+          "date": "2026-08-29",
+          "url": "https://arxiv.org/abs/2608.29461",
+          "repo": null,
+          "score": 3,
+          "upvotes": 0,
+          "ai_rel": 9,
+          "ai_imp": 8,
+          "tldr": "因果定位沙袋化机制，单层嫁接即可恢复被隐藏能力，助力评估可信。"
+        }
+      ],
+      "collected": [
+        {
+          "id": "2608.29564",
+          "title": "TACS: Trajectory-Aware Candidate Selection for LLM Jailbreak Suffix Optimization",
+          "category": "Jailbreaking & Red Teaming",
+          "date": "2026-08-30",
+          "url": "https://arxiv.org/abs/2608.29564",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.29461",
+          "title": "A Causal Model for Locating and Unlocking Sandbagging in Model Organisms",
+          "category": "Reward Hacking & Deceptive Alignment",
+          "date": "2026-08-29",
+          "url": "https://arxiv.org/abs/2608.29461",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.29378",
+          "title": "Arabic Safety Alignment as Selective Refusal: An Empirical Study of SFT, DPO, and Guard Calibration",
+          "category": "Safety Training & Alignment",
+          "date": "2026-08-29",
+          "url": "https://arxiv.org/abs/2608.29378",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.29357",
+          "title": "LiteSearch-VL: Small Multimodal Search Agents via Trajectory Distillation and Synthetic Step-DPO",
+          "category": "Agentic AI Safety",
+          "date": "2026-08-29",
+          "url": "https://arxiv.org/abs/2608.29357",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.29209",
+          "title": "Toward Cultural Alignment: Human-Centered Evaluation of Multimodal AI Stories Across Five African Communities",
+          "category": "Safety Training & Alignment",
+          "date": "2026-08-29",
+          "url": "https://arxiv.org/abs/2608.29209",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.29326",
+          "title": "StageWell: A Process-Aligned Chinese Corpus for Positive-Psychology Support Dialogue",
+          "category": "Safety Training & Alignment",
+          "date": "2026-08-29",
+          "url": "https://arxiv.org/abs/2608.29326",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.29151",
+          "title": "WoE Wrote It? Watermarking Mixture-of-Experts LLMs for Black-Box Text Provenance",
+          "category": "Defenses, Privacy & Robustness",
+          "date": "2026-08-29",
+          "url": "https://arxiv.org/abs/2608.29151",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.29030",
+          "title": "Learning to Follow In-Context Watermark Instructions via Self-Distillation",
+          "category": "Defenses, Privacy & Robustness",
+          "date": "2026-08-29",
+          "url": "https://arxiv.org/abs/2608.29030",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.28929",
+          "title": "Membership is Ownership: A Robust Ownership Verification Framework for Diffusion Models",
+          "category": "Defenses, Privacy & Robustness",
+          "date": "2026-08-28",
+          "url": "https://arxiv.org/abs/2608.28929",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.29589",
+          "title": "Not Safe for All: Auditing the Dialect Penalty in Text-to-Image Safety Pipelines",
+          "category": "Defenses, Privacy & Robustness",
+          "date": "2026-08-30",
+          "url": "https://arxiv.org/abs/2608.29589",
+          "repo": "https://github.com/minguinho26/dialect-penalty-t2i",
+          "upvotes": 0
+        },
+        {
+          "id": "2608.29575",
+          "title": "SemTrace: Source-Grounded Semantic Signatures for Tracing LLM Exposure to Protected Documents",
+          "category": "Defenses, Privacy & Robustness",
+          "date": "2026-08-30",
+          "url": "https://arxiv.org/abs/2608.29575",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.29028",
+          "title": "Facts Without Rules: Boundary Metadata Collapse in Multi-Agent LLM Handoffs",
+          "category": "Agentic AI Safety",
+          "date": "2026-08-29",
+          "url": "https://arxiv.org/abs/2608.29028",
+          "repo": null,
+          "upvotes": 0
+        }
+      ],
+      "total_count": 2,
+      "archived_count": 12
+    },
     {
       "batch_date": "2026-08-28",
       "papers": [
