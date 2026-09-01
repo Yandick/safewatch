@@ -1,8 +1,8 @@
 {
-  "last_updated": "2026-09-01T02:00:51+00:00",
+  "last_updated": "2026-09-01T12:01:15+00:00",
   "latest_day": "2026-09-01",
   "curated_by": "z-ai/glm-5.3-flash",
-  "total_today": 2,
+  "total_today": 11,
   "categories": [
     "Jailbreaking & Red Teaming",
     "Prompt Injection & LLM Attacks",
@@ -20,23 +20,23 @@
     "Defenses, Privacy & Robustness": "#60a5fa"
   },
   "proportions": {
-    "Jailbreaking & Red Teaming": 13.6,
-    "Prompt Injection & LLM Attacks": 11.9,
-    "Reward Hacking & Deceptive Alignment": 5.9,
-    "Agentic AI Safety": 22.9,
-    "Safety Training & Alignment": 10.2,
-    "Defenses, Privacy & Robustness": 35.6
+    "Jailbreaking & Red Teaming": 12.3,
+    "Prompt Injection & LLM Attacks": 11.6,
+    "Reward Hacking & Deceptive Alignment": 6.8,
+    "Agentic AI Safety": 24.0,
+    "Safety Training & Alignment": 13.0,
+    "Defenses, Privacy & Robustness": 32.2
   },
   "category_counts": {
-    "Jailbreaking & Red Teaming": 16,
-    "Prompt Injection & LLM Attacks": 14,
-    "Reward Hacking & Deceptive Alignment": 7,
-    "Agentic AI Safety": 27,
-    "Safety Training & Alignment": 12,
-    "Defenses, Privacy & Robustness": 42
+    "Jailbreaking & Red Teaming": 18,
+    "Prompt Injection & LLM Attacks": 17,
+    "Reward Hacking & Deceptive Alignment": 10,
+    "Agentic AI Safety": 35,
+    "Safety Training & Alignment": 19,
+    "Defenses, Privacy & Robustness": 47
   },
-  "total_papers": 118,
-  "total_picks": 58,
+  "total_papers": 146,
+  "total_picks": 67,
   "days": [
     {
       "batch_date": "2026-09-01",
@@ -77,6 +77,198 @@
           "ai_rel": 9,
           "ai_imp": 8,
           "tldr": "因果定位沙袋化机制，单层嫁接即可恢复被隐藏能力，助力评估可信。"
+        },
+        {
+          "id": "2608.30724",
+          "title": "BAITBENCH: Measuring Agent Reward Hacking with Optional Shortcuts Planted in ML Tasks",
+          "authors": [
+            "Pradyumna Shyama Prasad",
+            "Meiri Anto",
+            "Leon Eshuijs",
+            "Julian Moncarz",
+            "Kaustubh Kislay",
+            "Juan J. Vazquez"
+          ],
+          "abstract": "LLM agents are increasingly used to run autonomous ML experiments, iterating on target metrics with little human oversight. Prior work has documented reward hacking in these environments, bringing into question the validity of produced research and the broader safety case for AI R&D. Existing benchmarks do not measure exploits that live in the data or the modeling task itself. We introduce BAITBENCH, a suite of three synthetic tabular ML tasks that each contain a shortcut that allows agents to inflate the public test score but fail on a hidden test set. Since the shortcut is optional and using it breaks no stated rule, BAITBENCH measures how often models exploit the shortcut to achieve inflated scores. Across seven frontier agents scored by our two-stage judge pipeline, 57.1% of runs exhibit reward hacking, with five of seven above 50%. Agents cheat even under a second condition where they are prompted not to -the mean cheating rate remains above 50%. We release BAITBENCH, along with the judge implementation, and an annotated dataset of transcripts containing reward hacks as a testbed for evaluating reward-hacking mitigations head-to-head.",
+          "category": "Reward Hacking & Deceptive Alignment",
+          "date": "2026-08-31",
+          "url": "https://arxiv.org/abs/2608.30724",
+          "repo": null,
+          "score": 6,
+          "upvotes": 0,
+          "ai_rel": 9,
+          "ai_imp": 8,
+          "tldr": "构建含可选捷径的ML任务基准,量化智能体奖励作弊率,揭示自主科研可信度风险。"
+        },
+        {
+          "id": "2608.30429",
+          "title": "EvoSkill Injection: Red-Teaming Autonomous Skill Generation and Evolution in Self-Evolving Agents",
+          "authors": [
+            "Doyun Kim",
+            "Chanwoo Kim",
+            "Sugyeong Eo",
+            "Yeo-Chan Yoon",
+            "Chanjun Park"
+          ],
+          "abstract": "LLM-based agent systems increasingly adopt skill-based architectures to reduce repetitive reasoning costs and improve stable, efficient task execution. Recent studies propose self-evolving agents that autonomously generate, refine, and reuse skills from past experiences to enable continuous capability evolution. However, autonomous skill evolution introduces a new attack surface in which malicious capabilities are generated, stored, and reused as legitimate skills. In this paper, we define EvoSkill Injection as a threat model targeting the autonomous skill generation and evolution pipeline of self-evolving agents. We further propose SARGE (Red-teaming Autonomous Skill Generation and Evolution in self-evolving agents), a red-teaming framework for evaluating this threat model through iterative generation, escalation, and reinforcement interactions. To support our framework, we construct EvoSkillBench, a benchmark dataset of malicious interaction trajectories for inducing malicious skill formation in self-evolving agents, and introduce EvoSkillSafetyBench, a post-attack benchmark for evaluating whether injected malicious skills are subsequently retrieved and activated as harmful behaviors. Our evaluation shows that SARGE induces malicious skill formation and that injected skills are persistently stored and repeatedly activated, highlighting the risk of persistent capability corruption.",
+          "category": "Jailbreaking & Red Teaming",
+          "date": "2026-08-31",
+          "url": "https://arxiv.org/abs/2608.30429",
+          "repo": null,
+          "score": 4,
+          "upvotes": 0,
+          "ai_rel": 9,
+          "ai_imp": 7,
+          "tldr": "提出自进化代理技能注入威胁模型与红队框架及基准，揭示新攻击面。"
+        },
+        {
+          "id": "2608.30207",
+          "title": "SIR: Self-improving Red-teaming for Compute Use Agents",
+          "authors": [
+            "Chen Xiong",
+            "Zhiyuan He",
+            "Pin-Yu Chen",
+            "Stjepan Picek",
+            "Tsung-Yi Ho"
+          ],
+          "abstract": "Computer use agents (CUAs) are vision-language models that perceive a screen and act on a real operating system through mouse, keyboard, and terminal, and they are increasingly deployed to automate everyday digital tasks. Because they can be exposed to untrusted content while operating, they are vulnerable to indirect prompt injection (IPI), in which an adversary plants instructions in content the agent will read and redirects it toward actions that violate the user's intent. Existing CUA safety benchmarks evaluate fixed injections written by hand, which may underestimate the risk posed by an adaptive adversary. We present SIR, a black box IPI attack that (i) composes stealthy injections from a small library of reusable principles stated in plain language and (ii) wraps composition in an iterative feedback loop that diagnoses the victim's failed trajectories and distills the bypasses into new, named strategies that are reapplied across tasks. Unlike prior red teaming of web agents, we target CUAs at the operating system level and score attacks with a fully deterministic oracle, using checks on filesystem, service, and permission state rather than an LLM judge. On experiment, we evaluate three frontier CUAs. Composing principles with feedback raises the attack success rate over a baseline written by hand, for example from 4% to 24% on Claude Opus 4.8 and from 0% to 28% on Gemini 3.5 Flash, while the benign task still completes. Principles discovered against one model further transfer to a different architecture with no additional feedback.",
+          "category": "Prompt Injection & LLM Attacks",
+          "date": "2026-08-31",
+          "url": "https://arxiv.org/abs/2608.30207",
+          "repo": null,
+          "score": 3,
+          "upvotes": 0,
+          "ai_rel": 9,
+          "ai_imp": 7,
+          "tldr": "提出自改进黑盒间接提示注入攻击，系统级测试计算机使用代理安全。"
+        },
+        {
+          "id": "2608.30441",
+          "title": "ECLIPSE: Self-Evolving Stealthy Prompt Injection Attack against Long-Horizon Agentic Systems",
+          "authors": [
+            "Shiqian Zhao",
+            "Yangfan Zhou",
+            "Xinfeng Li",
+            "Runyi Hu",
+            "Yechao Zhang",
+            "Yi Xie",
+            "Tianwei Zhang",
+            "Luu Anh Tuan"
+          ],
+          "abstract": "Recently, large language model (LLM) agents, such as Codex, Claude Code, and OpenClaw, have become capable of planning and executing long-horizon tasks through repeated tool calls. This capability also creates new opportunities for prompt injection. Existing attacks either place the malicious objective in one explicit instruction, making it easy to detect, or distribute the intent across multiple execution stages, making successful completion unreliable. In this work, we propose ECLIPSE, a self-evolving and stealthy prompt-injection framework for long-horizon agentic systems. ECLIPSE combines direct user-prompt injection with indirect tool-side injection through two components. On the one hand, Stealthy Attack Trajectory Synthesis uses a sandbox to generate and iteratively verify candidate tool chains, then renders a verified chain as a natural one-shot prompt to serve as the direct instruction. Then, Tool-Chain Steering transfers this plan to the target environment through Static Workflow Encoding (SWE), which embeds state-transition cues in target-tool descriptions, and Dynamic Trajectory Correction (DTC), which supplies corrective signals when execution deviates from the planned chain. To enable systematic evaluation, we further introduce LASE-Bench, a long-horizon agent-safety benchmark with 120 malicious tasks and 198 unique tools; 96.7% of its tasks make at least five tool calls. The experimental results show that ECLIPSE is highly effective: it achieves up to 96.7% attack success without defense and 69.2% under the common safety filter, exceeding the strongest baseline by 27.5% in the defended setting. Evaluations against representative defenses further show that existing safeguards do not reliably defend it, which raises the need for more effective defenses.",
+          "category": "Prompt Injection & LLM Attacks",
+          "date": "2026-08-31",
+          "url": "https://arxiv.org/abs/2608.30441",
+          "repo": null,
+          "score": 3,
+          "upvotes": 0,
+          "ai_rel": 9,
+          "ai_imp": 7,
+          "tldr": "提出自演化隐蔽提示注入框架,借工具链转向攻击长程智能体系统。"
+        },
+        {
+          "id": "2608.30041",
+          "title": "Reachability-Based Capability Confinement for LLM Agents under Indirect Prompt Injection",
+          "authors": [
+            "Wujie Xiong",
+            "Rabimba Karanjai",
+            "Yang Lu",
+            "Weidong Shi",
+            "Lei Xu"
+          ],
+          "abstract": "Large language model agents place outputs from external skills into their execution context, allowing attacker-controlled data to influence later privileged actions. Existing defenses mainly classify untrusted content or authorize proposed operations. They do not directly address how an agent's future authority should change once untrusted data enters its state. We present SkillGuard, a harness-level enforcement layer that treats this event as contamination and restricts future capabilities to disconnect the resulting state from deployer-defined forbidden states. Given sound skill summaries and policies, SkillGuard represents security-relevant transitions with a Skill Impact Graph, specifies admissible control over skill parameters via steerability signatures, and mediates invocations with an inline reference monitor. Following contamination, it computes weighted capability restrictions using binary, fractional, or fractional-flow strategies without auxiliary language-model inference. We evaluate SkillGuard on four AgentDojo suites with two backend LLMs, Gemini 2.5 Flash and Llama3.3-70B, against an LLM-only No Defense baseline and three defenses at different system layers: Spotlighting, CaMeL, and AttriGuard. We construct a compositional attack benchmark in which each attack combines observations individually insufficient to induce target violation and evaluate the same baselines on it. Under AgentDojo's Tool Knowledge attacks, SkillGuard eliminates attack success on three of four suites for both backends and reduces it to 4.8% and 14.3% on Slack. Against compositional attacks, it outperforms every baseline on Llama and matches the strongest baseline on Gemini at higher benign utility. Fractional-flow restriction preserves substantially more capabilities than binary restriction at the same attack success rate. Across both settings, SkillGuard adds no model calls or token overhead.",
+          "category": "Agentic AI Safety",
+          "date": "2026-08-30",
+          "url": "https://arxiv.org/abs/2608.30041",
+          "repo": null,
+          "score": 3,
+          "upvotes": 0,
+          "ai_rel": 9,
+          "ai_imp": 7,
+          "tldr": "提出基于可达性的能力约束层SkillGuard,污染后限制权限阻断注入危害。"
+        },
+        {
+          "id": "2608.30748",
+          "title": "The Fragility of Jailbreak Robustness Across Operational States",
+          "authors": [
+            "Yuna Park",
+            "Hwang Youn Kim",
+            "Yujin Kim",
+            "Won Woo Ro",
+            "Suhyun Kim",
+            "Jae-In Hwang"
+          ],
+          "abstract": "Existing jailbreak evaluations typically characterize robustness using a single attack success rate (ASR) measured in a default configuration (the vanilla state). However, user-LLM interactions can induce diverse operational states beyond the vanilla state. In this work, we find that jailbreak robustness is highly fragile to operational-state variation: even when the attack remains fixed, changing only an ordinary system prompt not designed to affect safety can dramatically alter attack success rates. We systematically investigate this phenomenon across seven aligned models and three representative jailbreak attacks, observing substantial differences in ASR between vanilla and non-vanilla operational states. In one case, ASR increases by up to 56 percentage points (2% to 58%) solely due to a change in operational state. Remarkably, these increases occur even for attacks originally designed and optimized under vanilla-state evaluation. We further show that state-dependent robustness variation is systematically associated with differences in hidden representations along a refusal-related axis, and that projections onto this axis strongly predict jailbreak outcomes. Our results show that a single vanilla-state evaluation may not fully characterize jailbreak robustness, motivating evaluations that also examine how robustness changes across non-vanilla operational states.",
+          "category": "Jailbreaking & Red Teaming",
+          "date": "2026-08-31",
+          "url": "https://arxiv.org/abs/2608.30748",
+          "repo": null,
+          "score": 3,
+          "upvotes": 0,
+          "ai_rel": 8,
+          "ai_imp": 7,
+          "tldr": "发现普通系统提示改变即可大幅改变越狱成功率，暴露鲁棒性评估盲区。"
+        },
+        {
+          "id": "2608.29943",
+          "title": "On the Recoverability of Private Information Unlearning in Large Language Models",
+          "authors": [
+            "Shicheng Hu",
+            "Runzhi Tian",
+            "Ziqiao Wang",
+            "Yongyi Mao"
+          ],
+          "abstract": "Large language models (LLMs) can memorize sensitive information, raising serious privacy concerns. Machine unlearning offers a potential solution to remove such information, but it remains unclear whether existing methods truly erase it or merely hide it within the model. A key challenge is quantifying the persistence of sensitive data under a unified evaluation framework. To address this, we construct a synthetic dataset containing fake private information and propose a white-box auditing framework to systematically assess whether claimed-forgotten information is genuinely removed. Using this framework, we evaluate five existing unlearning methods and find that a simple \"inverse greedy\" decoding -- selecting the least likely token at each step -- can recover supposedly forgotten private information. Our results reveal that current unlearning approaches often fail to fully eliminate sensitive information, highlighting the need for more reliable methods to ensure privacy in deployed LLMs.",
+          "category": "Defenses, Privacy & Robustness",
+          "date": "2026-08-30",
+          "url": "https://arxiv.org/abs/2608.29943",
+          "repo": null,
+          "score": 3,
+          "upvotes": 0,
+          "ai_rel": 8,
+          "ai_imp": 7,
+          "tldr": "白盒审计揭示现有遗忘法未真删隐私,逆向贪心解码即可复原敏感信息。"
+        },
+        {
+          "id": "2608.30362",
+          "title": "Will the User Ever Know? Covert Indirect Prompt Injection on Tool-Using LLM Agents",
+          "authors": [
+            "Yunseok Lee",
+            "Yunji Kim",
+            "Woojin Lee"
+          ],
+          "abstract": "As LLM agents take real-world actions through tools, indirect prompt injection (IPI) has emerged as a serious threat. The standard metric, Attack Success Rate (ASR), counts whether an injection succeeds but ignores what the user notices in the agent's final response. Looking at successful injection traces, we find two distinct outcomes: the agent executes the injection while returning an otherwise normal response, or reports the injected action in its final response, giving the user a chance to notice. We call these covert and overt successes. From the user's perspective, we decompose ASR into the Covert Success Rate (CSR), counting successes leaving no trace in the final response, and the Overt Success Rate (OSR), counting successes the user can detect. To understand what drives the gap, we analyze successful trajectories and find that the agent's behavior after the injection separates covert from overt: covert traces hand control back to the user task before ending, while overt traces end at the attack itself. This split follows from the ReAct format, where the final response summarizes the most recent action. Building on this observation, we propose ICoA (Induced Covert Attack), an IPI attack designed to induce covert outcomes by steering the agent back to the user task after executing the injection. Across four target models on AgentDojo, ICoA achieves the highest CSR, with gains of 3.79-12.01 percentage points over the strongest baseline.",
+          "category": "Prompt Injection & LLM Attacks",
+          "date": "2026-08-31",
+          "url": "https://arxiv.org/abs/2608.30362",
+          "repo": null,
+          "score": 3,
+          "upvotes": 0,
+          "ai_rel": 8,
+          "ai_imp": 6,
+          "tldr": "将注入成功率拆分为隐蔽与显性,揭示ReAct格式致用户难以察觉攻击。"
+        },
+        {
+          "id": "2608.29942",
+          "title": "Influence Is Not Authority: When Causal Guardrail Signals Make Legitimate Tool Use Look Like an Attack in Tool-Using LLM Agents",
+          "authors": [
+            "Tanzim Ahad",
+            "Ismail Hossain",
+            "Md Jahangir Alam",
+            "Sai Puppala",
+            "Syed Bahauddin Alam",
+            "Sajedul Talukder"
+          ],
+          "abstract": "The key limitation of current state-of-the-art influence-based guardrails is that they do not reliably distinguish a legitimate, user-authorized action from a malicious, unauthorized action when both rely on external tool information. This ambiguity can cause benign actions to trigger unnecessary verification and intervention, reducing utility and adding latency. We expose this limitation through an authorization-equivalence audit of 96 conditions derived from 24 base cases. Within matched source comparisons, we hold authorization, the exact committed action, and its intended effect fixed, changing only whether a required value comes from the user or a legitimate tool result. Although the action remains unchanged, this harmless relocation shifts the causal signal toward the attack region in all 24 cases under both Llama and Gemma scorers. Matched unauthorized controls show that the signal remains attack-sensitive, yet the benign relocation produces a larger average score shift than the actual change in authorization. Architecture-level evaluation shows how this mismatch propagates through guardrail designs. With a semantic monitor, attack success is 0% and utility is 28%, compared with 16% and 60% without it. A shadow-based guardrail allows every tested harmless run, yet does not reject matched unauthorized actions more often overall: 57.5% of unauthorized runs pass automatically before reaching the later security check, compared with 29.2% of authorized runs. These results show that the studied causal signal reveals what shaped an action without reliably encoding whether the action was authorized, and that reference construction and routing are integral to the effective security decision.",
+          "category": "Agentic AI Safety",
+          "date": "2026-08-30",
+          "url": "https://arxiv.org/abs/2608.29942",
+          "repo": null,
+          "score": 3,
+          "upvotes": 0,
+          "ai_rel": 7,
+          "ai_imp": 6,
+          "tldr": "系统审计影响式护栏,揭示其无法区分授权与恶意工具调用,误伤合法行为。"
         }
       ],
       "collected": [
@@ -187,10 +379,262 @@
           "url": "https://arxiv.org/abs/2608.29028",
           "repo": null,
           "upvotes": 0
+        },
+        {
+          "id": "2608.30429",
+          "title": "EvoSkill Injection: Red-Teaming Autonomous Skill Generation and Evolution in Self-Evolving Agents",
+          "category": "Jailbreaking & Red Teaming",
+          "date": "2026-08-31",
+          "url": "https://arxiv.org/abs/2608.30429",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.30748",
+          "title": "The Fragility of Jailbreak Robustness Across Operational States",
+          "category": "Jailbreaking & Red Teaming",
+          "date": "2026-08-31",
+          "url": "https://arxiv.org/abs/2608.30748",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.30207",
+          "title": "SIR: Self-improving Red-teaming for Compute Use Agents",
+          "category": "Prompt Injection & LLM Attacks",
+          "date": "2026-08-31",
+          "url": "https://arxiv.org/abs/2608.30207",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.30441",
+          "title": "ECLIPSE: Self-Evolving Stealthy Prompt Injection Attack against Long-Horizon Agentic Systems",
+          "category": "Prompt Injection & LLM Attacks",
+          "date": "2026-08-31",
+          "url": "https://arxiv.org/abs/2608.30441",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.30362",
+          "title": "Will the User Ever Know? Covert Indirect Prompt Injection on Tool-Using LLM Agents",
+          "category": "Prompt Injection & LLM Attacks",
+          "date": "2026-08-31",
+          "url": "https://arxiv.org/abs/2608.30362",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.30041",
+          "title": "Reachability-Based Capability Confinement for LLM Agents under Indirect Prompt Injection",
+          "category": "Agentic AI Safety",
+          "date": "2026-08-30",
+          "url": "https://arxiv.org/abs/2608.30041",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.30387",
+          "title": "Attesting Outputs and Delegation Ancestry in Multi-Agent AI Systems",
+          "category": "Agentic AI Safety",
+          "date": "2026-08-31",
+          "url": "https://arxiv.org/abs/2608.30387",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.30724",
+          "title": "BAITBENCH: Measuring Agent Reward Hacking with Optional Shortcuts Planted in ML Tasks",
+          "category": "Reward Hacking & Deceptive Alignment",
+          "date": "2026-08-31",
+          "url": "https://arxiv.org/abs/2608.30724",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.30065",
+          "title": "Pak3H: Evaluating the Cost of Cultural Mismatch in LLM Alignment with a Human-Contextualized Urdu Benchmark",
+          "category": "Safety Training & Alignment",
+          "date": "2026-08-30",
+          "url": "https://arxiv.org/abs/2608.30065",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.30378",
+          "title": "PAVE: Predictive Alignment and Value-Guided Evolution for World-Action Policies",
+          "category": "Agentic AI Safety",
+          "date": "2026-08-31",
+          "url": "https://arxiv.org/abs/2608.30378",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.31035",
+          "title": "When Does Predictor-Based RL Align with Human Perception? A Study of Subjective Rewards in Codec-Based Speech Language Models",
+          "category": "Reward Hacking & Deceptive Alignment",
+          "date": "2026-08-31",
+          "url": "https://arxiv.org/abs/2608.31035",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.30141",
+          "title": "Balancing Privacy, Utility, and Safety in LLM Alignment through Preference Optimization",
+          "category": "Defenses, Privacy & Robustness",
+          "date": "2026-08-31",
+          "url": "https://arxiv.org/abs/2608.30141",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.29936",
+          "title": "When Safety Speaks a Language: A Mechanistic Analysis of Safety-Language Identity Entanglement in LLMs",
+          "category": "Safety Training & Alignment",
+          "date": "2026-08-30",
+          "url": "https://arxiv.org/abs/2608.29936",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.30968",
+          "title": "CogEvol: Towards Efficient and Reliable Learning Environment Generation",
+          "category": "Safety Training & Alignment",
+          "date": "2026-08-31",
+          "url": "https://arxiv.org/abs/2608.30968",
+          "repo": "https://github.com/CogEvol/CogEvol-4B",
+          "upvotes": 0
+        },
+        {
+          "id": "2608.30924",
+          "title": "TRIPPULSE: Multi-Agent Travel Planning with Review-Grounded Reasoning",
+          "category": "Agentic AI Safety",
+          "date": "2026-08-31",
+          "url": "https://arxiv.org/abs/2608.30924",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.30842",
+          "title": "Thesis Proposal: Toward a Human-Centered and Perspective-Aware Framework for Reproducible ML Evaluation and AI Alignment",
+          "category": "Safety Training & Alignment",
+          "date": "2026-08-31",
+          "url": "https://arxiv.org/abs/2608.30842",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.30428",
+          "title": "Lies We Can See: Joint Verbal and Non-Verbal Deception by VLM Agents in Embodied Social Interactions",
+          "category": "Reward Hacking & Deceptive Alignment",
+          "date": "2026-08-31",
+          "url": "https://arxiv.org/abs/2608.30428",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.30373",
+          "title": "Beyond Consensus: Downward Bias and Role Asymmetry in Multi-Agent LLM Judges for Subjective Evaluation",
+          "category": "Safety Training & Alignment",
+          "date": "2026-08-31",
+          "url": "https://arxiv.org/abs/2608.30373",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.30319",
+          "title": "Beyond Token-Level Guidance: Inference-Time Alignment of Specialized LLMs via Cross-Family Representation Steering",
+          "category": "Safety Training & Alignment",
+          "date": "2026-08-31",
+          "url": "https://arxiv.org/abs/2608.30319",
+          "repo": "https://github.com/DecayingSeart/CREST",
+          "upvotes": 0
+        },
+        {
+          "id": "2608.30197",
+          "title": "ALTSTEER: Selective Safety Steering for Moving Beyond Hard Refusals to Constructive Alternatives",
+          "category": "Defenses, Privacy & Robustness",
+          "date": "2026-08-31",
+          "url": "https://arxiv.org/abs/2608.30197",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.30188",
+          "title": "GPAgentBench-2K: Benchmarking Large Language Model Agents in Complex Clinical Action Space",
+          "category": "Agentic AI Safety",
+          "date": "2026-08-31",
+          "url": "https://arxiv.org/abs/2608.30188",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.30122",
+          "title": "Aligning Multi-Trajectory Supervision with Policy Optimization for VLA Driving",
+          "category": "Safety Training & Alignment",
+          "date": "2026-08-31",
+          "url": "https://arxiv.org/abs/2608.30122",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.29814",
+          "title": "FRAMEWORKERS: A Dynamic Multi-Agent Framework for AI-Generated Video Production",
+          "category": "Agentic AI Safety",
+          "date": "2026-08-30",
+          "url": "https://arxiv.org/abs/2608.29814",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.29943",
+          "title": "On the Recoverability of Private Information Unlearning in Large Language Models",
+          "category": "Defenses, Privacy & Robustness",
+          "date": "2026-08-30",
+          "url": "https://arxiv.org/abs/2608.29943",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.29942",
+          "title": "Influence Is Not Authority: When Causal Guardrail Signals Make Legitimate Tool Use Look Like an Attack in Tool-Using LLM Agents",
+          "category": "Agentic AI Safety",
+          "date": "2026-08-30",
+          "url": "https://arxiv.org/abs/2608.29942",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.30703",
+          "title": "SingProbe Technical Report",
+          "category": "Defenses, Privacy & Robustness",
+          "date": "2026-08-31",
+          "url": "https://arxiv.org/abs/2608.30703",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.31128",
+          "title": "DIASENTINEL: An Auditable Multi-Agent System for Guideline-Grounded Diabetes Risk Screening",
+          "category": "Defenses, Privacy & Robustness",
+          "date": "2026-08-31",
+          "url": "https://arxiv.org/abs/2608.31128",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.30050",
+          "title": "Spec2Twin-Chain: Orchestrating Bi-Level Optimization with LLMs for Blockchain Digital Twin Construction",
+          "category": "Agentic AI Safety",
+          "date": "2026-08-30",
+          "url": "https://arxiv.org/abs/2608.30050",
+          "repo": null,
+          "upvotes": 0
         }
       ],
-      "total_count": 2,
-      "archived_count": 12
+      "total_count": 11,
+      "archived_count": 40
     },
     {
       "batch_date": "2026-08-28",
