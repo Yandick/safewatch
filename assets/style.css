@@ -401,6 +401,7 @@ main { animation: view-in 0.45s ease both; }
   border-radius: 999px; font-size: 0.62rem; font-weight: 700;
   background: rgba(251, 191, 36, 0.14); color: #fbbf24;
 }
+.panel-sub.stale { color: var(--amber, #ff9f43); font-weight: 600; }
 
 /* ============ pagination ============ */
 .pager { display: flex; gap: 6px; justify-content: center; margin-top: 22px; flex-wrap: wrap; }

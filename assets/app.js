@@ -231,10 +231,6 @@
       badge.textContent = `✨ AI-curated · ${d.curated_by}`;
       badge.hidden = false;
     }
-    const sub = $("#picksSub");
-    if (sub && d.latest_day) {
-      sub.textContent = `Hand-picked reading from batch ${fmtDate(d.latest_day)}.`;
-    }
   }
 
   /* ---------- category chips ---------- */
@@ -467,17 +463,43 @@
 
   /* ---------- home: latest picks (brief grid) ---------- */
   function renderHomePicks() {
-    const latest = state.data.days[0];
-    const picks = (latest?.papers || [])
-      .slice()
-      .sort((a, b) => String(b.date).localeCompare(String(a.date)))
-      .slice(0, HOME_MAX_PICKS);
+    // Accumulate picks from the newest update batches until the digest is
+    // full (or 3 batches scanned) — a thin harvest still fills the grid.
+    const picks = [];
+    let usedBatches = 0;
+    for (const day of state.data.days) {
+      if (picks.length >= HOME_MAX_PICKS || usedBatches >= 3) break;
+      const dayPicks = (day.papers || [])
+        .slice()
+        .sort((a, b) => String(b.date).localeCompare(String(a.date)));
+      if (!dayPicks.length) continue;
+      picks.push(...dayPicks);
+      usedBatches++;
+    }
+    picks.length = Math.min(picks.length, HOME_MAX_PICKS);
 
     const wrap = $("#picksList");
     wrap.innerHTML = "";
-    wrap.classList.add("picks-grid");
     $("#picksEmpty").hidden = picks.length > 0;
     for (const p of picks) wrap.appendChild(makeCard(p, { brief: true }));
+
+    const sub = $("#picksSub");
+    const staleH =
+      (Date.now() - Date.parse(state.data.last_updated || "")) / 36e5;
+    let prefix = "";
+    if (sub) {
+      if (staleH > 40) {
+        prefix = "⚠ Data may be stale (last run " +
+          fmtDate(state.data.last_updated) + ") — ";
+        sub.classList.add("stale");
+      } else {
+        sub.classList.remove("stale");
+      }
+      sub.textContent =
+        prefix +
+        `Fresh reading from your last ${usedBatches} update batch` +
+        (usedBatches === 1 ? "." : "es.");
+    }
   }
 
   /* ---------- library ---------- */

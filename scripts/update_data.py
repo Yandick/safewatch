@@ -522,8 +522,14 @@ def main(argv: list[str] | None = None) -> int:
     if not selected and not ranked_all:
         print("[warn] nothing collected this run; dataset unchanged")
         return 0
-    batch = max((p["date"] for p in ranked_all), default=None) or \
-        max(p["date"] for p in selected)
+    # Key the batch by HARVEST date, not paper publication date: arXiv's
+    # announcement calendar (weekend gaps, ~48h lag) otherwise pins the
+    # newest bucket label on the same day for days and the dashboard
+    # looks frozen even while papers keep flowing in.
+    batch = datetime.now(timezone.utc).strftime(DATE_FORMAT)
+    if ranked_all:
+        newest_paper = max(p["date"] for p in ranked_all)
+        print(f"[batch] harvest {batch} | newest paper published {newest_paper}")
     merge_into_dataset(batch, selected, hf_votes, curator, ranked_all)
     return 0
 
