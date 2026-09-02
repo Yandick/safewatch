@@ -2,8 +2,10 @@ name: Update papers & deploy
 
 on:
   schedule:
-    # Daily at 06:30 UTC (~14:30 Beijing / 02:30 New York)
+    # Morning harvest at 06:30 UTC (~14:30 Beijing)
     - cron: "30 6 * * *"
+    # Evening harvest at 18:00 UTC — catches the second announcement wave
+    - cron: "0 18 * * *"
   workflow_dispatch:
     inputs:
       fetch_days:

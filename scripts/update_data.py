@@ -71,9 +71,9 @@ TOPIC_COLORS = {
 CATEGORY_RULES: dict[str, dict] = {
     "Jailbreaking & Red Teaming": {
         "queries": [
-            'all:"jailbreak" AND (cat:cs.CL OR cat:cs.AI OR cat:cs.CR)',
+            '(all:"jailbreak" OR all:"harmful content" OR all:"unsafe generation") AND (cat:cs.CL OR cat:cs.AI OR cat:cs.CR OR cat:cs.CY OR cat:stat.ML)',
             '(all:"red teaming" OR all:"red-teaming") '
-            "AND (cat:cs.CL OR cat:cs.AI OR cat:cs.CR)",
+            "AND (cat:cs.CL OR cat:cs.AI OR cat:cs.CR OR cat:cs.CY OR cat:stat.ML)",
         ],
         "patterns": [
             r"\bjailbreak", r"\bred.?team", r"harmful (content|output|response)"
@@ -84,10 +84,10 @@ CATEGORY_RULES: dict[str, dict] = {
     },
     "Prompt Injection & LLM Attacks": {
         "queries": [
-            'all:"prompt injection" AND (cat:cs.CL OR cat:cs.AI OR cat:cs.CR)',
+            'all:"prompt injection" AND (cat:cs.CL OR cat:cs.AI OR cat:cs.CR OR cat:cs.CY OR cat:stat.ML)',
             '(all:"indirect prompt injection" OR all:"system prompt"'
             ' OR all:"data exfiltration" OR ti:"backdoor")'
-            " AND (cat:cs.CL OR cat:cs.AI)",
+            " AND (cat:cs.CL OR cat:cs.AI OR cat:cs.CY OR cat:stat.ML)",
         ],
         "patterns": [
             r"prompt injection", r"data exfiltrat", r"injected instruction"
@@ -100,23 +100,27 @@ CATEGORY_RULES: dict[str, dict] = {
         "queries": [
             '(all:"reward hacking" OR all:"specification gaming"'
             ' OR all:"reward tampering" OR all:"deceptive alignment"'
-            ' OR all:"reward forgery" OR all:"sandbagging")'
-            " AND (cat:cs.AI OR cat:cs.CL OR cat:cs.LG)",
+            ' OR all:"reward forgery" OR all:"sandbagging"'
+            ' OR all:"sycophancy" OR all:"reward misspecification"'
+            ' OR all:"scalable oversight" OR all:"deceptive behavior")'
+            " AND (cat:cs.CL OR cat:cs.AI OR cat:cs.LG OR cat:cs.CY OR cat:stat.ML)",
         ],
         "patterns": [
             r"reward hack", r"specification gaming", r"reward tamper"
             , r"deceptive (align|behavio|capabil)", r"sandbagging", r"goodhart"
             , r"overoptimi[sz]ation of the reward", r"sycophanc"
-            , r"reward (model )?(exploit|forge|hack|misuse)",
+            , r"scalable oversight", r"reward (model )?(exploit|forge|hack|misuse|misspecifi)",
         ],
     },
     "Agentic AI Safety": {
         "queries": [
             '(ti:"LLM agent" OR ti:"LLM agents" OR ti:"AI agent" OR ti:"AI agents"'
-            ' OR ti:"web agent" OR ti:"GUI agent" OR ti:"agentic")'
-            " AND (cat:cs.CL OR cat:cs.AI OR cat:cs.CR OR cs.MA)",
-            '(abs:"agent safety" OR abs:"safe agent" OR abs:"agent security")'
-            " AND (cat:cs.CL OR cat:cs.AI OR cat:cs.CR)",
+            ' OR ti:"web agent" OR ti:"GUI agent" OR ti:"agentic"'
+            ' OR ti:"computer use" OR ti:"browser agent")'
+            " AND (cat:cs.CL OR cat:cs.AI OR cat:cs.CR OR cat:cs.MA OR cat:cs.CY OR cat:stat.ML)",
+            '(abs:"agent safety" OR abs:"safe agent" OR abs:"agent security"'
+            ' OR abs:"agentic safety" OR abs:"agent risk")'
+            " AND (cat:cs.CL OR cat:cs.AI OR cat:cs.CR OR cat:cs.CY OR cat:stat.ML)",
         ],
         "patterns": [
             r"agent.{0,24}(safety|security|risk|harm|danger|malicious|abuse|misuse)"
@@ -131,9 +135,9 @@ CATEGORY_RULES: dict[str, dict] = {
         "queries": [
             '(abs:"safety alignment" OR abs:"constitutional ai" OR ti:"harmlessness"'
             ' OR abs:"harmlessness" OR ti:"machine unlearning" OR abs:"unlearning")'
-            " AND (cat:cs.CL OR cat:cs.AI OR cat:cs.LG)",
+            " AND (cat:cs.CL OR cat:cs.AI OR cat:cs.LG OR cat:cs.CY OR cat:stat.ML)",
             '(ti:"alignment" OR ti:"value alignment" OR all:"superalignment"'
-            ' OR all:"safe RLHF") AND (cat:cs.CL OR cat:cs.AI OR cat:cs.LG)',
+            ' OR all:"safe RLHF") AND (cat:cs.CL OR cat:cs.AI OR cat:cs.LG OR cat:cs.CY OR cat:stat.ML)',
         ],
         "patterns": [
             r"safety alignment", r"\brlhf\b|\brlaif\b|\bdpo\b|\bgrpo\b"
@@ -149,10 +153,10 @@ CATEGORY_RULES: dict[str, dict] = {
             ' OR ti:"guardrail" OR abs:"privacy attack"'
             ' OR abs:"jailbreak detection" OR abs:"harmful content detection"'
             ' OR abs:"content moderation")'
-            " AND (cat:cs.CL OR cat:cs.AI OR cat:cs.CR)",
+            " AND (cat:cs.CL OR cat:cs.AI OR cat:cs.CR OR cat:cs.CY OR cat:stat.ML)",
             '(all:"LLM watermark" OR all:"text watermarking"'
             ' OR all:"certified robustness" OR all:"training data extraction")'
-            " AND (cat:cs.CL OR cat:cs.AI OR cat:cs.CR)",
+            " AND (cat:cs.CL OR cat:cs.AI OR cat:cs.CR OR cat:cs.CY OR cat:stat.ML)",
         ],
         "patterns": [
             r"guardrail", r"watermark", r"membership inferen", r"training data extraction"
@@ -167,8 +171,25 @@ CATEGORY_RULES: dict[str, dict] = {
 }
 
 
-def fetch_category_batch(topic_key: str, queries: list[str]) -> list[dict]:
-    """Run each query for one topic and return tagged raw entries."""
+# Vocabulary-independent net: pulls anything plausibly safety-flavored so
+# the LLM gate (not our query phrasing) decides recall. topic_hint=None.
+GENERIC_QUERIES = [
+    '(abs:"AI safety" OR abs:"LLM safety" OR abs:"safe AI" OR abs:"trustworthy"'
+    ' OR abs:"responsible AI" OR all:"dangerous capabilities"'
+    ' OR abs:"harmful content" OR abs:"red-teaming")'
+    " AND (cat:cs.CL OR cat:cs.AI OR cat:cs.CY OR cat:cs.CR OR cat:cs.LG"
+    " OR cat:stat.ML)",
+]
+
+
+def fetch_category_batch(topic_key: str, queries: list[str],
+                         hint: str | None = None) -> list[dict]:
+    """Run each query and return tagged raw entries.
+
+    ``hint`` is the topic whose query found the paper (used for
+    tie-breaking during classification); generic/catch-all sources pass
+    hint=None.
+    """
     out: list[dict] = []
     for q in queries:
         params = {
@@ -197,7 +218,7 @@ def fetch_category_batch(topic_key: str, queries: list[str]) -> list[dict]:
                     "abstract": re.sub(r"\s+", " ", e.get("summary", "")).strip(),
                     "authors": [a.get("name", "").strip() for a in e.get("authors", [])],
                     "published": e.get("published", ""),
-                    "topic_hint": topic_key,
+                    "topic_hint": hint,
                 }
             )
         time.sleep(3.2)
@@ -283,14 +304,30 @@ def build_paper(entry: dict, topic: str, score: int) -> dict:
     }
 
 
-def fetch_hf_upvotes(days_back: int) -> dict[str, int]:
-    """Fetch Hugging Face daily-papers upvotes for the last ``days_back`` days.
+def _norm_pub(ts: str | None, fallback_day: str) -> str:
+    """Normalize HF timestamps to '%Y-%m-%dT%H:%M:%S' for build_paper()."""
+    if not ts:
+        return f"{fallback_day}T12:00:00"
+    ts = str(ts)
+    if len(ts) == 10:  # bare date
+        return f"{ts}T12:00:00"
+    return ts[:19]
 
-    Community upvotes are used as an "interestingness" boost. GitHub Actions
-    runners reach huggingface.co directly; locally without a proxy this
-    degrades gracefully to an empty map and ranking falls back to regex score.
+
+def fetch_hf_daily(days_back: int) -> tuple[dict[str, int], list[dict]]:
+    """Fetch Hugging Face daily papers for the last ``days_back`` days.
+
+    Serves two purposes:
+      * community upvotes as an "interestingness" ranking signal;
+      * the daily list itself as a SOURCE -- trending papers enter the
+        pool even when our arXiv keyword queries missed them (the LLM
+        gate then filters relevance).
+
+    GitHub Actions runners reach huggingface.co directly; locally without
+    a proxy this degrades gracefully.
     """
     votes: dict[str, int] = {}
+    entries: dict[str, dict] = {}
     for offset in range(1, days_back + 1):
         day = (datetime.now(timezone.utc) - timedelta(days=offset)).strftime(DATE_FORMAT)
         url = f"https://huggingface.co/api/daily_papers?date={day}"
@@ -302,12 +339,35 @@ def fetch_hf_upvotes(days_back: int) -> dict[str, int]:
             print(f"[hf   ] {day}: unavailable ({exc}); continuing")
             continue
         for item in items:
-            pid = ((item.get("paper") or {}).get("id") or "").strip()
-            if pid:
-                votes[pid] = int((item.get("paper") or {}).get("upvotes") or 0)
+            p = item.get("paper") or {}
+            pid = str(p.get("id") or "").strip()
+            if not pid:
+                continue
+            votes[pid] = int(p.get("upvotes") or 0)
+            if pid in entries:
+                continue
+            title = re.sub(r"\s+", " ", str(p.get("title") or "")).strip()
+            abstract = re.sub(r"\s+", " ", str(p.get("summary") or "")).strip()
+            if not title:
+                continue
+            entries[pid] = {
+                "arxiv_id": pid,
+                "title": title,
+                "abstract": abstract,
+                "authors": [
+                    a.get("name", "").strip()
+                    for a in (p.get("authors") or [])
+                    if a.get("name")
+                ],
+                "published": _norm_pub(
+                    p.get("publishedAt") or item.get("publishedAt"), day
+                ),
+                "topic_hint": None,
+                "from_hf": True,
+            }
         time.sleep(0.8)
-    print(f"[hf   ] collected upvotes for {len(votes)} papers")
-    return votes
+    print(f"[hf   ] {len(votes)} upvote signals | {len(entries)} candidate papers")
+    return votes, list(entries.values())
 
 
 def rank_score(paper: dict) -> float:
@@ -503,11 +563,16 @@ def merge_into_dataset(batch_date: str, selected: list[dict],
 def collect(days_back: int):
     pool: list[dict] = []
     for tk, rules in CATEGORY_RULES.items():
-        pool.extend(fetch_category_batch(tk, rules["queries"]))
+        pool.extend(fetch_category_batch(tk, rules["queries"], hint=tk))
+    n_topic = len(pool)
+    for q in GENERIC_QUERIES:
+        pool.extend(fetch_category_batch("catch-all", [q], hint=None))
+    print(f"[pool ] topic queries: {n_topic} entries")
+    hf_votes, hf_entries = fetch_hf_daily(days_back)
+    pool.extend(hf_entries)
     cutoff = (datetime.now(timezone.utc) - timedelta(days=days_back)).strftime(DATE_FORMAT)
     recent = [e for e in pool if e["published"][:10] >= cutoff]
     print(f"[pool ] {len(pool)} raw entries | {len(recent)} within last {days_back} days")
-    hf_votes = fetch_hf_upvotes(days_back)
     selected, curator, ranked_all = select_papers(recent, hf_votes)
     return selected, hf_votes, curator, ranked_all
 
