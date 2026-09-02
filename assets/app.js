@@ -1,6 +1,7 @@
 /* SafeWatch dashboard logic.
-   Views: #home (cockpit KPIs / charts / daily picks) and
-   #library?<params> (full corpus, shareable URL state, paginated). */
+   Views: #home (cockpit / picks) · #library?<params> (corpus, shareable) ·
+   #mine (personal workspace). Plus a paper detail drawer, keyboard flow,
+   topic momentum, emerging keywords and a weekly digest export. */
 (() => {
   "use strict";
 
@@ -10,17 +11,20 @@
 
   const state = {
     data: null,
+    abstracts: {},        // id -> abstract (from data/abstracts.json sidecar)
     cat: null,
     query: "",
     sort: "newest",
     page: 1,
     view: "home",
+    personalFilter: null, // null | "starred" | "unread" (library chips)
+    hideReadMine: false,
   };
 
   const $ = (sel) => document.querySelector(sel);
   const $$ = (sel) => Array.from(document.querySelectorAll(sel));
 
-  /* ---------- helpers ---------- */
+  /* ---------- tiny helpers ---------- */
   const catColor = (cat) =>
     (state.data?.topic_colors || {})[cat] ||
     FALLBACK_COLORS[(state.data?.categories || []).indexOf(cat) % FALLBACK_COLORS.length] ||
@@ -47,8 +51,65 @@
   };
   const shortCat = (c) => SHORT_LABELS[c] || c;
 
-  /* Complete corpus = union of both tiers, de-duplicated by id.
-     Picks override archive copies (they carry richer fields). */
+  const abstractOf = (p) => p.abstract || state.abstracts[p.id] || "";
+
+  function download(filename, text, mime) {
+    const blob = new Blob([text], { type: mime || "text/plain;charset=utf-8" });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = filename;
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+  }
+
+  /* ---------- personal workspace (localStorage) ---------- */
+  const P = {
+    data: { papers: {} },
+    load() {
+      try {
+        const raw = localStorage.getItem("sw-personal");
+        if (raw) this.data = JSON.parse(raw);
+      } catch {}
+      if (!this.data || typeof this.data !== "object") this.data = {};
+      if (!this.data.papers) this.data.papers = {};
+    },
+    save() {
+      try { localStorage.setItem("sw-personal", JSON.stringify(this.data)); }
+      catch {}
+    },
+    rec(id) {
+      if (!this.data.papers[id]) this.data.papers[id] = {};
+      return this.data.papers[id];
+    },
+    peek(id) { return this.data.papers[id] || {}; },
+    starred(id) { return !!this.peek(id).starred; },
+    toggleStar(id) {
+      const r = this.rec(id);
+      r.starred = !r.starred;
+      if (r.starred) r.starredAt = Date.now(); else delete r.starredAt;
+      this.save();
+    },
+    markRead(id, v = true) { this.rec(id).read = v; this.save(); },
+    setNote(id, txt) {
+      const r = this.rec(id);
+      if (txt) r.note = txt; else delete r.note;
+      this.save();
+    },
+    setTags(id, tags) {
+      const r = this.rec(id);
+      if (tags.length) r.tags = tags; else delete r.tags;
+      this.save();
+    },
+    starredPapers() {
+      return Object.keys(this.data.papers)
+        .filter((id) => this.data.papers[id].starred)
+        .sort((a, b) => (this.data.papers[b].starredAt || 0) - (this.data.papers[a].starredAt || 0));
+    },
+  };
+
+  /* ---------- corpus ---------- */
+  let CORPUS_MAP = null;
+
   function corpus() {
     const byId = new Map();
     for (const day of state.data.days) {
@@ -62,6 +123,11 @@
     return [...byId.values()];
   }
 
+  function corpusMap() {
+    if (!CORPUS_MAP) CORPUS_MAP = new Map(corpus().map((p) => [p.id, p]));
+    return CORPUS_MAP;
+  }
+
   /* ---------- shareable library URL state ---------- */
   function libParamsFromURL() {
     const qs = new URLSearchParams((location.hash.split("?")[1] || ""));
@@ -69,11 +135,13 @@
       ? qs.get("sort")
       : "newest";
     const cat = qs.get("cat");
+    const pf = qs.get("personal");
     return {
       q: qs.get("q") || "",
       cat: cat && state.data.categories.includes(cat) ? cat : null,
       sort,
       page: Math.max(1, parseInt(qs.get("page"), 10) || 1),
+      personal: ["starred", "unread"].includes(pf) ? pf : null,
     };
   }
 
@@ -83,6 +151,7 @@
     state.cat = p.cat;
     state.sort = p.sort;
     state.page = p.page;
+    state.personalFilter = p.personal;
   }
 
   function writeLibHash(push) {
@@ -91,6 +160,7 @@
     if (state.cat) params.set("cat", state.cat);
     if (state.sort !== "newest") params.set("sort", state.sort);
     if (state.page > 1) params.set("page", String(state.page));
+    if (state.personalFilter) params.set("personal", state.personalFilter);
     const qs = params.toString();
     const target = "#library" + (qs ? "?" + qs : "");
     if (push && target !== location.hash) history.pushState(null, "", target);
@@ -108,6 +178,7 @@
     state.view = view;
     $("#view-home").hidden = view !== "home";
     $("#view-library").hidden = view !== "library";
+    $("#view-mine").hidden = view !== "mine";
     $$("[data-route]").forEach((a) =>
       a.classList.toggle("nav-active", a.getAttribute("href") === `#${view}`)
     );
@@ -121,6 +192,10 @@
       syncControls();
       renderLibrary();
       window.scrollTo({ top: 0 });
+    } else if (hash.startsWith("#mine")) {
+      setView("mine");
+      renderMine();
+      window.scrollTo({ top: 0 });
     } else {
       setView("home");
       if (hash.startsWith("#topics")) {
@@ -131,6 +206,7 @@
 
   /* ---------- boot ---------- */
   async function boot() {
+    P.load();
     let stored = null;
     try { stored = localStorage.getItem("sw-theme"); } catch {}
     document.documentElement.dataset.theme = stored || "dark";
@@ -148,6 +224,12 @@
       return;
     }
 
+    // abstracts sidecar (optional, written by scripts/enrich.py)
+    fetch("data/abstracts.json", { cache: "no-store" })
+      .then((r) => (r.ok ? r.json() : {}))
+      .then((j) => { state.abstracts = j || {}; })
+      .catch(() => {});
+
     initChart();
     initTrendChart();
     renderStats();
@@ -155,9 +237,9 @@
     renderLegend();
     drawPie();
     drawTrend();
+    renderEmerging();
     renderHomePicks();
 
-    // library filters <-> URL
     let debounceT;
     $("#searchInput").addEventListener("input", (e) => {
       clearTimeout(debounceT);
@@ -186,7 +268,7 @@
     });
 
     window.addEventListener("hashchange", route);
-    route(); // may land directly on #library?q=...
+    route();
 
     const io = new IntersectionObserver(
       (entries) =>
@@ -205,6 +287,114 @@
       applyTheme(
         document.documentElement.dataset.theme === "light" ? "dark" : "light"
       );
+
+    // digest export
+    $("#digestBtn").onclick = exportWeeklyDigest;
+
+    // my library controls
+    $("#mineHideRead").onclick = (e) => {
+      state.hideReadMine = !state.hideReadMine;
+      e.target.classList.toggle("active", state.hideReadMine);
+      renderMine();
+    };
+    $("#exportMd").onclick = exportMarkdown;
+    $("#exportBib").onclick = exportBibtex;
+    $("#exportJson").onclick = () =>
+      download(
+        "safewatch-personal-" + new Date().toISOString().slice(0, 10) + ".json",
+        JSON.stringify(P.data, null, 2),
+        "application/json"
+      );
+    $("#importJsonBtn").onclick = () => $("#importJson").click();
+    $("#importJson").addEventListener("change", (e) => {
+      const f = e.target.files[0];
+      if (!f) return;
+      const rd = new FileReader();
+      rd.onload = () => {
+        try {
+          const parsed = JSON.parse(rd.result);
+          if (!parsed || typeof parsed !== "object" || !parsed.papers)
+            throw new Error("bad format");
+          P.data = parsed;
+          P.save();
+          renderMine();
+          alert("Personal library imported ✓");
+        } catch (err) {
+          alert("Import failed: " + err.message);
+        }
+      };
+      rd.readAsText(f);
+      e.target.value = "";
+    });
+
+    // drawer controls
+    $("#drawerClose").onclick = closeDrawer;
+    $("#drawerOverlay").onclick = closeDrawer;
+    $("#drawerBody").addEventListener("click", (e) => {
+      const open = e.target.closest("[data-open]");
+      if (open) { openDrawer(open.dataset.open); return; }
+      const untag = e.target.closest("[data-untag]");
+      if (untag && drawerPaperId) {
+        const tags = (P.peek(drawerPaperId).tags || []).filter(
+          (t) => t !== untag.dataset.untag
+        );
+        P.setTags(drawerPaperId, tags);
+        renderDrawer(corpusMap().get(drawerPaperId));
+      }
+    });
+    $("#drawerBody").addEventListener("input", (e) => {
+      if (e.target.id === "drawerNote" && drawerPaperId) {
+        clearTimeout(drawerBody._noteT);
+        drawerBody._noteT = setTimeout(
+          () => P.setNote(drawerPaperId, e.target.value), 400
+        );
+      }
+    });
+    $("#drawerBody").addEventListener("keydown", (e) => {
+      if (e.target.id === "drawerTags" && e.key === "Enter") {
+        e.preventDefault();
+        const tags = e.target.value
+          .split(/[,\s]+/).map((t) => t.trim().toLowerCase()).filter(Boolean);
+        if (drawerPaperId && tags.length) {
+          const merged = [...new Set([...(P.peek(drawerPaperId).tags || []), ...tags])];
+          P.setTags(drawerPaperId, merged);
+          renderDrawer(corpusMap().get(drawerPaperId));
+        }
+      }
+    });
+
+    // card-level delegation (drawer open + star)
+    for (const sel of ["#picksList", "#libList", "#mineList"]) {
+      $(sel).addEventListener("click", onCardClick);
+    }
+
+    initKeyboard();
+  }
+
+  function onCardClick(e) {
+    const star = e.target.closest("[data-star]");
+    if (star) {
+      toggleStarById(star.dataset.star);
+      return;
+    }
+    const open = e.target.closest("[data-open]");
+    if (open) {
+      e.preventDefault();
+      openDrawer(open.dataset.open);
+    }
+  }
+
+  function toggleStarById(id) {
+    P.toggleStar(id);
+    const on = P.starred(id);
+    $$(`[data-star="${CSS.escape(id)}"]`).forEach((b) => {
+      b.classList.toggle("on", on);
+    });
+    $$(`[data-card="${CSS.escape(id)}"]`).forEach((c) =>
+      c.classList.toggle("starred", on)
+    );
+    if (drawerPaperId === id) syncDrawerPersonal();
+    if (state.view === "mine") renderMine();
   }
 
   /* ---------- stats ---------- */
@@ -219,8 +409,7 @@
           .map((p) => p.repo)
       )
     ).size;
-    const ts = (d.last_updated || "");
-    // "2026-08-27T13:15:35+00:00" -> "08-27 13:15 UTC" (year lives in tooltip)
+    const ts = d.last_updated || "";
     $("#stat-updated").textContent = ts.length >= 16
       ? `${ts.slice(5, 10)} ${ts.slice(11, 16)} UTC`
       : ts;
@@ -233,16 +422,16 @@
     }
   }
 
-  /* ---------- category chips ---------- */
+  /* ---------- category chips (+ personal filters) ---------- */
   function renderChips() {
     const wrap = $("#categoryChips");
     if (!wrap) return;
     wrap.innerHTML = "";
     const counts = state.data.category_counts || {};
 
-    const mk = (label, color, val, count) => {
+    const mk = (label, color, val, count, active) => {
       const b = document.createElement("button");
-      b.className = "chip" + (state.cat === val ? " active" : "");
+      b.className = "chip" + (active ? " active" : "");
       b.style.setProperty("--cc", color);
       b.textContent = count != null ? `${label} (${count})` : label;
       b.onclick = () => {
@@ -255,35 +444,76 @@
       wrap.appendChild(b);
     };
 
-    mk("All", "#38bdf8", null);
-    for (const c of state.data.categories) mk(c, catColor(c), c, counts[c]);
+    mk("All", "#38bdf8", null, null, state.cat === null && !state.personalFilter);
+    for (const c of state.data.categories) mk(c, catColor(c), c, counts[c], state.cat === c);
+
+    // personal-scope filters
+    for (const [key, label] of [["starred", "★ starred"], ["unread", "unread"]]) {
+      const b = document.createElement("button");
+      b.className = "chip" + (state.personalFilter === key ? " active" : "");
+      b.style.setProperty("--cc", "#fbbf24");
+      b.textContent = label;
+      b.onclick = () => {
+        state.personalFilter = state.personalFilter === key ? null : key;
+        state.page = 1;
+        writeLibHash(true);
+        renderChips();
+        renderLibrary();
+      };
+      wrap.appendChild(b);
+    }
   }
 
-  /* ---------- legend beside the pie ---------- */
+  /* ---------- legend + momentum ---------- */
   function renderLegend() {
     const ul = $("#legendList");
     ul.innerHTML = "";
     const counts = state.data.category_counts || {};
+    const mom = state.data.momentum || {};
     for (const c of state.data.categories) {
       const li = document.createElement("li");
       li.style.setProperty("--lc", catColor(c));
+      const m = mom[c];
+      const arrow =
+        m == null ? "" :
+        m >= 10 ? ' <span class="mom mom-up">↑</span>' :
+        m <= -10 ? ' <span class="mom mom-down">↓</span>' : "";
       li.innerHTML = `
         <span class="legend-dot"></span>
         <span class="legend-name">${esc(c)}</span>
-        <span class="legend-num">${counts[c] ?? 0} · ${esc(String(state.data.proportions?.[c] ?? 0))}%</span>`;
+        <span class="legend-num">${counts[c] ?? 0} · ${esc(String(state.data.proportions?.[c] ?? 0))}%${arrow}</span>`;
       li.onclick = () => openCategoryInLibrary(c);
       ul.appendChild(li);
     }
   }
 
-  function openCategoryInLibrary(c) {
-    state.cat = c;
-    state.page = 1;
-    setView("library");
-    writeLibHash(true);
-    syncControls();
-    renderLibrary();
-    window.scrollTo({ top: 0 });
+  /* ---------- emerging keywords ---------- */
+  function renderEmerging() {
+    const row = $("#emergingRow");
+    if (!row) return;
+    const items = state.data.emerging || [];
+    if (!items.length) { row.hidden = true; return; }
+    row.hidden = false;
+    row.innerHTML =
+      '<span class="emerging-label">🔺 Emerging this week:</span>' +
+      items
+        .map(
+          (it) =>
+            `<button class="chip term" type="button" data-term="${esc(it.term)}">${esc(it.term)} <span class="term-n">${it.count}</span></button>`
+        )
+        .join("");
+    row.querySelectorAll("[data-term]").forEach((b) => {
+      b.onclick = () => {
+        state.query = b.dataset.term.toLowerCase();
+        state.cat = null;
+        state.page = 1;
+        setView("library");
+        writeLibHash(true);
+        syncControls();
+        renderLibrary();
+        window.scrollTo({ top: 0 });
+      };
+    });
   }
 
   /* ---------- pie chart ---------- */
@@ -423,7 +653,7 @@
     document.querySelector(".chart-holder:not(.pie-holder)")?.classList.add("is-ready");
   }
 
-  /* ---------- shared card builders ---------- */
+  /* ---------- card builders ---------- */
   const ICON_EXT =
     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5"/></svg>';
   const ICON_GH =
@@ -437,14 +667,16 @@
     const metaParts = [];
     if (!brief && authors) metaParts.push(esc(authors));
     metaParts.push(esc(fmtDate(p.date)));
+    const rec = P.peek(p.id);
     return `
       <div class="card-top">
         <h3 class="paper-title">
-          <a href="${esc(p.url)}" target="_blank" rel="noopener">${esc(p.title)}</a>
+          <a href="${esc(p.url)}" data-open="${esc(p.id)}">${esc(p.title)}</a>
         </h3>
         <span class="cat-badge">${esc(shortCat(p.category))}</span>
+        <button class="star-btn${rec.starred ? " on" : ""}" data-star="${esc(p.id)}" title="Star (s)" type="button">★</button>
       </div>
-      ${metaParts.length ? `<p class="paper-authors">${metaParts.join(" · ")}${p.curated ? ' <span class="pick-star">★</span>' : ""}</p>` : ""}
+      ${metaParts.length ? `<p class="paper-authors">${metaParts.join(" · ")}${p.curated ? ' <span class="pick-star">★</span>' : ""}${rec.read ? ' <span class="read-mark">read</span>' : ""}</p>` : ""}
       ${p.tldr ? `<p class="paper-tldr"><span class="tldr-tag">AI</span>${esc(p.tldr)}</p>` : ""}
       <div class="card-links">
         <a class="pill" href="${esc(p.url)}" target="_blank" rel="noopener">${ICON_EXT} arXiv · ${esc(p.id)}</a>
@@ -455,7 +687,12 @@
 
   function makeCard(p, opts) {
     const card = document.createElement("article");
-    card.className = "paper-card" + (opts.brief ? " paper-card--brief" : "");
+    card.className =
+      "paper-card" +
+      (opts.brief ? " paper-card--brief" : "") +
+      (P.peek(p.id).read ? " is-read" : "") +
+      (P.peek(p.id).starred ? " starred" : "");
+    card.dataset.card = p.id;
     card.style.setProperty("--pc", catColor(p.category));
     card.innerHTML = cardHTML(p, opts);
     return card;
@@ -463,8 +700,6 @@
 
   /* ---------- home: latest picks (brief grid) ---------- */
   function renderHomePicks() {
-    // Accumulate picks from the newest update batches until the digest is
-    // full (or 3 batches scanned) — a thin harvest still fills the grid.
     const picks = [];
     let usedBatches = 0;
     for (const day of state.data.days) {
@@ -504,9 +739,11 @@
 
   /* ---------- library ---------- */
   function libraryMatches(p) {
+    if (state.personalFilter === "starred" && !P.starred(p.id)) return false;
+    if (state.personalFilter === "unread" && P.peek(p.id).read) return false;
     if (state.cat && p.category !== state.cat) return false;
     if (state.query) {
-      const hay = `${p.title} ${p.authors ? p.authors.join(" ") : ""} ${p.abstract || ""}`.toLowerCase();
+      const hay = `${p.title} ${p.authors ? p.authors.join(" ") : ""} ${abstractOf(p)}`.toLowerCase();
       if (!hay.includes(state.query)) return false;
     }
     return true;
@@ -590,6 +827,341 @@
     list.innerHTML = "";
     for (const p of slice) list.appendChild(makeCard(p, { brief: false }));
     renderPager(totalPages);
+  }
+
+  /* ---------- my library ---------- */
+  function renderMine() {
+    if (!state.data) return;
+    const ids = P.starredPapers();
+    let items = ids.map((id) => corpusMap().get(id)).filter(Boolean);
+    if (state.hideReadMine) items = items.filter((p) => !P.peek(p.id).read);
+    items.sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")));
+
+    $("#mineCount").textContent = `${P.starredPapers().length} starred`;
+    const list = $("#mineList");
+    list.innerHTML = "";
+    const visible = items.filter(
+      (p) => !state.hideReadMine || !P.peek(p.id).read
+    );
+    $("#mineEmpty").hidden = visible.length > 0;
+    for (const p of visible) {
+      const card = makeCard(p, { brief: false });
+      const rec = P.peek(p.id);
+      if (rec.tags?.length || rec.note) {
+        const extra = document.createElement("div");
+        extra.className = "personal-extra";
+        extra.innerHTML =
+          (rec.tags?.length
+            ? `<div class="mini-tags">${rec.tags
+                .map((t) => `<span class="mini-tag">${esc(t)}</span>`)
+                .join("")}</div>`
+            : "") +
+          (rec.note ? `<p class="mini-note">📝 ${esc(rec.note)}</p>` : "");
+        card.appendChild(extra);
+      }
+      list.appendChild(card);
+    }
+    if (state.hideReadMine) {
+      // count reflects visible semantics
+      $("#mineCount").textContent = `${items.length} starred`;
+    }
+  }
+
+  /* ---------- BibTeX ---------- */
+  function buildBibtex(p) {
+    const year = p.date ? p.date.slice(0, 4) : "";
+    const firstAuthor = (p.authors && p.authors[0] ? p.authors[0] : "unknown")
+      .split(" ").pop().toLowerCase().replace(/[^a-z]/g, "");
+    const firstWord = (p.title.split(/\s+/)[0].replace(/\W/g, "") || "paper").toLowerCase();
+    const key = `${firstAuthor}${year}${firstWord}`;
+    const authors = (p.authors || ["Unknown"]).map((a) => {
+      const parts = a.trim().split(/\s+/);
+      const last = parts.pop();
+      return `${last}, ${parts.join(" ")}`;
+    }).join(" and ");
+    return [
+      `@misc{${key},`,
+      `  title         = {${p.title}},`,
+      `  author        = {${authors}},`,
+      `  year          = {${year}},`,
+      `  eprint        = {${p.id}},`,
+      `  archivePrefix = {arXiv},`,
+      `  url           = {${p.url}}`,
+      `}`,
+    ].join("\n");
+  }
+
+  /* ---------- exports ---------- */
+  function exportMarkdown() {
+    const ids = P.starredPapers();
+    const byTopic = {};
+    for (const id of ids) {
+      const p = corpusMap().get(id);
+      if (!p) continue;
+      (byTopic[p.category] ||= []).push(p);
+    }
+    const L = [
+      `# SafeWatch — My Reading List`,
+      ``,
+      `_Generated ${new Date().toISOString().slice(0, 16).replace("T", " ")} UTC · ${ids.length} starred papers_`,
+      ``,
+    ];
+    for (const topic of Object.keys(byTopic)) {
+      L.push(`## ${topic}`, ``);
+      for (const p of byTopic[topic]) {
+        const rec = P.peek(p.id);
+        L.push(`- **[${p.title}](${p.url})** — ${fmtDate(p.date)} · arXiv:${p.id}`);
+        if (p.tldr) L.push(`  - TL;DR: ${p.tldr}`);
+        if (p.repo) L.push(`  - Code: ${p.repo}`);
+        if (rec.tags?.length) L.push(`  - Tags: ${rec.tags.join(", ")}`);
+        if (rec.note) L.push(`  - Note: ${rec.note}`);
+      }
+      L.push(``);
+    }
+    download(
+      "safewatch-reading-list-" + new Date().toISOString().slice(0, 10) + ".md",
+      L.join("\n"),
+      "text/markdown;charset=utf-8"
+    );
+  }
+
+  function exportBibtex() {
+    const entries = P.starredPapers()
+      .map((id) => corpusMap().get(id))
+      .filter(Boolean)
+      .map(buildBibtex);
+    download(
+      "safewatch-reading-list.bib",
+      entries.join("\n\n"),
+      "text/plain;charset=utf-8"
+    );
+  }
+
+  function exportWeeklyDigest() {
+    const d = state.data;
+    const today = new Date();
+    const cutoff = new Date(Date.now() - 7 * 864e5).toISOString().slice(0, 10);
+    const recentDays = d.days.filter((x) => x.batch_date >= cutoff);
+    const picks = recentDays
+      .flatMap((x) => x.papers || [])
+      .slice()
+      .sort((a, b) => (b.ai_imp ?? b.score ?? 0) - (a.ai_imp ?? a.score ?? 0))
+      .slice(0, 10);
+    const L = [
+      `# SafeWatch Weekly Digest`,
+      ``,
+      `_Harvest window: ${cutoff} → ${today.toISOString().slice(0, 10)} · generated ${today.toISOString().slice(0, 16).replace("T", " ")} UTC_`,
+      ``,
+      `## Top picks by AI impact`,
+      ``,
+    ];
+    for (const p of picks) {
+      L.push(`- **[${p.title}](${p.url})** — ${shortCat(p.category)} · impact ${p.ai_imp ?? "?"}/10 · arXiv:${p.id}`);
+      if (p.tldr) L.push(`  - ${p.tldr}`);
+    }
+    const mom = d.momentum || {};
+    const mrows = Object.entries(mom);
+    if (mrows.length) {
+      L.push(``, `## Topic momentum (this week vs last)`, ``);
+      for (const [topic, delta] of mrows.sort((a, b) => b[1] - a[1])) {
+        L.push(`- ${delta >= 0 ? "↑" : "↓"} **${topic}**: ${delta >= 0 ? "+" : ""}${delta}%`);
+      }
+    }
+    if ((d.emerging || []).length) {
+      L.push(``, `## Emerging keywords`, ``);
+      L.push(d.emerging.map((it) => `\`${it.term}\` (${it.count})`).join(" · "));
+    }
+    const starred = P.starredPapers().map((id) => corpusMap().get(id)).filter(Boolean);
+    if (starred.length) {
+      L.push(``, `## My starred (${starred.length})`, ``);
+      for (const p of starred) L.push(`- [${p.title}](${p.url})`);
+    }
+    L.push(``, `---`, `_Auto-generated by SafeWatch — https://yandick.github.io/safewatch/_`);
+    download(
+      "safewatch-digest-" + today.toISOString().slice(0, 10) + ".md",
+      L.join("\n"),
+      "text/markdown;charset=utf-8"
+    );
+  }
+
+  /* ---------- paper drawer ---------- */
+  let drawerPaperId = null;
+  let readTimer = null;
+
+  function openDrawer(id) {
+    const p = corpusMap().get(id);
+    if (!p) return;
+    drawerPaperId = id;
+    $("#drawerOverlay").hidden = false;
+    const dr = $("#drawer");
+    dr.hidden = false;
+    requestAnimationFrame(() => {
+      $("#drawerOverlay").classList.add("open");
+      dr.classList.add("open");
+    });
+    clearTimeout(readTimer);
+    readTimer = setTimeout(() => {
+      if (drawerPaperId === id && !P.peek(id).read) {
+        P.markRead(id);
+        refreshPersonalBits(id);
+      }
+    }, 2000);
+    renderDrawer(p);
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeDrawer() {
+    clearTimeout(readTimer);
+    $("#drawerOverlay").classList.remove("open");
+    $("#drawer").classList.remove("open");
+    setTimeout(() => {
+      $("#drawerOverlay").hidden = true;
+      $("#drawer").hidden = true;
+    }, 260);
+    drawerPaperId = null;
+    document.body.style.overflow = "";
+  }
+
+  function refreshPersonalBits(id) {
+    const rec = P.peek(id);
+    $$(`[data-star="${CSS.escape(id)}"]`).forEach((b) =>
+      b.classList.toggle("on", !!rec.starred)
+    );
+    $$(`[data-card="${CSS.escape(id)}"]`).forEach((c) => {
+      c.classList.toggle("is-read", !!rec.read);
+      const mark = c.querySelector(".read-mark");
+      if (rec.read && !mark) {
+        const au = c.querySelector(".paper-authors");
+        if (au) au.insertAdjacentHTML("beforeend", ' <span class="read-mark">read</span>');
+      }
+    });
+    if (state.view === "mine") renderMine();
+  }
+
+  function syncDrawerPersonal() {
+    const p = corpusMap().get(drawerPaperId);
+    if (p) renderDrawer(p);
+  }
+
+  function renderDrawer(p) {
+    const rec = P.peek(p.id);
+    const abs = abstractOf(p);
+    const id = p.id;
+    const related = (p.related || [])
+      .map((rid) => corpusMap().get(rid))
+      .filter(Boolean)
+      .slice(0, 5);
+
+    $("#drawerBody").innerHTML = `
+      <div class="d-top">
+        <span class="cat-badge" style="--pc:${catColor(p.category)}">${esc(shortCat(p.category))}</span>
+        <span class="d-date">${esc(fmtDate(p.date))}</span>
+        ${p.curated ? '<span class="pick-star">★ curated</span>' : ""}
+        ${p.upvotes ? `<span class="pill upv">♥ ${esc(p.upvotes)}</span>` : ""}
+        ${p.ai_rel != null ? `<span class="d-score mono">AI ${p.ai_rel}/10 · impact ${p.ai_imp ?? "?"}/10</span>` : ""}
+      </div>
+      <h2 class="d-title">${esc(p.title)}</h2>
+      ${p.tldr ? `<p class="paper-tldr"><span class="tldr-tag">AI</span>${esc(p.tldr)}</p>` : ""}
+      <div class="d-links">
+        <a class="pill" href="${esc(p.url)}" target="_blank" rel="noopener">${ICON_EXT} abs</a>
+        <a class="pill" href="https://arxiv.org/pdf/${esc(id)}" target="_blank" rel="noopener">PDF</a>
+        <a class="pill" href="https://ar5iv.labs.arxiv.org/html/${esc(id)}" target="_blank" rel="noopener">ar5iv</a>
+        <a class="pill" href="https://huggingface.co/papers/${esc(id)}" target="_blank" rel="noopener">HF</a>
+        <a class="pill" href="https://www.alphaxiv.org/abs/${esc(id)}" target="_blank" rel="noopener">alphaXiv</a>
+        ${p.repo ? `<a class="pill repo" href="${esc(p.repo)}" target="_blank" rel="noopener">${ICON_GH} Code</a>` : ""}
+      </div>
+      ${abs ? `<h4 class="d-h">Abstract</h4><p class="d-abstract">${esc(abs)}</p>` : ""}
+      <h4 class="d-h">My research notes</h4>
+      <textarea id="drawerNote" class="d-note" rows="4" placeholder="Why does this matter for your research? (autosaved)">${esc(rec.note || "")}</textarea>
+      <div class="d-tags-row">
+        <input id="drawerTags" class="d-tags-input" placeholder="add tags (space/comma) + Enter" value="" />
+        <span class="mini-tags">${(rec.tags || [])
+          .map((t) => `<span class="mini-tag">${esc(t)} <button data-untag="${esc(t)}" type="button">×</button></span>`)
+          .join("")}</span>
+      </div>
+      <div class="d-actions">
+        <button id="dStar" class="chip${rec.starred ? " active" : ""}" type="button">★ ${rec.starred ? "Starred" : "Star"}</button>
+        <button id="dRead" class="chip${rec.read ? " active" : ""}" type="button">${rec.read ? "✓ Read" : "Mark unread"}</button>
+        <button id="dBib" class="chip" type="button">Copy BibTeX</button>
+      </div>
+      ${related.length ? `<h4 class="d-h">Related papers</h4><ul class="d-related">${related
+        .map(
+          (r) =>
+            `<li><a data-open="${esc(r.id)}" href="${esc(r.url)}">${esc(r.title)}</a> <span class="d-rel-meta">${esc(shortCat(r.category))}</span></li>`
+        )
+        .join("")}</ul>` : ""}`;
+
+    $("#dStar").onclick = () => { toggleStarById(id); };
+    $("#dRead").onclick = () => {
+      P.markRead(id, !P.peek(id).read);
+      refreshPersonalBits(id);
+      renderDrawer(corpusMap().get(id));
+    };
+    $("#dBib").onclick = async () => {
+      try { await navigator.clipboard.writeText(buildBibtex(p)); }
+      catch { /* noop */ }
+      $("#dBib").textContent = "Copied ✓";
+      setTimeout(() => { $("#dBib").textContent = "Copy BibTeX"; }, 1500);
+    };
+  }
+
+  /* ---------- keyboard flow ---------- */
+  let cursorIdx = -1;
+
+  function activeListEl() {
+    return state.view === "library"
+      ? $("#libList")
+      : state.view === "mine"
+      ? $("#mineList")
+      : $("#picksList");
+  }
+
+  function cursorCards() {
+    return [...activeListEl().querySelectorAll(".paper-card")];
+  }
+
+  function moveCursor(delta) {
+    const cards = cursorCards();
+    if (!cards.length) return;
+    cursorIdx = (cursorIdx + delta + cards.length) % cards.length;
+    cards.forEach((c, i) => c.classList.toggle("cursor", i === cursorIdx));
+    cards[cursorIdx].scrollIntoView({ block: "nearest", behavior: "smooth" });
+  }
+
+  function initKeyboard() {
+    document.addEventListener("keydown", (e) => {
+      if (e.ctrlKey || e.metaKey || e.altKey) return;
+      const tag = e.target.tagName;
+      if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT") {
+        if (e.key === "Escape") e.target.blur();
+        return;
+      }
+      if (e.key === "Escape") { closeDrawer(); return; }
+      if (e.key === "/") {
+        e.preventDefault();
+        if (state.view !== "library") {
+          location.hash = "#library";
+          setTimeout(() => $("#searchInput").focus(), 150);
+        } else {
+          $("#searchInput").focus();
+        }
+        return;
+      }
+      if (drawerPaperId) return;
+
+      const cards = cursorCards();
+      const cur = cards[cursorIdx];
+      const curId = cur ? cur.dataset.card : null;
+
+      if (e.key === "j") { e.preventDefault(); moveCursor(1); }
+      else if (e.key === "k") { e.preventDefault(); moveCursor(-1); }
+      else if (e.key === "Enter" && curId) { openDrawer(curId); }
+      else if (e.key === "s" && curId) { toggleStarById(curId); }
+      else if (e.key === "m" && curId) {
+        P.markRead(curId, !P.peek(curId).read);
+        refreshPersonalBits(curId);
+      }
+    });
   }
 
   /* ---------- theme ---------- */

@@ -46,6 +46,7 @@
       <nav class="header-nav">
         <a href="#home" data-route>Home</a>
         <a href="#library" data-route>Library</a>
+        <a href="#mine" data-route>My Library</a>
         <a href="#topics" data-scroll>Topics</a>
         <button id="themeToggle" class="icon-btn" title="Toggle light / dark" aria-label="Toggle theme">
           <svg class="ico-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
@@ -85,6 +86,7 @@
             <div id="trendChart" class="chart-tall"></div>
             <div class="chart-skel" aria-hidden="true"><div class="sk sk-line"></div><div class="sk-bars"></div></div>
           </div>
+          <div id="emergingRow" class="emerging-row" hidden></div>
         </div>
         <div class="chart-cell">
           <h3 class="cell-title">Topic Mix <span class="cell-hint">click a slice to open it in the Library</span></h3>
@@ -105,12 +107,16 @@
           <h2>Latest Picks <span id="curatedBadge" class="curated-badge" hidden></span></h2>
           <p class="panel-sub" id="picksSub">Hand-picked reading from the newest update batch.</p>
         </div>
-        <a href="#library" class="more-link" data-route>Browse full library →</a>
+        <div class="head-controls">
+          <button id="digestBtn" class="more-link ghost" type="button">⬇ Weekly digest</button>
+          <a href="#library" class="more-link" data-route>Browse full library →</a>
+        </div>
       </div>
       <div id="picksList" class="picks-grid">
         <div class="sk sk-card"></div><div class="sk sk-card"></div><div class="sk sk-card"></div>
       </div>
       <p id="picksEmpty" class="empty-state" hidden>No curated picks in this batch yet.</p>
+      <p class="kbd-hint">Tip: press <kbd>/</kbd> to search · <kbd>j</kbd>/<kbd>k</kbd> to move · <kbd>Enter</kbd> for details · <kbd>s</kbd> star</p>
     </section>
   </main>
 
@@ -147,6 +153,30 @@
     </section>
   </main>
 
+  <!-- ================= MY LIBRARY VIEW ================= -->
+  <main id="view-mine" hidden>
+    <section class="panel reveal is-active-view" aria-label="My library">
+      <div class="panel-head panel-head--row">
+        <div>
+          <h2>My Library <span id="mineCount" class="lib-count mono">…</span></h2>
+          <p class="panel-sub">Your starred papers, notes and tags — stored privately in this browser. Export regularly to keep a backup.</p>
+        </div>
+        <div class="head-controls">
+          <button id="mineHideRead" class="chip" type="button">Hide read</button>
+          <button id="exportMd" class="chip" type="button">⬇ Markdown</button>
+          <button id="exportBib" class="chip" type="button">⬇ BibTeX</button>
+          <button id="exportJson" class="chip" type="button">⬇ JSON</button>
+          <button id="importJsonBtn" class="chip" type="button">⬆ Import</button>
+          <input id="importJson" type="file" accept="application/json" hidden />
+        </div>
+      </div>
+      <div id="mineList" class="paper-list" aria-live="polite"></div>
+      <p id="mineEmpty" class="empty-state" hidden>
+        Nothing starred yet. Star papers with the ★ button (or press <kbd>s</kbd>) to build your reading list.
+      </p>
+    </section>
+  </main>
+
   <footer class="site-footer">
     <p>
       SafeWatch · auto-refreshed by GitHub Actions · data parsed from the
@@ -156,6 +186,13 @@
   </footer>
 
   <button id="backTop" class="back-top" aria-label="Back to top">↑</button>
+
+  <!-- paper detail drawer -->
+  <div id="drawerOverlay" class="drawer-overlay" hidden></div>
+  <aside id="drawer" class="drawer" hidden aria-label="Paper details">
+    <button id="drawerClose" class="drawer-close" aria-label="Close">✕</button>
+    <div id="drawerBody" class="drawer-body"></div>
+  </aside>
 
   <script src="assets/app.js"></script>
 </body>

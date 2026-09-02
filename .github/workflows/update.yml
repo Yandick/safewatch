@@ -54,6 +54,9 @@ jobs:
           LLM_MODEL: ${{ vars.LLM_MODEL }}
         run: python scripts/reclassify.py
 
+      - name: Enrich (related papers, momentum, emerging keywords)
+        run: python scripts/enrich.py
+
       - name: Commit refreshed dataset
         run: |
           git config user.name "github-actions[bot]"
