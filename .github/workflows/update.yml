@@ -75,6 +75,7 @@ jobs:
           cp index.html _site/
           cp assets/* _site/assets/
           cp data/papers.json _site/data/
+          cp data/abstracts.json _site/data/
           touch _site/.nojekyll
 
       - uses: actions/upload-pages-artifact@v3
