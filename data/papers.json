@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-09-02T16:37:14+00:00",
+  "last_updated": "2026-09-02T16:57:36+00:00",
   "latest_day": "2026-09-02",
   "curated_by": "z-ai/glm-5.3-flash",
   "total_today": 3,
@@ -646,7 +646,7 @@
           "date": "2026-08-28",
           "url": "https://arxiv.org/abs/2608.28833",
           "repo": null,
-          "upvotes": 24,
+          "upvotes": 25,
           "related": [
             "2608.29198",
             "2608.31079",
@@ -4275,11 +4275,11 @@
       "count": 38
     },
     {
-      "term": "success",
+      "term": "risk",
       "count": 37
     },
     {
-      "term": "risk",
+      "term": "success",
       "count": 37
     },
     {
