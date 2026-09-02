@@ -1,8 +1,8 @@
 {
-  "last_updated": "2026-09-01T12:01:15+00:00",
-  "latest_day": "2026-09-01",
+  "last_updated": "2026-09-02T11:50:22+00:00",
+  "latest_day": "2026-09-02",
   "curated_by": "z-ai/glm-5.3-flash",
-  "total_today": 11,
+  "total_today": 3,
   "categories": [
     "Jailbreaking & Red Teaming",
     "Prompt Injection & LLM Attacks",
@@ -20,24 +20,272 @@
     "Defenses, Privacy & Robustness": "#60a5fa"
   },
   "proportions": {
-    "Jailbreaking & Red Teaming": 12.3,
-    "Prompt Injection & LLM Attacks": 11.6,
-    "Reward Hacking & Deceptive Alignment": 6.8,
-    "Agentic AI Safety": 24.0,
-    "Safety Training & Alignment": 13.0,
-    "Defenses, Privacy & Robustness": 32.2
+    "Jailbreaking & Red Teaming": 11.5,
+    "Prompt Injection & LLM Attacks": 10.3,
+    "Reward Hacking & Deceptive Alignment": 6.7,
+    "Agentic AI Safety": 23.6,
+    "Safety Training & Alignment": 12.7,
+    "Defenses, Privacy & Robustness": 35.2
   },
   "category_counts": {
-    "Jailbreaking & Red Teaming": 18,
+    "Jailbreaking & Red Teaming": 19,
     "Prompt Injection & LLM Attacks": 17,
-    "Reward Hacking & Deceptive Alignment": 10,
-    "Agentic AI Safety": 35,
-    "Safety Training & Alignment": 19,
-    "Defenses, Privacy & Robustness": 47
+    "Reward Hacking & Deceptive Alignment": 11,
+    "Agentic AI Safety": 39,
+    "Safety Training & Alignment": 21,
+    "Defenses, Privacy & Robustness": 58
   },
-  "total_papers": 146,
-  "total_picks": 67,
+  "total_papers": 165,
+  "total_picks": 70,
   "days": [
+    {
+      "batch_date": "2026-09-02",
+      "papers": [
+        {
+          "id": "2609.00213",
+          "title": "Uncovering and Mitigating Aggregation-Induced Reward Hacking in Multi-Reward Reinforcement Learning",
+          "authors": [
+            "Yu Yuan",
+            "Yaoyou Fan",
+            "Lili Zhao",
+            "Guangting Zheng",
+            "Kai Zhang",
+            "Lu Pan",
+            "Ke Zeng",
+            "Qi Liu"
+          ],
+          "abstract": "Reinforcement learning fine-tuning of large language models increasingly adopts multiple reward dimensions, including verifiable rules, task-specific evaluators, and learned reward models, to provide richer supervision across diverse capabilities. These dimensions are commonly scalarized with fixed aggregation weights. We identify a failure mode in which aggregation itself induces reward hacking: static projection aliases qualitatively different reward profiles into a single scalar, steering optimization toward whichever dimensions are easiest, densest, or systematically favored by the reward signal. Over training, this traps the policy in suboptimal profiles and prevents convergence to better-balanced ones that would yield higher task performance. To address this, we propose Adaptive Multi-Reward Projection (AMRP), a lightweight online method that reallocates aggregation weights using three signals, relative shortfall, reward volatility, and recent progress, increasing pressure on lagging, unstable, or stagnant dimensions while relieving saturated ones. Across structured reasoning, citation-grounded generation, and open-ended alignment under GRPO, AMRP consistently improves reward-profile balance and downstream performance over fixed and dynamic weighting baselines; it also remains effective with GDPO and PPO, supporting compatibility across RL algorithms. Our code is available at https://github.com/yyhappier/AMRP.git.",
+          "category": "Reward Hacking & Deceptive Alignment",
+          "date": "2026-08-31",
+          "url": "https://arxiv.org/abs/2609.00213",
+          "repo": "https://github.com/yyhappier/AMRP.git",
+          "score": 6,
+          "upvotes": 0,
+          "ai_rel": 9,
+          "ai_imp": 7,
+          "tldr": "揭示多奖励聚合引发奖励投机，提出自适应权重再分配的缓解方法"
+        },
+        {
+          "id": "2609.00595",
+          "title": "SoK: When Safe Agents Fail Together: The Security of Multi Agent LLM Systems",
+          "authors": [
+            "Rui Yang",
+            "Junjie Xu",
+            "Zhengyu Liu",
+            "Neil Fendley",
+            "Yang Hong",
+            "Ziyang Li",
+            "Yinzhi Cao"
+          ],
+          "abstract": "Safe agents can fail together. Multi-agent LLM systems (MAS) move information, state, decisions, and authority across principal boundaries, creating failures that local checks may miss. Without an execution-level view, a multi-agent setting can easily be mistaken for evidence of a genuinely multi-agent security effect. We thus systematize MAS security through an execution-centered analysis of 197 works, covering six interaction interfaces, four adversary positions, seven system-level risks, and eight recurring attack paths. We introduce an A-I-R framework that organizes attacks by adversary position, interaction interface, and resulting system-level risk, unifying otherwise fragmented attack mechanisms across MAS. We organize defenses through a five-part contract covering path target, observation, intervention, trust boundary, and recovery, and identify path closure and recovery as key challenges. We audit 44 evaluation and benchmark works and identify open challenges in isolating interaction effects, designing comparable and diagnostic metrics, supporting reuse across MAS designs, and evaluating open-system operation. Together, these findings motivate an interaction-aware view of MAS security: trace attacks end to end, test whether defenses close those paths, and evaluate system-level effects with appropriate counterfactuals.",
+          "category": "Agentic AI Safety",
+          "date": "2026-09-01",
+          "url": "https://arxiv.org/abs/2609.00595",
+          "repo": null,
+          "score": 3,
+          "upvotes": 0,
+          "ai_rel": 8,
+          "ai_imp": 7,
+          "tldr": "系统化梳理多智能体LLM安全的攻击面、系统级风险与防御合同"
+        },
+        {
+          "id": "2609.01455",
+          "title": "When Safety Routing Breaks: Understanding Alignment Fragility under Benign Fine-Tuning",
+          "authors": [
+            "Yitong Guo",
+            "Xiaoyi Chen",
+            "Siyuan Zhang",
+            "Xiaofeng Wang",
+            "Haixu Tang"
+          ],
+          "abstract": "Benign fine-tuning severely weakens the safety alignment of large language models (LLMs), so we study why refusal behavior is so fragile. While prior work often attributes this failure to gradient conflict, we propose a fundamentally different Fisher-geometric explanation: safety Fisher is low-rank, and alignment makes the safety geometry flatter while preserving an output-routing pathway. After 100 benign fine-tuning examples, this pathway is selectively re-sharpened in output-side MLP modules, explaining the asymmetric fragility: safety can collapse to high attack success rates, while general utility degrades mildly. The routing view also explains why few safety examples can restore refusal behavior, indicating that internal safety-relevant representations are preserved. Finally, we show that LoRA and ASAM mitigate early collapse by suppressing output-side sharpness, but their protection weakens at larger fine-tuning scales. Overall, safety failure is best understood as a disruption of a low-rank output-routing mechanism",
+          "category": "Safety Training & Alignment",
+          "date": "2026-09-01",
+          "url": "https://arxiv.org/abs/2609.01455",
+          "repo": null,
+          "score": 2,
+          "upvotes": 0,
+          "ai_rel": 8,
+          "ai_imp": 7,
+          "tldr": "以Fisher几何解释良性微调致安全坍塌的低秩输出路由机制，洞察深刻。"
+        }
+      ],
+      "collected": [
+        {
+          "id": "2609.00498",
+          "title": "Validity-Aware Jailbreak Evaluation for Large Language Models",
+          "category": "Defenses, Privacy & Robustness",
+          "date": "2026-08-31",
+          "url": "https://arxiv.org/abs/2609.00498",
+          "repo": "https://github.com/Ardor-Wu/SEAV",
+          "upvotes": 0
+        },
+        {
+          "id": "2609.00487",
+          "title": "EvoFlint: An Evolutionary Atlas of Multi-Turn LLM Vulnerabilities",
+          "category": "Jailbreaking & Red Teaming",
+          "date": "2026-08-31",
+          "url": "https://arxiv.org/abs/2609.00487",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2609.00052",
+          "title": "AgentProv: Auditing Agentic LLM API Providers via Tool-use Policy Probes",
+          "category": "Defenses, Privacy & Robustness",
+          "date": "2026-08-30",
+          "url": "https://arxiv.org/abs/2609.00052",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2609.00213",
+          "title": "Uncovering and Mitigating Aggregation-Induced Reward Hacking in Multi-Reward Reinforcement Learning",
+          "category": "Reward Hacking & Deceptive Alignment",
+          "date": "2026-08-31",
+          "url": "https://arxiv.org/abs/2609.00213",
+          "repo": "https://github.com/yyhappier/AMRP.git",
+          "upvotes": 0
+        },
+        {
+          "id": "2609.00264",
+          "title": "The Answer Is Not the Argument",
+          "category": "Defenses, Privacy & Robustness",
+          "date": "2026-08-31",
+          "url": "https://arxiv.org/abs/2609.00264",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2609.00058",
+          "title": "CUDA-Harness: Harnessing Agentic CUDA Kernel Generation and Optimization from Natural Language",
+          "category": "Agentic AI Safety",
+          "date": "2026-08-30",
+          "url": "https://arxiv.org/abs/2609.00058",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2609.00595",
+          "title": "SoK: When Safe Agents Fail Together: The Security of Multi Agent LLM Systems",
+          "category": "Agentic AI Safety",
+          "date": "2026-09-01",
+          "url": "https://arxiv.org/abs/2609.00595",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2609.00267",
+          "title": "Delegation Without Trust: An Empirical Gap Analysis of Identity, Authorization, and Runtime Governance in Multi-Agent LLM Systems",
+          "category": "Agentic AI Safety",
+          "date": "2026-08-31",
+          "url": "https://arxiv.org/abs/2609.00267",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2609.01073",
+          "title": "Post-hoc Alignment of LLM-judges to Human Judgment Distribution",
+          "category": "Defenses, Privacy & Robustness",
+          "date": "2026-09-01",
+          "url": "https://arxiv.org/abs/2609.01073",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2609.00495",
+          "title": "Beyond Token Positions: Safety Alignment Across Denoising Steps in Diffusion Language Models",
+          "category": "Defenses, Privacy & Robustness",
+          "date": "2026-08-31",
+          "url": "https://arxiv.org/abs/2609.00495",
+          "repo": "https://github.com/Glresearch1/RAEC",
+          "upvotes": 0
+        },
+        {
+          "id": "2609.01455",
+          "title": "When Safety Routing Breaks: Understanding Alignment Fragility under Benign Fine-Tuning",
+          "category": "Safety Training & Alignment",
+          "date": "2026-09-01",
+          "url": "https://arxiv.org/abs/2609.01455",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2609.00605",
+          "title": "Confess What You Know: Forget-Set Misalignment with Model Knowledge in LLM Unlearning",
+          "category": "Defenses, Privacy & Robustness",
+          "date": "2026-09-01",
+          "url": "https://arxiv.org/abs/2609.00605",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2609.00624",
+          "title": "Trust Your Guide Only When Certain: Uncertainty-Aware Sparse Alignment at Inference Time",
+          "category": "Safety Training & Alignment",
+          "date": "2026-09-01",
+          "url": "https://arxiv.org/abs/2609.00624",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2609.00445",
+          "title": "Capability-Gated Language Models: Security Composes, Utility Does Not",
+          "category": "Defenses, Privacy & Robustness",
+          "date": "2026-08-31",
+          "url": "https://arxiv.org/abs/2609.00445",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2609.00345",
+          "title": "Do LLMs Know Your Neighborhood? Auditing LLM Priors for Neighborhood-Level Mobility Prediction and Structural Alignment",
+          "category": "Defenses, Privacy & Robustness",
+          "date": "2026-08-31",
+          "url": "https://arxiv.org/abs/2609.00345",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2609.01046",
+          "title": "HiveTraceGuard-Pro: A Compact Generative Guardrail for Prompt Injection, Jailbreaks, and Adversarial Obfuscation",
+          "category": "Defenses, Privacy & Robustness",
+          "date": "2026-09-01",
+          "url": "https://arxiv.org/abs/2609.01046",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2609.00873",
+          "title": "Membership Inference in Fine-tuned Diffusion Language Models via Token-level Memorization Asymmetry",
+          "category": "Defenses, Privacy & Robustness",
+          "date": "2026-09-01",
+          "url": "https://arxiv.org/abs/2609.00873",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2609.01519",
+          "title": "When Guardrails Look Effective: Construct Validity Failures in LLM Agent Commerce Evaluation",
+          "category": "Agentic AI Safety",
+          "date": "2026-09-01",
+          "url": "https://arxiv.org/abs/2609.01519",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2609.01249",
+          "title": "One Prompt Is Enough: Watermark Laundering Through Foundation Image Models",
+          "category": "Defenses, Privacy & Robustness",
+          "date": "2026-09-01",
+          "url": "https://arxiv.org/abs/2609.01249",
+          "repo": null,
+          "upvotes": 0
+        }
+      ],
+      "total_count": 3,
+      "archived_count": 19
+    },
     {
       "batch_date": "2026-09-01",
       "papers": [
