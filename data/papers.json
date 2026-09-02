@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-09-02T16:57:36+00:00",
+  "last_updated": "2026-09-02T20:25:07+00:00",
   "latest_day": "2026-09-02",
   "curated_by": "z-ai/glm-5.3-flash",
   "total_today": 3,
@@ -4275,11 +4275,11 @@
       "count": 38
     },
     {
-      "term": "risk",
+      "term": "success",
       "count": 37
     },
     {
-      "term": "success",
+      "term": "risk",
       "count": 37
     },
     {
