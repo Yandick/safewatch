@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-09-02T11:50:22+00:00",
+  "last_updated": "2026-09-02T13:26:53+00:00",
   "latest_day": "2026-09-02",
   "curated_by": "z-ai/glm-5.3-flash",
   "total_today": 3,
@@ -20,22 +20,22 @@
     "Defenses, Privacy & Robustness": "#60a5fa"
   },
   "proportions": {
-    "Jailbreaking & Red Teaming": 11.5,
-    "Prompt Injection & LLM Attacks": 10.3,
+    "Jailbreaking & Red Teaming": 10.6,
+    "Prompt Injection & LLM Attacks": 9.4,
     "Reward Hacking & Deceptive Alignment": 6.7,
-    "Agentic AI Safety": 23.6,
-    "Safety Training & Alignment": 12.7,
-    "Defenses, Privacy & Robustness": 35.2
+    "Agentic AI Safety": 21.7,
+    "Safety Training & Alignment": 16.7,
+    "Defenses, Privacy & Robustness": 35.0
   },
   "category_counts": {
     "Jailbreaking & Red Teaming": 19,
     "Prompt Injection & LLM Attacks": 17,
-    "Reward Hacking & Deceptive Alignment": 11,
+    "Reward Hacking & Deceptive Alignment": 12,
     "Agentic AI Safety": 39,
-    "Safety Training & Alignment": 21,
-    "Defenses, Privacy & Robustness": 58
+    "Safety Training & Alignment": 30,
+    "Defenses, Privacy & Robustness": 63
   },
-  "total_papers": 165,
+  "total_papers": 180,
   "total_picks": 70,
   "days": [
     {
@@ -281,10 +281,145 @@
           "url": "https://arxiv.org/abs/2609.01249",
           "repo": null,
           "upvotes": 0
+        },
+        {
+          "id": "2608.25605",
+          "title": "From Specialization to Generalization: Instruction-tuned LLMs for Robust Harmful Content Mitigation",
+          "category": "Defenses, Privacy & Robustness",
+          "date": "2026-08-26",
+          "url": "https://arxiv.org/abs/2608.25605",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.30750",
+          "title": "Do VLMs Share Safety Neurons Across Modalities?",
+          "category": "Safety Training & Alignment",
+          "date": "2026-08-31",
+          "url": "https://arxiv.org/abs/2608.30750",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2609.00051",
+          "title": "From Detection to Refusal: Safer LLMs via Circuit-Guided Weight Scaling",
+          "category": "Defenses, Privacy & Robustness",
+          "date": "2026-08-30",
+          "url": "https://arxiv.org/abs/2609.00051",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2609.00067",
+          "title": "Do Multimodal LLMs See Before They Read? Diagnosing Contextual Sycophancy",
+          "category": "Defenses, Privacy & Robustness",
+          "date": "2026-08-30",
+          "url": "https://arxiv.org/abs/2609.00067",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.29198",
+          "title": "How Identity and Opinion Shape Political Sycophancy in LLMs",
+          "category": "Safety Training & Alignment",
+          "date": "2026-08-29",
+          "url": "https://arxiv.org/abs/2608.29198",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.26511",
+          "title": "Sycophancy Suppression Can Impair Rational Updating: Anti-Sycophancy Should Preserve the Ability to Update",
+          "category": "Safety Training & Alignment",
+          "date": "2026-08-27",
+          "url": "https://arxiv.org/abs/2608.26511",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.25267",
+          "title": "Mitigating LLM sycophancy with RL-based fine-tuning: Bayesian Truth Serum approach",
+          "category": "Safety Training & Alignment",
+          "date": "2026-08-26",
+          "url": "https://arxiv.org/abs/2608.25267",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2609.00892",
+          "title": "CARE: Contrastive Anchor-based Rubric Evolution for Large Language Model Post-Training",
+          "category": "Safety Training & Alignment",
+          "date": "2026-09-01",
+          "url": "https://arxiv.org/abs/2609.00892",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.31079",
+          "title": "Sycophantic Agreement Transfers with Neutral Data via Contrastive Preference Optimization",
+          "category": "Safety Training & Alignment",
+          "date": "2026-08-31",
+          "url": "https://arxiv.org/abs/2608.31079",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.27351",
+          "title": "Understanding Evolution Strategies for LLM Reasoning: Broader Reasoning Coverage than GRPO",
+          "category": "Safety Training & Alignment",
+          "date": "2026-08-27",
+          "url": "https://arxiv.org/abs/2608.27351",
+          "repo": null,
+          "upvotes": 20
+        },
+        {
+          "id": "2608.26105",
+          "title": "VBVR-Pro: A Scalable and Verifiable Suite for Native Visual Reasoning",
+          "category": "Safety Training & Alignment",
+          "date": "2026-08-26",
+          "url": "https://arxiv.org/abs/2608.26105",
+          "repo": null,
+          "upvotes": 268
+        },
+        {
+          "id": "2608.25580",
+          "title": "V-Rubrics: Visual Faithfulness via Rubric-Based Reinforcement Learning",
+          "category": "Defenses, Privacy & Robustness",
+          "date": "2026-08-26",
+          "url": "https://arxiv.org/abs/2608.25580",
+          "repo": null,
+          "upvotes": 15
+        },
+        {
+          "id": "2608.27906",
+          "title": "Rubric-to-Code Credit Assignment for Reinforcement Learning",
+          "category": "Safety Training & Alignment",
+          "date": "2026-08-28",
+          "url": "https://arxiv.org/abs/2608.27906",
+          "repo": null,
+          "upvotes": 6
+        },
+        {
+          "id": "2608.30912",
+          "title": "Responsible Integration of AI in Cancer Genomics: Barriers, Risks, and Pathways to Trustworthy Clinical Translation",
+          "category": "Defenses, Privacy & Robustness",
+          "date": "2026-08-31",
+          "url": "https://arxiv.org/abs/2608.30912",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2608.28833",
+          "title": "Evaluating the Hidden Costs of Personalization in Large Language Models",
+          "category": "Reward Hacking & Deceptive Alignment",
+          "date": "2026-08-28",
+          "url": "https://arxiv.org/abs/2608.28833",
+          "repo": null,
+          "upvotes": 24
         }
       ],
       "total_count": 3,
-      "archived_count": 19
+      "archived_count": 34
     },
     {
       "batch_date": "2026-09-01",
