@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-09-02T13:26:53+00:00",
+  "last_updated": "2026-09-02T16:37:14+00:00",
   "latest_day": "2026-09-02",
   "curated_by": "z-ai/glm-5.3-flash",
   "total_today": 3,
@@ -582,7 +582,7 @@
           "date": "2026-08-26",
           "url": "https://arxiv.org/abs/2608.26105",
           "repo": null,
-          "upvotes": 268,
+          "upvotes": 269,
           "related": [
             "2608.25580",
             "2608.19598",
