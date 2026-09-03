@@ -1,8 +1,8 @@
 {
-  "last_updated": "2026-09-02T20:25:07+00:00",
-  "latest_day": "2026-09-02",
+  "last_updated": "2026-09-03T02:02:39+00:00",
+  "latest_day": "2026-09-03",
   "curated_by": "z-ai/glm-5.3-flash",
-  "total_today": 3,
+  "total_today": 0,
   "categories": [
     "Jailbreaking & Red Teaming",
     "Prompt Injection & LLM Attacks",
@@ -20,24 +20,240 @@
     "Defenses, Privacy & Robustness": "#60a5fa"
   },
   "proportions": {
-    "Jailbreaking & Red Teaming": 10.6,
-    "Prompt Injection & LLM Attacks": 9.4,
-    "Reward Hacking & Deceptive Alignment": 6.7,
-    "Agentic AI Safety": 21.7,
-    "Safety Training & Alignment": 16.7,
-    "Defenses, Privacy & Robustness": 35.0
+    "Jailbreaking & Red Teaming": 10.9,
+    "Prompt Injection & LLM Attacks": 9.3,
+    "Reward Hacking & Deceptive Alignment": 6.2,
+    "Agentic AI Safety": 21.2,
+    "Safety Training & Alignment": 17.1,
+    "Defenses, Privacy & Robustness": 35.2
   },
   "category_counts": {
-    "Jailbreaking & Red Teaming": 19,
-    "Prompt Injection & LLM Attacks": 17,
+    "Jailbreaking & Red Teaming": 21,
+    "Prompt Injection & LLM Attacks": 18,
     "Reward Hacking & Deceptive Alignment": 12,
-    "Agentic AI Safety": 39,
-    "Safety Training & Alignment": 30,
-    "Defenses, Privacy & Robustness": 63
+    "Agentic AI Safety": 41,
+    "Safety Training & Alignment": 33,
+    "Defenses, Privacy & Robustness": 68
   },
-  "total_papers": 180,
+  "total_papers": 193,
   "total_picks": 70,
   "days": [
+    {
+      "batch_date": "2026-09-03",
+      "papers": [],
+      "collected": [
+        {
+          "id": "2609.02293",
+          "title": "SEAL: Reinforcing Global Safety in Mixture-of-Experts through Shared Expert ALignment",
+          "category": "Defenses, Privacy & Robustness",
+          "date": "2026-09-02",
+          "url": "https://arxiv.org/abs/2609.02293",
+          "repo": null,
+          "upvotes": 0,
+          "related": [
+            "2608.21057",
+            "2608.29151",
+            "2608.25429",
+            "2609.00624",
+            "2608.27910"
+          ]
+        },
+        {
+          "id": "2609.02035",
+          "title": "Implicit Manipulation for Skill Selection in LLM Agents with Semantic Matching",
+          "category": "Prompt Injection & LLM Attacks",
+          "date": "2026-09-02",
+          "url": "https://arxiv.org/abs/2609.02035",
+          "repo": null,
+          "upvotes": 0,
+          "related": [
+            "2608.30429",
+            "2608.25091",
+            "2608.25817",
+            "2608.16026",
+            "2608.16465"
+          ]
+        },
+        {
+          "id": "2609.01572",
+          "title": "From Production Traffic to Post-Training: Building a Self-Hosted LLM That Covers the Corporate Request Mix",
+          "category": "Safety Training & Alignment",
+          "date": "2026-09-01",
+          "url": "https://arxiv.org/abs/2609.01572",
+          "repo": null,
+          "upvotes": 31,
+          "related": [
+            "2608.16026",
+            "2608.30968",
+            "2608.29814",
+            "2609.02215",
+            "2608.27351"
+          ]
+        },
+        {
+          "id": "2608.30457",
+          "title": "Learning Where Outcomes Change:Credit-Addressable Reasoning for Multimodal Geometry",
+          "category": "Safety Training & Alignment",
+          "date": "2026-08-31",
+          "url": "https://arxiv.org/abs/2608.30457",
+          "repo": null,
+          "upvotes": 3,
+          "related": [
+            "2609.01867",
+            "2608.21100",
+            "2608.27351",
+            "2608.26105",
+            "2608.25490"
+          ]
+        },
+        {
+          "id": "2609.02253",
+          "title": "APEx: Distillation of Agent Procedural Experience for Adaptive Deep Research Question Answering",
+          "category": "Agentic AI Safety",
+          "date": "2026-09-02",
+          "url": "https://arxiv.org/abs/2609.02253",
+          "repo": null,
+          "upvotes": 0,
+          "related": [
+            "2608.27856",
+            "2608.21500",
+            "2608.19982",
+            "2608.25618",
+            "2608.26008"
+          ]
+        },
+        {
+          "id": "2609.02215",
+          "title": "ASCII Attack: Recontextualising Harmful Requests as Artistic Critique in Large Language Models",
+          "category": "Jailbreaking & Red Teaming",
+          "date": "2026-09-02",
+          "url": "https://arxiv.org/abs/2609.02215",
+          "repo": null,
+          "upvotes": 0,
+          "related": [
+            "2609.01572",
+            "2608.17776",
+            "2608.30197",
+            "2608.27531",
+            "2608.23264"
+          ]
+        },
+        {
+          "id": "2609.01867",
+          "title": "Thinking effort aligns between humans and reasoning models in abductive reasoning",
+          "category": "Safety Training & Alignment",
+          "date": "2026-09-01",
+          "url": "https://arxiv.org/abs/2609.01867",
+          "repo": null,
+          "upvotes": 0,
+          "related": [
+            "2608.26105",
+            "2608.30457",
+            "2608.27351",
+            "2608.27548",
+            "2608.25580"
+          ]
+        },
+        {
+          "id": "2609.01723",
+          "title": "Hearing the Whispers: Black-Box Membership Inference Attacks on Finetuned TTS Models",
+          "category": "Defenses, Privacy & Robustness",
+          "date": "2026-09-01",
+          "url": "https://arxiv.org/abs/2609.01723",
+          "repo": null,
+          "upvotes": 0,
+          "related": [
+            "2609.00873",
+            "2608.27836",
+            "2608.28929",
+            "2608.29151",
+            "2608.26008"
+          ]
+        },
+        {
+          "id": "2609.02246",
+          "title": "LLM-as-a-Judge Is Not an Oracle: Why Self-Improving Agents Need Deterministic Guardrails",
+          "category": "Agentic AI Safety",
+          "date": "2026-09-02",
+          "url": "https://arxiv.org/abs/2609.02246",
+          "repo": null,
+          "upvotes": 0,
+          "related": [
+            "2608.30207",
+            "2608.27009",
+            "2608.27580",
+            "2609.02127",
+            "2608.21057"
+          ]
+        },
+        {
+          "id": "2609.02177",
+          "title": "WeaveMark: Robust and Scalable Multi-bit LLM Watermarking via Coded Payload Spreading",
+          "category": "Defenses, Privacy & Robustness",
+          "date": "2026-09-02",
+          "url": "https://arxiv.org/abs/2609.02177",
+          "repo": "https://github.com/qkrrkd90-source/WeaveMark",
+          "upvotes": 0,
+          "related": [
+            "2608.27899",
+            "2608.20047",
+            "2608.20839",
+            "2609.01249",
+            "2608.23763"
+          ]
+        },
+        {
+          "id": "2609.02127",
+          "title": "Stored Is Not Supported: Typed Provenance and Assertion Guardrails for Persistent AI Agents",
+          "category": "Defenses, Privacy & Robustness",
+          "date": "2026-09-02",
+          "url": "https://arxiv.org/abs/2609.02127",
+          "repo": null,
+          "upvotes": 0,
+          "related": [
+            "2608.27009",
+            "2608.25091",
+            "2608.30429",
+            "2609.02246",
+            "2608.27580"
+          ]
+        },
+        {
+          "id": "2609.02316",
+          "title": "Counter-GEO-Bench: Evaluating Defenses Against Information-Distorting Generative Engine Optimization",
+          "category": "Defenses, Privacy & Robustness",
+          "date": "2026-09-02",
+          "url": "https://arxiv.org/abs/2609.02316",
+          "repo": null,
+          "upvotes": 0,
+          "related": [
+            "2609.02168",
+            "2608.29564",
+            "2608.21570",
+            "2609.01046",
+            "2608.19982"
+          ]
+        },
+        {
+          "id": "2609.02168",
+          "title": "FUSE: An Evaluating Framework for Dangerous Capabilities of LLMs",
+          "category": "Jailbreaking & Red Teaming",
+          "date": "2026-09-02",
+          "url": "https://arxiv.org/abs/2609.02168",
+          "repo": null,
+          "upvotes": 0,
+          "related": [
+            "2609.02316",
+            "2608.27338",
+            "2608.21101",
+            "2608.23873",
+            "2608.30429"
+          ]
+        }
+      ],
+      "total_count": 0,
+      "archived_count": 13
+    },
     {
       "batch_date": "2026-09-02",
       "papers": [
@@ -145,7 +361,7 @@
             "2608.25390",
             "2608.21895",
             "2609.00051",
-            "2609.01519"
+            "2608.25429"
           ]
         },
         {
@@ -215,8 +431,8 @@
           "upvotes": 0,
           "related": [
             "2608.17776",
-            "2608.29564",
             "2608.30429",
+            "2608.29564",
             "2609.00213",
             "2608.24135"
           ]
@@ -332,7 +548,7 @@
             "2608.27141",
             "2608.21895",
             "2609.00267",
-            "2608.21544"
+            "2608.29151"
           ]
         },
         {
@@ -345,10 +561,10 @@
           "upvotes": 0,
           "related": [
             "2609.01073",
+            "2608.30457",
             "2608.21895",
             "2608.31035",
-            "2608.30373",
-            "2608.30362"
+            "2608.30373"
           ]
         },
         {
@@ -364,7 +580,7 @@
             "2608.21570",
             "2608.27548",
             "2608.22248",
-            "2608.27580"
+            "2608.26008"
           ]
         },
         {
@@ -380,7 +596,7 @@
             "2608.20839",
             "2608.28929",
             "2608.26324",
-            "2608.30141"
+            "2609.01723"
           ]
         },
         {
@@ -394,9 +610,9 @@
           "related": [
             "2608.27009",
             "2608.29942",
-            "2608.27580",
+            "2609.02246",
             "2608.26372",
-            "2608.23858"
+            "2608.27580"
           ]
         },
         {
@@ -554,8 +770,8 @@
           "related": [
             "2608.28833",
             "2608.30141",
-            "2608.25267",
             "2608.24192",
+            "2608.25267",
             "2608.29378"
           ]
         },
@@ -568,11 +784,11 @@
           "repo": null,
           "upvotes": 20,
           "related": [
+            "2609.01867",
             "2608.30122",
             "2608.31035",
             "2608.25580",
-            "2608.26105",
-            "2608.27906"
+            "2608.30457"
           ]
         },
         {
@@ -586,9 +802,9 @@
           "related": [
             "2608.25580",
             "2608.19598",
+            "2609.01867",
             "2608.30750",
-            "2608.19737",
-            "2608.25490"
+            "2608.19737"
           ]
         },
         {
@@ -792,10 +1008,10 @@
           "tldr": "提出自改进黑盒间接提示注入攻击，系统级测试计算机使用代理安全。",
           "related": [
             "2608.30362",
+            "2609.02246",
             "2608.30441",
             "2608.27496",
-            "2608.27141",
-            "2608.22248"
+            "2608.27141"
           ]
         },
         {
@@ -853,8 +1069,8 @@
             "2608.25091",
             "2608.25817",
             "2608.30429",
-            "2608.27439",
-            "2608.16026"
+            "2608.16026",
+            "2608.27439"
           ]
         },
         {
@@ -979,11 +1195,11 @@
           "repo": null,
           "upvotes": 0,
           "related": [
+            "2609.02035",
             "2608.26506",
             "2608.30141",
             "2608.23811",
-            "2609.00487",
-            "2608.30122"
+            "2609.00487"
           ]
         },
         {
@@ -1062,10 +1278,10 @@
           "upvotes": 0,
           "related": [
             "2608.27899",
-            "2609.01249",
             "2608.16026",
-            "2608.29575",
-            "2608.20839"
+            "2609.01249",
+            "2609.02293",
+            "2608.29575"
           ]
         },
         {
@@ -1110,10 +1326,10 @@
           "upvotes": 0,
           "related": [
             "2608.29936",
-            "2608.27009",
             "2608.24192",
+            "2608.27009",
             "2608.24354",
-            "2608.27580"
+            "2608.23663"
           ]
         },
         {
@@ -1316,11 +1532,11 @@
           "repo": "https://github.com/CogEvol/CogEvol-4B",
           "upvotes": 0,
           "related": [
+            "2609.01572",
             "2608.29814",
-            "2608.16026",
             "2608.27906",
-            "2608.23867",
-            "2609.00213"
+            "2608.16026",
+            "2608.23867"
           ]
         },
         {
@@ -1494,8 +1710,8 @@
           "repo": null,
           "upvotes": 0,
           "related": [
-            "2608.29942",
             "2608.25711",
+            "2608.29942",
             "2608.27009",
             "2608.20839",
             "2608.27580"
@@ -1846,11 +2062,11 @@
           "ai_imp": 5,
           "tldr": "提出固定输入子空间防御联邦微调中的成员推断攻击，兼顾隐私与效用。",
           "related": [
+            "2609.01723",
             "2608.29943",
             "2608.25727",
             "2608.28929",
-            "2608.25711",
-            "2608.25390"
+            "2608.25711"
           ]
         }
       ],
@@ -1885,8 +2101,8 @@
             "2608.27844",
             "2608.21775",
             "2608.22230",
-            "2608.29575",
-            "2608.27351"
+            "2608.30457",
+            "2609.01867"
           ]
         },
         {
@@ -1979,7 +2195,7 @@
             "2608.21606",
             "2608.21544",
             "2608.22527",
-            "2608.20960"
+            "2609.02035"
           ]
         },
         {
@@ -2020,9 +2236,9 @@
           "related": [
             "2608.29151",
             "2609.01249",
-            "2608.20839",
             "2608.16026",
-            "2608.20047"
+            "2608.20839",
+            "2608.29030"
           ]
         },
         {
@@ -2095,7 +2311,7 @@
             "2608.31128",
             "2608.24534",
             "2608.30912",
-            "2609.00873"
+            "2609.02253"
           ]
         }
       ],
@@ -2189,8 +2405,8 @@
           "tldr": "审计CTF智能体解题轨迹,区分真实利用与记忆猜测,提升攻击力评估可信度。",
           "related": [
             "2608.30724",
-            "2608.29575",
             "2608.23663",
+            "2608.29575",
             "2608.21544",
             "2608.29942"
           ]
@@ -2282,8 +2498,8 @@
             "2608.30428",
             "2609.01519",
             "2608.30362",
-            "2608.24037",
-            "2608.17202"
+            "2608.17202",
+            "2608.24037"
           ]
         },
         {
@@ -2439,8 +2655,8 @@
             "2608.29942",
             "2608.24777",
             "2608.27443",
-            "2608.27580",
-            "2609.01046"
+            "2609.02246",
+            "2608.27580"
           ]
         },
         {
@@ -2842,9 +3058,9 @@
           "related": [
             "2608.25490",
             "2608.21100",
+            "2609.02035",
             "2608.24354",
-            "2608.19737",
-            "2608.27531"
+            "2608.19737"
           ]
         },
         {
@@ -2901,8 +3117,8 @@
           "related": [
             "2608.27844",
             "2608.24037",
-            "2608.22312",
             "2608.21775",
+            "2608.22312",
             "2609.00445"
           ]
         },
@@ -3004,8 +3220,8 @@
             "2608.22248",
             "2608.19982",
             "2608.28411",
-            "2608.27990",
-            "2608.30362"
+            "2609.02253",
+            "2608.27990"
           ]
         },
         {
@@ -3085,8 +3301,8 @@
           "related": [
             "2609.00873",
             "2608.27899",
-            "2608.20047",
             "2608.28929",
+            "2608.20047",
             "2608.29030"
           ]
         },
@@ -3324,8 +3540,8 @@
             "2608.30429",
             "2608.25091",
             "2608.25817",
-            "2608.16465",
-            "2608.27439"
+            "2609.01572",
+            "2609.02035"
           ]
         },
         {
@@ -3416,7 +3632,7 @@
             "2608.25091",
             "2608.16026",
             "2608.25817",
-            "2608.16465"
+            "2609.02035"
           ]
         },
         {
@@ -3467,8 +3683,8 @@
             "2608.27443",
             "2608.27496",
             "2608.24017",
-            "2608.30387",
-            "2608.24275"
+            "2608.24275",
+            "2608.30387"
           ]
         },
         {
@@ -3492,8 +3708,8 @@
             "2608.30429",
             "2608.25817",
             "2608.16026",
-            "2608.16465",
-            "2608.27439"
+            "2609.02035",
+            "2608.16465"
           ]
         },
         {
@@ -3575,8 +3791,8 @@
             "2608.30429",
             "2608.25091",
             "2608.16026",
-            "2608.27439",
-            "2608.16465"
+            "2609.02035",
+            "2608.27439"
           ]
         },
         {
@@ -3817,8 +4033,8 @@
           "ai_imp": 7,
           "tldr": "构建真实科研仓库ML代理基准，揭示规范博弈率高达48%的安全隐患。",
           "related": [
-            "2608.25490",
             "2608.29357",
+            "2608.25490",
             "2609.00487",
             "2608.24114",
             "2608.23179"
@@ -3981,7 +4197,7 @@
             "2609.00495",
             "2608.21500",
             "2609.00624",
-            "2608.29030"
+            "2608.29943"
           ]
         },
         {
@@ -4138,10 +4354,10 @@
           "tldr": "为药物发现智能体构建经人类对齐验证的LLM评审框架,偏应用。",
           "related": [
             "2608.20960",
+            "2609.02293",
             "2608.17776",
-            "2608.29209",
-            "2609.00624",
-            "2608.30373"
+            "2609.02246",
+            "2608.29209"
           ]
         },
         {
@@ -4250,53 +4466,12 @@
   ],
   "pending": [],
   "momentum": {
-    "Jailbreaking & Red Teaming": 138,
-    "Prompt Injection & LLM Attacks": 89,
-    "Reward Hacking & Deceptive Alignment": 140,
-    "Agentic AI Safety": 105,
-    "Safety Training & Alignment": 329,
-    "Defenses, Privacy & Robustness": 152
+    "Jailbreaking & Red Teaming": 18,
+    "Prompt Injection & LLM Attacks": -10,
+    "Reward Hacking & Deceptive Alignment": 17,
+    "Agentic AI Safety": -8,
+    "Safety Training & Alignment": 271,
+    "Defenses, Privacy & Robustness": 54
   },
-  "emerging": [
-    {
-      "term": "alignment",
-      "count": 50
-    },
-    {
-      "term": "mechanism",
-      "count": 43
-    },
-    {
-      "term": "generation",
-      "count": 41
-    },
-    {
-      "term": "signal",
-      "count": 38
-    },
-    {
-      "term": "success",
-      "count": 37
-    },
-    {
-      "term": "risk",
-      "count": 37
-    },
-    {
-      "term": "content",
-      "count": 36
-    },
-    {
-      "term": "increasingly",
-      "count": 36
-    },
-    {
-      "term": "identify",
-      "count": 35
-    },
-    {
-      "term": "context",
-      "count": 34
-    }
-  ]
+  "emerging": []
 }
