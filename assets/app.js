@@ -179,9 +179,22 @@
     $("#view-home").hidden = view !== "home";
     $("#view-library").hidden = view !== "library";
     $("#view-mine").hidden = view !== "mine";
+    $("#view-net").hidden = view !== "net";
     $$("[data-route]").forEach((a) =>
       a.classList.toggle("nav-active", a.getAttribute("href") === `#${view}`)
     );
+    window.dispatchEvent(new CustomEvent("sw:view", { detail: view }));
+  }
+
+  function goSearch(term) {
+    state.query = String(term).toLowerCase();
+    state.cat = null;
+    state.page = 1;
+    setView("library");
+    writeLibHash(true);
+    syncControls();
+    renderLibrary();
+    window.scrollTo({ top: 0 });
   }
 
   function route() {
@@ -195,6 +208,9 @@
     } else if (hash.startsWith("#mine")) {
       setView("mine");
       renderMine();
+      window.scrollTo({ top: 0 });
+    } else if (hash.startsWith("#net")) {
+      setView("net");
       window.scrollTo({ top: 0 });
     } else {
       setView("home");
@@ -503,16 +519,7 @@
         )
         .join("");
     row.querySelectorAll("[data-term]").forEach((b) => {
-      b.onclick = () => {
-        state.query = b.dataset.term.toLowerCase();
-        state.cat = null;
-        state.page = 1;
-        setView("library");
-        writeLibHash(true);
-        syncControls();
-        renderLibrary();
-        window.scrollTo({ top: 0 });
-      };
+      b.onclick = () => goSearch(b.dataset.term);
     });
   }
 
@@ -1171,6 +1178,9 @@
     if (chart) drawPie();
     if (trendChart) drawTrend();
   }
+
+  /* ---------- bridge for sibling modules (net.js) ---------- */
+  window.SW = { openDrawer, corpusMap, state, goSearch, setView };
 
   boot();
 })();

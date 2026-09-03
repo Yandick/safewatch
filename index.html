@@ -45,6 +45,7 @@
       </div>
       <nav class="header-nav">
         <a href="#home" data-route>Home</a>
+        <a href="#net" data-route>Net</a>
         <a href="#library" data-route>Library</a>
         <a href="#mine" data-route>My Library</a>
         <a href="#topics" data-scroll>Topics</a>
@@ -177,6 +178,33 @@
     </section>
   </main>
 
+  <!-- ================= RESEARCH NET VIEW ================= -->
+  <main id="view-net" hidden>
+    <section class="panel reveal is-active-view" aria-label="Research net">
+      <div class="panel-head panel-head--row">
+        <div>
+          <h2>Research Net <span id="netCount" class="lib-count mono">…</span></h2>
+          <p class="panel-sub">Every paper and concept as a living graph — <b>drag nodes to stretch it</b>, scroll to zoom, play the slider to watch the field grow. Click a <b>paper</b> for its drawer, a <b>concept</b> for its topic panel, an <b>edge</b> (violet) for the evolution of a research question.</p>
+        </div>
+        <div class="head-controls">
+          <div id="netTopics" class="chips"></div>
+          <select id="netMode" class="day-select">
+            <option value="all">All papers</option>
+            <option value="curated">Curated only</option>
+            <option value="impact">Impact ≥ 7</option>
+          </select>
+        </div>
+      </div>
+      <div class="net-controls">
+        <button id="netPlay" class="chip" type="button">▶ Play growth</button>
+        <input id="netSlider" type="range" min="0" max="1" value="1" />
+        <span id="netStepLabel" class="mono net-step-label">—</span>
+      </div>
+      <div id="netChart" class="net-chart"></div>
+      <p class="kbd-hint">Graph rebuilt automatically from <code>data/graph.json</code> after every harvest. Force layout is seed-stable per session — your arrangement resets on reload.</p>
+    </section>
+  </main>
+
   <footer class="site-footer">
     <p>
       SafeWatch · auto-refreshed by GitHub Actions · data parsed from the
@@ -194,6 +222,13 @@
     <div id="drawerBody" class="drawer-body"></div>
   </aside>
 
+  <!-- research net side panel -->
+  <aside id="netPanel" class="drawer" hidden aria-label="Concept details">
+    <button id="netPanelClose" class="drawer-close" aria-label="Close">✕</button>
+    <div id="netPanelBody" class="drawer-body"></div>
+  </aside>
+
   <script src="assets/app.js"></script>
+  <script src="assets/net.js"></script>
 </body>
 </html>

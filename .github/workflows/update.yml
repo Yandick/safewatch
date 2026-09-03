@@ -57,6 +57,9 @@ jobs:
       - name: Enrich (related papers, momentum, emerging keywords)
         run: python scripts/enrich.py
 
+      - name: Build research graph
+        run: python scripts/graph.py
+
       - name: Commit refreshed dataset
         run: |
           git config user.name "github-actions[bot]"
@@ -76,6 +79,7 @@ jobs:
           cp assets/* _site/assets/
           cp data/papers.json _site/data/
           cp data/abstracts.json _site/data/
+          cp data/graph.json _site/data/
           touch _site/.nojekyll
 
       - uses: actions/upload-pages-artifact@v3
