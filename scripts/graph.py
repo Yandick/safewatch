@@ -31,11 +31,11 @@ import update_data as ud  # noqa: E402
 
 GRAPH_FILE = ud.ROOT / "data" / "graph.json"
 
-MAX_CONCEPTS = 220
-CONCEPT_DF_MIN = 4          # min documents containing a concept
+MAX_CONCEPTS = 160
+CONCEPT_DF_MIN = 5          # min documents containing a concept
 CONCEPTS_PER_PAPER = 6      # strongest paper-concept links kept
-COOCCUR_MIN = 4             # min shared papers for a concept-concept edge
-CC_EDGE_CAP = 800           # cap on concept-concept edges (by weight)
+COOCCUR_MIN = 5             # min shared papers for a concept-concept edge
+CC_EDGE_CAP = 500           # cap on concept-concept edges (by weight)
 TITLE_MAX = 72
 
 

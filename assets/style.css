@@ -375,9 +375,10 @@ main { animation: view-in 0.45s ease both; }
   border-radius: 2px;
   background: linear-gradient(90deg, var(--accent), var(--accent-2));
 }
+button { cursor: pointer; }
 .more-link {
   flex: none; font-size: 0.84rem; font-weight: 600; text-decoration: none;
-  color: var(--accent);
+  color: var(--accent); cursor: pointer;
   padding: 8px 15px; border-radius: 999px;
   border: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
   transition: all 0.22s ease;
@@ -570,6 +571,19 @@ kbd {
   background: var(--chip-bg); text-align: center;
 }
 @media (max-width: 700px) { .net-chart { height: 460px; } }
+.net-toggle {
+  display: inline-flex; align-items: center; gap: 7px;
+  font-size: 0.78rem; color: var(--text-dim); font-weight: 500;
+  cursor: pointer; user-select: none;
+}
+.net-toggle input { accent-color: #a78bfa; cursor: pointer; }
+.net-legend { color: var(--text-faint); }
+.net-legend .dot.circle {
+  display: inline-block; width: 9px; height: 9px; border-radius: 50%;
+  background: linear-gradient(120deg, var(--accent), var(--accent-2));
+  vertical-align: 1px;
+}
+.lib-sep { width: 1px; height: 20px; background: var(--panel-border); display: inline-block; }
 .back-top {
   position: fixed; right: 22px; bottom: 22px; z-index: 60;
   width: 42px; height: 42px; border-radius: 12px; cursor: pointer;

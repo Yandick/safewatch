@@ -17,6 +17,7 @@
     sort: "newest",
     page: 1,
     view: "home",
+    libSegment: "corpus", // "corpus" | "mine"
     personalFilter: null, // null | "starred" | "unread" (library chips)
     hideReadMine: false,
   };
@@ -178,12 +179,32 @@
     state.view = view;
     $("#view-home").hidden = view !== "home";
     $("#view-library").hidden = view !== "library";
-    $("#view-mine").hidden = view !== "mine";
     $("#view-net").hidden = view !== "net";
-    $$("[data-route]").forEach((a) =>
-      a.classList.toggle("nav-active", a.getAttribute("href") === `#${view}`)
-    );
+    $$("[data-route]").forEach((a) => {
+      const href = a.getAttribute("href");
+      const active =
+        href === `#${view}` ||
+        (view === "library" && state.libSegment === "mine" && href === "#library");
+      a.classList.toggle("nav-active", active);
+    });
     window.dispatchEvent(new CustomEvent("sw:view", { detail: view }));
+  }
+
+  function setLibSegment(seg) {
+    state.libSegment = seg === "mine" ? "mine" : "corpus";
+    $$("#libSeg .seg-btn").forEach((b) =>
+      b.classList.toggle("active", b.dataset.seg === state.libSegment)
+    );
+    const mine = state.libSegment === "mine";
+    $("#libSection").hidden = mine;
+    $("#mineSection").hidden = !mine;
+    $("#sortWrap").hidden = mine;
+    $("#segTitle").textContent = mine ? "My Library" : "Library";
+    $("#libSub").textContent = mine
+      ? "Your starred papers with notes and tags — one click from any card. Exports build lab-meeting material."
+      : "Every on-topic paper we've collected, across all batches. Filters live in the URL — share them freely.";
+    if (mine) renderMine();
+    else renderLibrary();
   }
 
   function goSearch(term) {
@@ -202,21 +223,19 @@
     if (hash.startsWith("#library")) {
       syncLibFromURL();
       setView("library");
+      setLibSegment("corpus");
       syncControls();
       renderLibrary();
       window.scrollTo({ top: 0 });
     } else if (hash.startsWith("#mine")) {
-      setView("mine");
-      renderMine();
+      setView("library");
+      setLibSegment("mine");
       window.scrollTo({ top: 0 });
     } else if (hash.startsWith("#net")) {
       setView("net");
       window.scrollTo({ top: 0 });
     } else {
       setView("home");
-      if (hash.startsWith("#topics")) {
-        setTimeout(() => $("#view-home").scrollIntoView({ behavior: "smooth" }), 60);
-      }
     }
   }
 
@@ -308,6 +327,12 @@
     $("#digestBtn").onclick = exportWeeklyDigest;
 
     // my library controls
+    $$("#libSeg .seg-btn").forEach((b) => {
+      b.onclick = () => {
+        setLibSegment(b.dataset.seg);
+        writeLibHash(false);
+      };
+    });
     $("#mineHideRead").onclick = (e) => {
       state.hideReadMine = !state.hideReadMine;
       e.target.classList.toggle("active", state.hideReadMine);
@@ -1116,11 +1141,10 @@
   let cursorIdx = -1;
 
   function activeListEl() {
-    return state.view === "library"
-      ? $("#libList")
-      : state.view === "mine"
-      ? $("#mineList")
-      : $("#picksList");
+    if (state.view === "library") {
+      return state.libSegment === "mine" ? $("#mineList") : $("#libList");
+    }
+    return $("#picksList");
   }
 
   function cursorCards() {
@@ -1180,7 +1204,7 @@
   }
 
   /* ---------- bridge for sibling modules (net.js) ---------- */
-  window.SW = { openDrawer, corpusMap, state, goSearch, setView };
+  window.SW = { openDrawer, corpusMap, state, goSearch, setView, setLibSegment };
 
   boot();
 })();

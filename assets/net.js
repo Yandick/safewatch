@@ -9,7 +9,8 @@
   let chart = null;
   let stepIdx = 0;
   let topicFilter = null;
-  let papersMode = "all";
+  let papersMode = "curated";   // curated-only default keeps the net readable
+  let showPPEdges = false;      // similarity edges off by default (clutter)
   let playTimer = null;
   let booted = false;
 
@@ -82,36 +83,42 @@
     for (const n of concepts) {
       if (cum(n.label, idx) > 0) { vNodes.push(n); visible.add(n.id); }
     }
-    const vLinks = links.filter((l) => visible.has(l.s) && visible.has(l.t));
+    const vLinks = links.filter((l) => {
+      if (l.k === "pp" && !showPPEdges) return false;
+      return visible.has(l.s) && visible.has(l.t);
+    });
     return { nodes: vNodes, links: vLinks };
   }
 
   function nodeStyle(n, idx) {
     if (n.type === "paper") {
       return {
-        symbolSize: 7 + n.impact * 1.2 + (n.curated ? 2 : 0),
+        symbol: "circle",
+        symbolSize: 8 + n.impact * 1.2 + (n.curated ? 2 : 0),
         itemStyle: {
           color: G.topicColors[n.topic] || "#38bdf8",
           opacity: 0.92,
         },
-        label: {
-          show: n.impact >= 8 || n.curated,
-          fontSize: 9,
-          color: "#8b93a7",
-          formatter: () => n.label.slice(0, 34),
-        },
+        label: { show: false },
       };
     }
     const c = cum(n.label, idx);
+    const top = c >= 12 || n.df >= 14;
     return {
-      symbolSize: 8 + Math.sqrt(c) * 2.2,
+      symbol: "diamond",
+      symbolSize: 9 + Math.sqrt(c) * 2.4,
       itemStyle: {
         color: n.domColor,
-        opacity: 0.85,
-        borderColor: "rgba(0,0,0,0.35)",
+        opacity: 0.88,
+        borderColor: "rgba(0,0,0,0.4)",
         borderWidth: 1,
       },
-      label: { show: true, fontSize: 10, color: "#9aa3bd", formatter: () => n.label },
+      label: {
+        show: top,
+        fontSize: 10,
+        color: "#9aa3bd",
+        formatter: () => n.label,
+      },
     };
   }
 
@@ -162,10 +169,10 @@
               lineStyle: LINK_STYLE[l.k] || LINK_STYLE.pp,
             })),
             force: {
-              repulsion: 130,
-              gravity: 0.06,
-              edgeLength: [28, 80],
-              friction: 0.2,
+              repulsion: 240,
+              gravity: 0.05,
+              edgeLength: [42, 110],
+              friction: 0.18,
               layoutAnimation: true,
             },
             emphasis: { focus: "adjacency", label: { show: true } },
@@ -419,8 +426,13 @@
     stepIdx = G.steps.length - 1;
     slider.addEventListener("input", () => setStep(parseInt(slider.value, 10)));
     $("#netPlay").onclick = togglePlay;
+    $("#netMode").value = papersMode;
     $("#netMode").addEventListener("change", (e) => {
       papersMode = e.target.value;
+      render();
+    });
+    $("#netPP").addEventListener("change", (e) => {
+      showPPEdges = e.target.checked;
       render();
     });
     $("#netPanelClose").onclick = closeNetPanel;
