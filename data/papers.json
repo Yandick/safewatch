@@ -1,8 +1,8 @@
 {
-  "last_updated": "2026-09-03T04:10:08+00:00",
+  "last_updated": "2026-09-03T04:48:04+00:00",
   "latest_day": "2026-09-03",
   "curated_by": "z-ai/glm-5.3-flash",
-  "total_today": 0,
+  "total_today": 1,
   "categories": [
     "Jailbreaking & Red Teaming",
     "Prompt Injection & LLM Attacks",
@@ -20,27 +20,62 @@
     "Defenses, Privacy & Robustness": "#60a5fa"
   },
   "proportions": {
-    "Jailbreaking & Red Teaming": 10.9,
-    "Prompt Injection & LLM Attacks": 9.3,
+    "Jailbreaking & Red Teaming": 10.8,
+    "Prompt Injection & LLM Attacks": 9.2,
     "Reward Hacking & Deceptive Alignment": 6.2,
-    "Agentic AI Safety": 21.2,
-    "Safety Training & Alignment": 17.1,
-    "Defenses, Privacy & Robustness": 35.2
+    "Agentic AI Safety": 22.1,
+    "Safety Training & Alignment": 16.9,
+    "Defenses, Privacy & Robustness": 34.9
   },
   "category_counts": {
     "Jailbreaking & Red Teaming": 21,
     "Prompt Injection & LLM Attacks": 18,
     "Reward Hacking & Deceptive Alignment": 12,
-    "Agentic AI Safety": 41,
+    "Agentic AI Safety": 43,
     "Safety Training & Alignment": 33,
     "Defenses, Privacy & Robustness": 68
   },
-  "total_papers": 193,
-  "total_picks": 70,
+  "total_papers": 195,
+  "total_picks": 71,
   "days": [
     {
       "batch_date": "2026-09-03",
-      "papers": [],
+      "papers": [
+        {
+          "id": "2609.02786",
+          "title": "SafeEvolve: Harness-Policy Co-Evolution from Agent Experience for Safety Alignment",
+          "authors": [
+            "Qinghua Mao",
+            "Wanying Qu",
+            "Dadi Guo",
+            "Leitao Yuan",
+            "Qingyu Liu",
+            "Yu Li",
+            "Guanxu Chen",
+            "Yanwei Fu",
+            "Xi Lin",
+            "Xia Hu",
+            "Dongrui Liu"
+          ],
+          "abstract": "The performance of LLM-based agents is jointly shaped by the base model and the harness used when interacting with the environment. This exposes them to safety risks in both harmful final responses and multi-step execution trajectories. Existing safety alignment mechanisms often rely on either external harness updates or policy optimization, yet applying either paradigm in isolation fails to bridge runtime control with intrinsic safety. We propose SafeEvolve, an experience-driven self-evolving framework for agent safety alignment. SafeEvolve leverages safety experience from completed on-policy trajectories to drive a continual loop of harness-policy co-evolution. On the harness side, SafeEvolve converts trajectory-level safety evidence into bounded, component-level updates across safety prompt and hierarchical skills, yielding auditable and reversible harness artifacts. On the policy side, SafeEvolve follows a two-stage SFT-RL paradigm, where harness-use SFT bootstraps the policy to actively leverage evolved harness artifacts, and harness-augmented RL further shapes autonomous safety behaviors during multi-step exploration via verifier-decomposed rewards. Through harness-policy co-evolution, SafeEvolve converts safety experience into an evolved runtime harness and improved policy behavior. Experiments on agentic safety benchmarks show that SafeEvolve achieves a stronger safety-utility tradeoff than existing baselines. For Qwen3.5-4B, SafeEvolve achieves a $3\\times$ ASR reduction on AgentDojo while improving benign utility from 59.79% to 61.86%.",
+          "category": "Agentic AI Safety",
+          "date": "2026-09-02",
+          "url": "https://arxiv.org/abs/2609.02786",
+          "repo": null,
+          "score": 4,
+          "upvotes": 0,
+          "ai_rel": 8,
+          "ai_imp": 6,
+          "tldr": "利用轨迹安全经验驱动harness与策略协同演化,形成智能体安全对齐闭环机制",
+          "related": [
+            "2608.21100",
+            "2608.24275",
+            "2608.22868",
+            "2608.30750",
+            "2608.20554"
+          ]
+        }
+      ],
       "collected": [
         {
           "id": "2609.02293",
@@ -97,11 +132,11 @@
           "date": "2026-08-31",
           "url": "https://arxiv.org/abs/2608.30457",
           "repo": null,
-          "upvotes": 5,
+          "upvotes": 6,
           "related": [
             "2608.25580",
-            "2608.26105",
             "2609.01867",
+            "2608.26105",
             "2608.27351",
             "2608.27906"
           ]
@@ -134,8 +169,8 @@
             "2609.00487",
             "2608.17776",
             "2608.26008",
-            "2608.21775",
-            "2608.30748"
+            "2608.30748",
+            "2608.21775"
           ]
         },
         {
@@ -149,9 +184,9 @@
           "related": [
             "2608.26105",
             "2608.30457",
-            "2608.30842",
             "2608.27351",
-            "2608.21057"
+            "2608.30842",
+            "2608.25667"
           ]
         },
         {
@@ -212,8 +247,8 @@
           "upvotes": 0,
           "related": [
             "2608.27496",
-            "2608.26237",
             "2608.25091",
+            "2608.26237",
             "2608.22868",
             "2608.30041"
           ]
@@ -249,10 +284,35 @@
             "2608.26008",
             "2608.30319"
           ]
+        },
+        {
+          "id": "2609.02786",
+          "title": "SafeEvolve: Harness-Policy Co-Evolution from Agent Experience for Safety Alignment",
+          "category": "Agentic AI Safety",
+          "date": "2026-09-02",
+          "url": "https://arxiv.org/abs/2609.02786",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2609.02730",
+          "title": "CORAL: An LLM-Native Harness for Production Recommender Systems",
+          "category": "Agentic AI Safety",
+          "date": "2026-09-02",
+          "url": "https://arxiv.org/abs/2609.02730",
+          "repo": null,
+          "upvotes": 0,
+          "related": [
+            "2608.30207",
+            "2609.02786",
+            "2608.19982",
+            "2608.24650",
+            "2608.27844"
+          ]
         }
       ],
-      "total_count": 0,
-      "archived_count": 13
+      "total_count": 1,
+      "archived_count": 15
     },
     {
       "batch_date": "2026-09-02",
@@ -393,7 +453,7 @@
             "2608.28312",
             "2608.21057",
             "2608.24650",
-            "2608.21544"
+            "2609.02730"
           ]
         },
         {
@@ -612,7 +672,7 @@
             "2608.26372",
             "2608.29942",
             "2608.23858",
-            "2608.27580"
+            "2608.23867"
           ]
         },
         {
@@ -1486,8 +1546,8 @@
           "related": [
             "2609.00213",
             "2609.01723",
-            "2608.30724",
             "2608.25605",
+            "2608.30724",
             "2608.25267"
           ]
         },
@@ -1502,8 +1562,8 @@
           "related": [
             "2608.24192",
             "2608.31079",
-            "2608.19598",
             "2608.19982",
+            "2608.19598",
             "2609.00873"
           ]
         },
@@ -1534,8 +1594,8 @@
           "related": [
             "2609.01572",
             "2608.29814",
-            "2608.30724",
             "2608.27906",
+            "2608.30724",
             "2608.16026"
           ]
         },
@@ -1582,9 +1642,9 @@
           "related": [
             "2608.26372",
             "2608.30750",
+            "2609.02786",
             "2608.19729",
-            "2608.23179",
-            "2608.30373"
+            "2608.23179"
           ]
         },
         {
@@ -1616,7 +1676,7 @@
             "2608.21775",
             "2608.26222",
             "2608.30750",
-            "2608.21100"
+            "2608.27338"
           ]
         },
         {
@@ -1664,7 +1724,7 @@
             "2608.30378",
             "2608.27351",
             "2608.19729",
-            "2608.29564"
+            "2608.27906"
           ]
         },
         {
@@ -1742,11 +1802,11 @@
           "repo": null,
           "upvotes": 0,
           "related": [
+            "2609.02730",
             "2608.27844",
             "2608.27009",
             "2608.24650",
-            "2608.30207",
-            "2608.30750"
+            "2608.30207"
           ]
         }
       ],
@@ -2005,8 +2065,8 @@
           "ai_imp": 8,
           "tldr": "发现智能体能识别伪造指令来源却仍执行，揭示识别与执行间的安全鸿沟。",
           "related": [
-            "2608.27496",
             "2608.24017",
+            "2608.27496",
             "2608.27800",
             "2608.21126",
             "2609.00267"
@@ -2445,7 +2505,7 @@
             "2608.30207",
             "2608.30041",
             "2608.25711",
-            "2609.02246"
+            "2609.02730"
           ]
         },
         {
@@ -2498,8 +2558,8 @@
             "2608.30428",
             "2609.01519",
             "2608.30362",
-            "2608.17659",
-            "2608.24037"
+            "2608.24037",
+            "2608.17659"
           ]
         },
         {
@@ -2655,8 +2715,8 @@
             "2608.29942",
             "2608.24777",
             "2608.27443",
-            "2608.27580",
-            "2609.00267"
+            "2609.00267",
+            "2608.27580"
           ]
         },
         {
@@ -2723,7 +2783,7 @@
             "2609.00051",
             "2608.26222",
             "2609.02293",
-            "2608.26008"
+            "2608.19982"
           ]
         },
         {
@@ -2860,7 +2920,7 @@
             "2608.27990",
             "2608.24022",
             "2608.30362",
-            "2608.30441"
+            "2608.19982"
           ]
         },
         {
@@ -3117,8 +3177,8 @@
           "related": [
             "2608.27990",
             "2608.26008",
-            "2608.22312",
             "2608.19982",
+            "2608.22312",
             "2608.25490"
           ]
         },
@@ -3192,8 +3252,8 @@
           "related": [
             "2608.24354",
             "2608.21100",
-            "2608.19982",
             "2608.24037",
+            "2608.19982",
             "2608.20991"
           ]
         },
@@ -3460,7 +3520,7 @@
             "2608.27439",
             "2608.25091",
             "2609.02035",
-            "2608.25817"
+            "2609.00487"
           ]
         },
         {
@@ -3484,8 +3544,8 @@
           "related": [
             "2608.30724",
             "2608.17776",
-            "2608.25267",
             "2608.29357",
+            "2608.25267",
             "2608.25580"
           ]
         },
@@ -3658,7 +3718,7 @@
             "2608.26008",
             "2608.28411",
             "2608.24192",
-            "2608.21577"
+            "2608.23959"
           ]
         },
         {
@@ -3681,8 +3741,8 @@
           "tldr": "设计以数据流为中心的代理策略语言与运行时监控，支持SMT验证，严谨。",
           "related": [
             "2608.24275",
-            "2608.27443",
             "2608.27496",
+            "2608.27443",
             "2608.24017",
             "2608.21101"
           ]
@@ -3708,8 +3768,8 @@
             "2608.30429",
             "2608.25817",
             "2608.16026",
-            "2609.02035",
-            "2608.30041"
+            "2608.30041",
+            "2609.02035"
           ]
         },
         {
@@ -3733,8 +3793,8 @@
           "tldr": "用多层级扭曲SMC估计LLM罕见不安全行为概率，提升安全评估精度。",
           "related": [
             "2608.30457",
-            "2608.27906",
             "2608.19982",
+            "2608.27906",
             "2608.21057",
             "2608.27348"
           ]
@@ -3767,8 +3827,8 @@
           "related": [
             "2608.25618",
             "2608.26008",
-            "2608.28502",
             "2608.17659",
+            "2608.28502",
             "2608.30362"
           ]
         }
@@ -3849,10 +3909,10 @@
           "tldr": "多智能体LLM主动采集地下论坛威胁情报,属网络安全应用,与LLM安全关联弱",
           "related": [
             "2608.23858",
+            "2609.02730",
             "2608.16026",
             "2608.27548",
-            "2608.27844",
-            "2608.21775"
+            "2608.27844"
           ]
         },
         {
@@ -3889,7 +3949,7 @@
             "2608.25727",
             "2609.01455",
             "2608.21775",
-            "2609.00051"
+            "2609.00873"
           ]
         },
         {
@@ -3906,7 +3966,7 @@
             "2608.27990",
             "2608.23873",
             "2608.27800",
-            "2608.17659"
+            "2608.28502"
           ]
         },
         {
@@ -3957,7 +4017,7 @@
             "2608.23811",
             "2608.29028",
             "2608.27800",
-            "2608.28411"
+            "2608.19982"
           ]
         },
         {
@@ -4056,8 +4116,8 @@
             "2608.30122",
             "2608.22868",
             "2608.30378",
-            "2608.27443",
-            "2608.27800"
+            "2609.02786",
+            "2608.27443"
           ]
         },
         {
@@ -4356,8 +4416,8 @@
             "2609.02246",
             "2608.30842",
             "2608.17776",
-            "2608.30373",
-            "2609.01867"
+            "2609.01867",
+            "2608.30373"
           ]
         },
         {
@@ -4433,11 +4493,11 @@
           "ai_imp": 4,
           "tldr": "用编码智能体自动构建LLM服务仿真器,属系统工作,安全关联弱。",
           "related": [
-            "2609.00052",
+            "2609.02730",
             "2608.30050",
+            "2609.00052",
             "2609.01572",
-            "2608.26306",
-            "2608.27990"
+            "2608.26306"
           ]
         },
         {
@@ -4469,7 +4529,7 @@
     "Jailbreaking & Red Teaming": 18,
     "Prompt Injection & LLM Attacks": -10,
     "Reward Hacking & Deceptive Alignment": 17,
-    "Agentic AI Safety": -8,
+    "Agentic AI Safety": 0,
     "Safety Training & Alignment": 271,
     "Defenses, Privacy & Robustness": 54
   },
