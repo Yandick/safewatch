@@ -233,6 +233,51 @@ def cmd_forecast(args, data, uniq, graph):
     print(json.dumps(out, ensure_ascii=False, indent=2))
 
 
+def cmd_lineage(args, data, uniq, graph):
+    """Research forest: lineage trees (roots=established questions)."""
+    forest = graph.get("forest") or []
+
+    def flatten(node, depth, out):
+        out.append(
+            {
+                "concept": node["name"],
+                "depth": depth,
+                "appeared_step": node.get("step"),
+                "appeared_at": (graph.get("steps") or [""] * (node.get("step", 0) + 1))[
+                    node.get("step", 0)
+                ]
+                if graph.get("steps")
+                else None,
+                "df": node.get("df"),
+                "topic": node.get("topic"),
+            }
+        )
+        for c in node.get("children", []):
+            flatten(c, depth + 1, out)
+
+    out = []
+    for tree in forest:
+        if args.trunk and tree["name"] != args.trunk:
+            continue
+        rows = []
+        flatten(tree, 0, rows)
+        out.append(
+            {
+                "trunk": tree["name"],
+                "nodes": len(rows),
+                "lineage": rows,
+                "papers": (graph.get("conceptPapers") or {}).get(
+                    tree["name"], []
+                )[:8],
+            }
+        )
+    if not out:
+        print(json.dumps({"error": "no forest in graph.json (run scripts/graph.py)",
+                          "trunks_available": [t["name"] for t in forest]}))
+        return
+    print(json.dumps(out, ensure_ascii=False, indent=2))
+
+
 def cmd_search(args, data, uniq, graph):
     rows = [
         p for p in uniq.values()
@@ -273,6 +318,9 @@ def main() -> int:
     sf = sub.add_parser("forecast")
     sf.add_argument("--limit", type=int, default=12)
 
+    sl = sub.add_parser("lineage")
+    sl.add_argument("--trunk", help="show only this lineage tree")
+
     ss = sub.add_parser("search")
     ss.add_argument("--q", required=True)
     ss.add_argument("--limit", type=int, default=15)
@@ -291,6 +339,8 @@ def main() -> int:
         cmd_edge(args, data, uniq, graph)
     elif args.cmd == "forecast":
         cmd_forecast(args, data, uniq, graph)
+    elif args.cmd == "lineage":
+        cmd_lineage(args, data, uniq, graph)
     elif args.cmd == "search":
         cmd_search(args, data, uniq, graph)
     return 0

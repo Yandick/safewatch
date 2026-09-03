@@ -49,11 +49,16 @@ STOPWORDS = set(
     literature work works research field task tasks setting settings case cases
     find finds found demonstrate demonstrates demonstrated evaluate evaluated
     evaluation analysis improve improved improvement outperform outperforms
-    always often often yet ever still even also less least own same another""".split()
+    always often often yet ever still even also less least own same another
+    identify identified identifying include included including cannot
+    success successful increasingly response responses critical
+    whether though although generate generates generated generating""".split()
 )
 
 # Domain-generic for an LLM-safety corpus: present in nearly every paper, so
-# they carry zero "emerging" signal and must never surface as keywords.
+# they carry zero "emerging" signal. Applied ONLY to emerging-keyword
+# counting (tokenize_novel) -- concept vocabulary (net/forest/relatedness)
+# keeps richer words like agent, prompt, injection, alignment via tokenize().
 DOMAIN_STOPWORDS = set(
     """llm llms llm-based language model models ai artificial intelligence
     safety safe security secure attack attacks attacker adversarial adversarial-attack
@@ -66,7 +71,13 @@ DOMAIN_STOPWORDS = set(
     ability abilities key main further potential scenario scenarios world
     human humans system systems text texts question questions source sources
     online available open released detail details provide provides providing
-    develop developed development design designed address addressed addressing""".split()
+    develop developed development design designed address addressed addressing
+    identify identified identifying include included including cannot
+    success successful increasingly response responses critical
+    whether though although generate generates generated generating
+    whether though although
+    mechanism mechanisms signal signals content generation generative
+    utility context""".split()
 )
 
 WORD_RE = re.compile(r"[a-z][a-z\-]{2,}")
@@ -76,14 +87,26 @@ def fold_plural(w: str) -> str:
     """Crude singular folding so model/models, agent/agents count together."""
     if w.endswith("ies") and len(w) > 4:
         return w[:-3] + "y"
-    if w.endswith("es") and len(w) > 5 and not w.endswith("ses"):
-        return w[:-2]
-    if w.endswith("s") and len(w) > 4 and not w.endswith("ss"):
+    if w.endswith("s") and len(w) > 3 and not w.endswith("ss") and not w.endswith("us"):
         return w[:-1]
     return w
 
 
 def tokenize(text: str) -> list[str]:
+    """Vocabulary for concepts + TF-IDF relatedness (rich words kept)."""
+    out = []
+    for w in WORD_RE.findall(text.lower()):
+        if w in STOPWORDS or len(w) >= 25:
+            continue
+        folded = fold_plural(w)
+        if folded in STOPWORDS:
+            continue
+        out.append(folded)
+    return out
+
+
+def tokenize_novel(text: str) -> list[str]:
+    """Vocabulary for emerging-keyword detection (domain-generic removed)."""
     out = []
     for w in WORD_RE.findall(text.lower()):
         if w in STOPWORDS or w in DOMAIN_STOPWORDS or len(w) >= 25:
@@ -234,7 +257,7 @@ def compute_momentum_and_emerging(
         tf: Counter = Counter()
         for pid in docs:
             text = f'{unique_text.get(pid, "")}'
-            tf.update(set(tokenize(text)))
+            tf.update(set(tokenize_novel(text)))
         return tf
 
     unique_text = {}
@@ -261,10 +284,10 @@ def compute_momentum_and_emerging(
 
     emerging = []
     for term, cnt in cur_tf.most_common(60):
-        if cnt < 3 or term in persistent:
+        if cnt < 2 or term in persistent:
             continue
         prev_max = max((tf.get(term, 0) for tf in prev_tfs), default=0)
-        if cnt >= prev_max + 2:
+        if cnt >= prev_max + 1:
             emerging.append({"term": term, "count": cnt})
         if len(emerging) >= 10:
             break

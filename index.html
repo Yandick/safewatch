@@ -190,9 +190,10 @@
           <h2>Research Net <span id="netCount" class="lib-count mono">…</span></h2>
           <div class="seg-switch" id="netViewSeg">
             <button class="seg-btn active" data-netview="timeline" type="button">📈 Timeline</button>
+            <button class="seg-btn" data-netview="forest" type="button">🌳 Forest</button>
             <button class="seg-btn" data-netview="graph" type="button">🕸 Graph</button>
           </div>
-          <p class="panel-sub" id="netViewSub">Papers placed by harvest date (x) and topic (lane). Bubble size = AI impact rating. 🔺 markers are bursting concepts — this is where the field is accelerating.</p>
+          <p class="panel-sub" id="netViewSub">Papers placed by harvest date (x) and topic lane (y). Bubble size = AI impact rating. 🔺 markers are bursting concepts — this is where the field is accelerating.</p>
         </div>
         <div class="head-controls">
           <div id="netTopics" class="chips"></div>
@@ -210,8 +211,9 @@
         <span id="netStepLabel" class="mono net-step-label">—</span>
         <label class="net-toggle"><input id="netPP" type="checkbox" /> similarity edges</label>
       </div>
-      <div id="netChart" class="net-chart"></div>
-      <div id="timelineChart" class="timeline-chart" hidden></div>
+      <div id="netChart" class="net-chart" hidden></div>
+      <div id="timelineChart" class="timeline-chart"></div>
+      <div id="forestChart" class="forest-chart" hidden></div>
       <details class="readbox">
         <summary>How to read this view</summary>
         <div class="readbox-body">

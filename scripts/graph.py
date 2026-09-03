@@ -34,9 +34,33 @@ GRAPH_FILE = ud.ROOT / "data" / "graph.json"
 MAX_CONCEPTS = 160
 CONCEPT_DF_MIN = 5          # min documents containing a concept
 CONCEPTS_PER_PAPER = 6      # strongest paper-concept links kept
-COOCCUR_MIN = 5             # min shared papers for a concept-concept edge
+COOCCUR_MIN = 4             # min shared papers for a concept-concept edge
 CC_EDGE_CAP = 500           # cap on concept-concept edges (by weight)
 TITLE_MAX = 72
+
+# Curated vocabulary of genuine safety-research concepts. The forest
+# (lineage trees) grows from these; extend as the field evolves -- agents
+# may propose additions via memory/decisions.md.
+CONCEPT_SEEDS = {
+    # attacks
+    "jailbreak", "backdoor", "trojan", "poisoning", "evasion",
+    "exfiltration", "manipulation", "sabotage",
+    # agent safety
+    "agent", "agentic", "tool", "browser", "sandbox", "hijack",
+    "autonomy", "oversight", "supervision",
+    # alignment / training
+    "alignment", "reward", "rlhf", "rlaif", "sycophancy", "deception",
+    "sandbagging", "honesty", "harmlessness", "constitutional",
+    "misalignment", "specification",
+    # defenses / privacy
+    "guardrail", "watermark", "unlearning", "moderation",
+    "detection", "interpretability", "transparency",
+    "privacy", "membership", "robustness", "certified",
+    # evaluations / capabilities / misuse
+    "benchmark", "capability", "capabilities", "dangerous", "biological",
+    "cyber", "weapon", "misuse", "abuse", "hallucination", "misinformation",
+    "deepfake", "phishing", "fraud",
+}
 
 
 def short_title(t: str) -> str:
@@ -78,7 +102,13 @@ def main() -> int:
         df.update(set(toks_p))
     concepts = [t for t, c in df.most_common(MAX_CONCEPTS) if c >= CONCEPT_DF_MIN]
     concept_set = set(concepts)
-    print(f"[graph] {len(concepts)} concepts (df>={CONCEPT_DF_MIN})")
+    # curated seed concepts are always part of the vocabulary (even if rare)
+    for s in CONCEPT_SEEDS:
+        if df.get(s, 0) >= 3 and s not in concept_set:
+            concepts.append(s)
+            concept_set.add(s)
+    concepts.sort(key=lambda t: -df[t])
+    print(f"[graph] {len(concepts)} concepts (df>={CONCEPT_DF_MIN} + seeds)")
 
     # ---- paper vectors (tf-idf over concept vocabulary) ----
     n_docs = len(unique)
@@ -160,6 +190,7 @@ def main() -> int:
                 pair_docs.setdefault((ts[i], ts[j]), []).append(pid)
     cc_edges = [(pair, c) for pair, c in cc.items() if c >= COOCCUR_MIN]
     cc_edges.sort(key=lambda kv: -kv[1])
+    cc_edges_all = cc_edges  # full list (uncapped) for forest lineage
     for (a, b), c in cc_edges[:CC_EDGE_CAP]:
         add_pair(f"c:{a}", f"c:{b}", round(c / max(df[a], df[b]), 3), "cc")
     print(f"[graph] links: {len(links)} (pp+pc+cc)")
@@ -174,6 +205,71 @@ def main() -> int:
             s.append(cum)
         concept_series[t] = s
 
+    # ---- research forest: lineage trees over the concept net ----
+    # Roots are the strongest concepts (established questions); every later
+    # concept attaches to its strongest earlier co-occurring concept.
+    # Rendered bottom-up this reads as a forest growing through harvests --
+    # roots = established questions, shoots = new variants. Deterministic.
+    appear = {}
+    for t in concepts:
+        appear[t] = min(
+            (first_step[pid] for pid in concept_papers[t]), default=len(steps)
+        )
+
+    forest_terms = sorted(
+        (t for t in concepts if t in CONCEPT_SEEDS and df[t] >= 4),
+        key=lambda t: -df[t],
+    )
+    trunks = [t for t in forest_terms[:8]]  # strongest seeds become roots
+    trunk_set = set(trunks)
+    cc_index: dict[str, list[tuple[str, int]]] = {}
+    for (a, b), c in cc_edges_all:
+        cc_index.setdefault(a, []).append((b, c))
+        cc_index.setdefault(b, []).append((a, c))
+
+    parent: dict[str, str] = {}
+    order = sorted(
+        (t for t in forest_terms if t not in trunk_set),
+        key=lambda t: (appear[t], -df[t]),
+    )
+    eligible = set(trunks)  # trunks + already-attached concepts can parent
+    for t in order:
+        cands = [
+            (nb, w) for nb, w in cc_index.get(t, ())
+            if nb in eligible and appear.get(nb, len(steps)) <= appear[t]
+        ]
+        if cands:
+            best = max(cands, key=lambda kv: kv[1])[0]
+        else:
+            best = min(trunks, key=lambda r: appear[r])
+        parent[t] = best
+        eligible.add(t)
+
+    children_map: dict[str, list[str]] = {}
+    for child, root in parent.items():
+        children_map.setdefault(root, []).append(child)
+
+    def tree_node(root: str) -> dict:
+        node = {
+            "name": root,
+            "step": appear.get(root, 0),
+            "df": df.get(root, 0),
+            "topic": (concept_topic[root].most_common(1)[0][0]
+                      if concept_topic.get(root) else None),
+            "children": [],
+        }
+        kids = sorted(
+            children_map.get(root, []), key=lambda t: (appear[t], -df[t])
+        )
+        for k in kids:
+            child = tree_node(k)
+            node["children"].append(child)
+        return node
+
+    forest = [tree_node(r) for r in sorted(trunks, key=lambda t: -df[t])]
+    print(f"[graph] forest: {len(forest)} trunks, "
+          f"{sum(1 for t in parent)} lineage nodes")
+
     out = {
         "generated": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "steps": steps,
@@ -181,6 +277,7 @@ def main() -> int:
         "nodes": nodes,
         "links": links,
         "conceptSeries": concept_series,
+        "forest": forest,
         "conceptPapers": {
             t: sorted(
                 concept_papers[t],

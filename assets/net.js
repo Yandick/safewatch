@@ -7,7 +7,7 @@
   "use strict";
 
   let G = null;
-  let chart = null;        // active echarts instance (graph or timeline)
+  let charts = {};         // lens -> echarts instance
   let activeView = "timeline";
   let stepIdx = 0;
   let topicFilter = null;
@@ -100,55 +100,57 @@
     const el = $("#timelineChart");
     el.hidden = false;
     $("#netChart").hidden = true;
+    $("#forestChart").hidden = true;
     $("#graphControls").hidden = true;
 
-    const series = [];
+    const chart = charts.timeline;
     const topics = Object.keys(G.topicColors);
+    const laneOf = (t) => topics.indexOf(t);
 
+    const series = [];
     for (const t of topics) {
       const data = papers
         .filter((n) => n.topic === t &&
           (!topicFilter || n.topic === topicFilter) &&
           papersModeOk(n))
         .map((n) => ({
-          value: [n.step, n.impact],
+          value: [n.step, laneOf(n.topic)],
           id: n.id,
           name: n.label,
+          impact: n.impact,
           upvotes: n.upvotes,
-          curated: n.curated,
         }));
       series.push({
         name: shortTopic(t),
         type: "scatter",
         data,
-        symbolSize: (val) => 7 + (val[1] || 1) * 1.9 + 2,
-        itemStyle: { color: G.topicColors[t], opacity: 0.85 },
+        symbolSize: (val, params) => 8 + (params.data.impact ?? 3) * 1.9,
+        itemStyle: { color: G.topicColors[t], opacity: 0.88 },
         emphasis: {
           focus: "self",
           label: {
             show: true,
-            formatter: (p) => p.data.name.slice(0, 40),
-            fontSize: 11,
+            formatter: (p) => p.data.name.slice(0, 44),
+            fontSize: 12,
             color: "#e8ecf8",
             position: "top",
+            textBorderColor: "rgba(0,0,0,0.7)",
+            textBorderWidth: 2,
           },
         },
       });
     }
 
-    // burst pins
     const bursts = detectBursts();
     const pinData = [];
     for (const b of bursts) {
-      const term = b.term;
-      const node = byId.get("c:" + term);
-      const lane = topics.indexOf(node ? node.domTopic : topics[0]);
+      const node = byId.get("c:" + b.term);
+      const lane = node ? laneOf(node.domTopic) : -1;
       if (lane < 0) continue;
       pinData.push({
         value: [b.step, lane],
-        name: term,
+        name: b.term,
         jump: b.jump,
-        symbolRotate: 180,
       });
     }
     series.push({
@@ -163,10 +165,10 @@
         position: "top",
         distance: 2,
         formatter: (p) => p.data.name,
-        fontSize: 12,
+        fontSize: 13,
         fontWeight: 700,
         color: "#fbbf24",
-        textBorderColor: "rgba(0,0,0,0.6)",
+        textBorderColor: "rgba(0,0,0,0.65)",
         textBorderWidth: 2,
       },
       z: 10,
@@ -175,13 +177,13 @@
     chart.setOption(
       {
         backgroundColor: "transparent",
-        grid: { left: 90, right: 30, top: 40, bottom: 42 },
+        grid: { left: 96, right: 36, top: 44, bottom: 46 },
         tooltip: {
           formatter: (p) => {
             if (p.seriesName.startsWith("🔺")) {
               return `<b>${p.data.name}</b><br/>+${p.data.jump} new papers at ${G.steps[p.data.value[0]]}<br/>click to search`;
             }
-            return `${p.data.name}<br/><b>${p.seriesName}</b> · impact ${p.data.value[1]}${p.data.upvotes ? " · ♥" + p.data.upvotes : ""}<br/>harvested ${G.steps[p.data.value[0]]}<br/>click for details`;
+            return `${p.data.name}<br/><b>${p.seriesName}</b> · impact ${p.data.impact}${p.data.upvotes ? " · ♥" + p.data.upvotes : ""}<br/>harvested ${G.steps[p.data.value[0]]}<br/>click for details`;
           },
           backgroundColor: "rgba(17,21,36,0.94)",
           borderColor: "rgba(255,255,255,0.15)",
@@ -204,17 +206,16 @@
           axisLine: { lineStyle: { color: "rgba(140,150,180,0.35)" } },
         },
         yAxis: {
-          type: "value",
-          min: -0.5,
-          max: topics.length - 0.5,
-          interval: 1,
+          type: "category",
+          data: topics.map((t) => shortTopic(t)),
           axisLabel: {
-            formatter: (v) => (topics[v] ? shortTopic(topics[v]) : ""),
             color: "#c7cfe2",
             fontSize: 12,
             fontWeight: 600,
+            formatter: (v) => v,
           },
           splitLine: { show: false },
+          axisTick: { show: false },
         },
         series,
       },
@@ -298,8 +299,10 @@
     const el = $("#netChart");
     el.hidden = false;
     $("#timelineChart").hidden = true;
+    $("#forestChart").hidden = true;
     $("#graphControls").hidden = false;
 
+    const chart = charts.graph;
     const { nodes, links: ls } = datasetFor(stepIdx);
     chart.setOption(
       {
@@ -355,6 +358,96 @@
     );
     $("#netStepLabel").textContent = G.steps[stepIdx];
     $("#netCount").textContent = `${nodes.filter((n) => n.type === "paper").length} papers · ${nodes.filter((n) => n.type === "concept").length} concepts`;
+  }
+
+  /* ---------- forest lens: lineage trees, growing bottom-up ---------- */
+  function pruneForest(node, idx) {
+    const stepOk = node.step <= idx;
+    const kids = (node.children || [])
+      .map((c) => pruneForest(c, idx))
+      .filter(Boolean);
+    // keep a node once it has appeared, even if its children are still young
+    if (!stepOk && kids.length === 0) return null;
+    return { name: node.name, step: node.step, df: node.df, topic: node.topic, children: kids };
+  }
+
+  function renderForest() {
+    const el = $("#forestChart");
+    el.hidden = false;
+    $("#timelineChart").hidden = true;
+    $("#netChart").hidden = true;
+    $("#graphControls").hidden = false;
+
+    const chart = charts.forest;
+    const forest = (G.forest || [])
+      .map((t) => pruneForest(t, stepIdx))
+      .filter(Boolean);
+
+    const leaves = [];
+    const count = (n) => {
+      leaves.push(n);
+      (n.children || []).forEach(count);
+    };
+    forest.forEach(count);
+
+    chart.setOption(
+      {
+        backgroundColor: "transparent",
+        tooltip: {
+          trigger: "item",
+          formatter: (p) => {
+            const d = p.data;
+            return `<b>${d.name}</b><br/>appeared ${G.steps[d.step] || "?"} · mentioned by ${d.df} papers${d.topic ? `<br/>mostly ${d.topic}` : ""}<br/>click for details`;
+          },
+          backgroundColor: "rgba(17,21,36,0.94)",
+          borderColor: "rgba(255,255,255,0.15)",
+          textStyle: { color: "#e8ecf8", fontSize: 12 },
+        },
+        series: [
+          {
+            type: "tree",
+            data: forest,
+            orient: "BT",               // roots at the bottom, growing upward
+            left: "4%", right: "4%", top: "4%", bottom: "6%",
+            roam: true,
+            expandAndCollapse: false,
+            initialTreeDepth: -1,
+            symbol: "circle",
+            symbolSize: (val, params) => 8 + Math.sqrt(params.data.df || 1) * 2.1,
+            itemStyle: {
+              color: (params) =>
+                (params.data.topic && G.topicColors[params.data.topic]) || "#a78bfa",
+              borderColor: "rgba(0,0,0,0.4)",
+              borderWidth: 1,
+            },
+            lineStyle: { color: "rgba(148,163,184,0.4)", width: 1.4, curveness: 0 },
+            label: {
+              position: "top",
+              distance: 5,
+              fontSize: 12,
+              fontWeight: 600,
+              color: "#d7dcee",
+              formatter: (p) => p.data.name,
+            },
+            leaves: {
+              label: { show: true, fontSize: 11, color: "#9aa3bd", position: "top" },
+            },
+            emphasis: { focus: "descendant" },
+            animationDuration: 550,
+            animationDurationUpdate: 700,
+          },
+        ],
+      },
+      { notMerge: true }
+    );
+
+    chart.off("click");
+    chart.on("click", (params) => {
+      if (params.data?.name) openConceptPanel(params.data.name);
+    });
+
+    $("#netStepLabel").textContent = G.steps[stepIdx];
+    $("#netCount").textContent = `${leaves.length} concepts in ${forest.length} lineage trees`;
   }
 
   /* ---------- concept / edge panels ---------- */
@@ -534,20 +627,23 @@
   }
 
   function setNetView(v) {
-    activeView = v === "graph" ? "graph" : "timeline";
+    activeView = ["timeline", "forest", "graph"].includes(v) ? v : "timeline";
     $$("#netViewSeg .seg-btn").forEach((b) =>
       b.classList.toggle("active", b.dataset.netview === activeView)
     );
     $("#netViewSub").textContent =
       activeView === "timeline"
-        ? "Papers placed by harvest date (x) and topic (lane). Bubble size = AI impact. 🔺 pins are bursting concepts — this is where the field accelerates."
-        : "Exploration lens: drag to rearrange, hover to see neighborhoods, click violet edges for a question's evolution. For trends, stay on Timeline.";
+        ? "Papers placed by harvest date (x) and topic lane (y). Bubble size = AI impact. \u{1F53A} pins are bursting concepts \u2014 this is where the field is accelerating."
+        : activeView === "forest"
+        ? "Lineage trees of research concepts: roots = established questions, branches = approaches that grew out of them, newest shoots on top. Replay growth with the slider."
+        : "Exploration lens: drag to rearrange, hover to see neighborhoods, click violet edges for a question's evolution. For trends, stay on Timeline or Forest.";
     render();
   }
 
   function render() {
-    if (!G || !chart) return;
+    if (!G) return;
     if (activeView === "timeline") renderTimeline();
+    else if (activeView === "forest") renderForest();
     else renderGraph();
   }
 
@@ -563,14 +659,32 @@
     G = await res.json();
     index();
 
-    chart = echarts.init($("#timelineChart"));
-    chart.on("legendscroll", () => {});
+    charts.timeline = echarts.init($("#timelineChart"));
+    charts.graph = echarts.init($("#netChart"));
+    charts.forest = echarts.init($("#forestChart"));
     window.addEventListener("resize", () => {
-      chart.resize();
+      Object.values(charts).forEach((c) => c.resize());
       if (panelChart) panelChart.resize();
     });
 
-    chart.getZr().dom.addEventListener("dblclick", () => {});
+    charts.graph.on("click", (params) => {
+      const d = params.data || {};
+      if (params.dataType === "node" && d._raw) {
+        if (d._raw.type === "paper") window.SW.openDrawer(d._raw.id.slice(2));
+        else openConceptPanel(d._raw.label);
+        return;
+      }
+      if (params.dataType === "edge") {
+        const a = d.source || "", b = d.target || "";
+        if (a.startsWith("c:") && b.startsWith("c:")) {
+          openEdgePanel(a.slice(2), b.slice(2));
+        } else if (a.startsWith("p:")) {
+          window.SW.openDrawer(a.slice(2));
+        } else if (b.startsWith("p:")) {
+          window.SW.openDrawer(b.slice(2));
+        }
+      }
+    });
 
     const slider = $("#netSlider");
     slider.max = String(G.steps.length - 1);
@@ -596,7 +710,10 @@
   }
 
   function onShow() {
-    if (chart) setTimeout(() => { chart.resize(); render(); }, 60);
+    setTimeout(() => {
+      Object.values(charts).forEach((c) => c.resize());
+      render();
+    }, 60);
   }
 
   window.addEventListener("sw:view", (e) => {
