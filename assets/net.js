@@ -1,393 +1,71 @@
-/* SafeWatch Research Net — two lenses on the same graph:
-   1) Timeline (default, trend-first): papers by harvest date × topic lane,
-      with concept-burst pins (CiteSpace/Litmaps-inspired).
-   2) Graph (exploration): force graph, drag to rearrange, concept/edge panels.
+/* SafeWatch Research Forest — lineage trees of safety-research concepts,
+   growing bottom-up as harvests accumulate (roots = established questions,
+   shoots = new directions). Deterministic: built by scripts/graph.py.
+   Click a node for its concept panel; replay growth with ▶ / slider.
    Requires window.SW (exposed by app.js). */
 (() => {
   "use strict";
 
   let G = null;
-  let charts = {};         // lens -> echarts instance
-  let activeView = "timeline";
+  let chart = null;
   let stepIdx = 0;
-  let topicFilter = null;
-  let papersMode = "curated";
-  let showPPEdges = false;
   let playTimer = null;
   let booted = false;
+  let panelChart = null;
 
   const $ = (sel) => document.querySelector(sel);
 
-  /* ---------- index the graph ---------- */
-  let papers = [];
-  let concepts = [];
-  let links = [];
+  /* ---------- data ---------- */
+  let conceptSeries = new Map();
   let conceptPapers = new Map();
-  let neighbors = new Map();
-  let paperStep = new Map();
-  let byId = new Map();
+  let childrenMap = new Map();   // concept -> child concepts
+  let parentMap = new Map();     // concept -> parent concept
 
   function index() {
-    papers = G.nodes.filter((n) => n.type === "paper");
-    concepts = G.nodes.filter((n) => n.type === "concept");
-    links = G.links;
-    byId = new Map(G.nodes.map((n) => [n.id, n]));
-    paperStep = new Map(papers.map((n) => [n.id, n.step]));
+    conceptSeries = new Map(Object.entries(G.conceptSeries || {}));
     conceptPapers = new Map(Object.entries(G.conceptPapers || {}));
-    neighbors = new Map();
-    for (const l of links) {
-      if (l.k !== "cc") continue;
-      const a = l.s.startsWith("c:") ? l.s.slice(2) : null;
-      const b = l.t.startsWith("c:") ? l.t.slice(2) : null;
-      if (a && b) {
-        for (const [x, y] of [[a, b], [b, a]]) {
-          if (!neighbors.has(x)) neighbors.set(x, []);
-          neighbors.get(x).push({ term: y, w: l.w });
-        }
+    childrenMap = new Map();
+    parentMap = new Map();
+    const walk = (node) => {
+      childrenMap.set(node.name, (node.children || []).map((c) => c.name));
+      for (const c of node.children || []) {
+        parentMap.set(c.name, node.name);
+        walk(c);
       }
-    }
+    };
+    for (const t of G.forest || []) walk(t);
   }
 
   const cum = (term, idx) => {
-    const s = G.conceptSeries[term];
+    const s = conceptSeries.get(term);
     return s ? s[idx] || 0 : 0;
   };
 
-  const papersWith = (term) => {
-    const cid = "c:" + term;
-    const out = new Set();
-    for (const l of links) {
-      if (l.k !== "pc") continue;
-      if (l.t === cid) out.add(l.s.slice(2));
-      if (l.s === cid) out.add(l.t.slice(2));
-    }
-    return [...out];
-  };
-
-  /* ---------- burst detection (client-side, CiteSpace-style) ---------- */
-  function detectBursts(minJump = 2, topN = 14) {
-    const bursts = [];
-    for (const [term, s] of Object.entries(G.conceptSeries)) {
-      for (let i = 1; i < s.length; i++) {
-        const jump = s[i] - s[i - 1];
-        if (jump >= minJump) {
-          bursts.push({ term, step: i, jump, cum: s[i] });
-        }
-      }
-    }
-    // strongest jump per term, keep latest steps meaningful
-    const best = new Map();
-    for (const b of bursts) {
-      if (!best.has(b.term) || b.jump > best.get(b.term).jump) best.set(b.term, b);
-    }
-    return [...best.values()]
-      .sort((a, b) => b.jump - a.jump)
-      .slice(0, topN);
-  }
-
-  const SHORT = {
-    "Jailbreaking & Red Teaming": "Jailbreak",
-    "Prompt Injection & LLM Attacks": "Injection",
-    "Reward Hacking & Deceptive Alignment": "Reward Hack",
-    "Agentic AI Safety": "Agent Safety",
-    "Safety Training & Alignment": "Alignment",
-    "Defenses, Privacy & Robustness": "Defenses",
-  };
-  const shortTopic = (t) => SHORT[t] || t;
-
-  /* ================= TIMELINE (trend lens) ================= */
-  function renderTimeline() {
-    const el = $("#timelineChart");
-    el.hidden = false;
-    $("#netChart").hidden = true;
-    $("#forestChart").hidden = true;
-    $("#graphControls").hidden = true;
-
-    const chart = charts.timeline;
-    const topics = Object.keys(G.topicColors);
-    const laneOf = (t) => topics.indexOf(t);
-
-    const series = [];
-    for (const t of topics) {
-      const data = papers
-        .filter((n) => n.topic === t &&
-          (!topicFilter || n.topic === topicFilter) &&
-          papersModeOk(n))
-        .map((n) => ({
-          value: [n.step, laneOf(n.topic)],
-          id: n.id,
-          name: n.label,
-          impact: n.impact,
-          upvotes: n.upvotes,
-        }));
-      series.push({
-        name: shortTopic(t),
-        type: "scatter",
-        data,
-        symbolSize: (val, params) => 8 + (params.data.impact ?? 3) * 1.9,
-        itemStyle: { color: G.topicColors[t], opacity: 0.88 },
-        emphasis: {
-          focus: "self",
-          label: {
-            show: true,
-            formatter: (p) => p.data.name.slice(0, 44),
-            fontSize: 12,
-            color: "#e8ecf8",
-            position: "top",
-            textBorderColor: "rgba(0,0,0,0.7)",
-            textBorderWidth: 2,
-          },
-        },
-      });
-    }
-
-    const bursts = detectBursts();
-    const pinData = [];
-    for (const b of bursts) {
-      const node = byId.get("c:" + b.term);
-      const lane = node ? laneOf(node.domTopic) : -1;
-      if (lane < 0) continue;
-      pinData.push({
-        value: [b.step, lane],
-        name: b.term,
-        jump: b.jump,
-      });
-    }
-    series.push({
-      name: "🔺 bursting concepts",
-      type: "scatter",
-      data: pinData,
-      symbol: "pin",
-      symbolSize: (val, p) => 26 + Math.min(p.data.jump * 3, 22),
-      itemStyle: { color: "#fbbf24", opacity: 0.95 },
-      label: {
-        show: true,
-        position: "top",
-        distance: 2,
-        formatter: (p) => p.data.name,
-        fontSize: 13,
-        fontWeight: 700,
-        color: "#fbbf24",
-        textBorderColor: "rgba(0,0,0,0.65)",
-        textBorderWidth: 2,
-      },
-      z: 10,
-    });
-
-    chart.setOption(
-      {
-        backgroundColor: "transparent",
-        grid: { left: 96, right: 36, top: 44, bottom: 46 },
-        tooltip: {
-          formatter: (p) => {
-            if (p.seriesName.startsWith("🔺")) {
-              return `<b>${p.data.name}</b><br/>+${p.data.jump} new papers at ${G.steps[p.data.value[0]]}<br/>click to search`;
-            }
-            return `${p.data.name}<br/><b>${p.seriesName}</b> · impact ${p.data.impact}${p.data.upvotes ? " · ♥" + p.data.upvotes : ""}<br/>harvested ${G.steps[p.data.value[0]]}<br/>click for details`;
-          },
-          backgroundColor: "rgba(17,21,36,0.94)",
-          borderColor: "rgba(255,255,255,0.15)",
-          textStyle: { color: "#e8ecf8", fontSize: 12 },
-        },
-        legend: {
-          top: 0,
-          type: "scroll",
-          textStyle: { color: "#9aa3bd", fontSize: 11 },
-          inactiveColor: "#3a4258",
-        },
-        xAxis: {
-          type: "category",
-          data: G.steps.map((s) => s.slice(5)),
-          name: "harvest →",
-          nameLocation: "middle",
-          nameGap: 26,
-          nameTextStyle: { color: "#8b93a7" },
-          axisLabel: { color: "#9aa3bd", fontSize: 11 },
-          axisLine: { lineStyle: { color: "rgba(140,150,180,0.35)" } },
-        },
-        yAxis: {
-          type: "category",
-          data: topics.map((t) => shortTopic(t)),
-          axisLabel: {
-            color: "#c7cfe2",
-            fontSize: 12,
-            fontWeight: 600,
-            formatter: (v) => v,
-          },
-          splitLine: { show: false },
-          axisTick: { show: false },
-        },
-        series,
-      },
-      { notMerge: true }
-    );
-
-    chart.off("click");
-    chart.on("click", (params) => {
-      if (params.seriesName.startsWith("🔺")) {
-        window.SW.goSearch(params.data.name);
-        return;
-      }
-      if (params.data.id) window.SW.openDrawer(params.data.id.replace(/^p:/, ""));
-    });
-  }
-
-  function papersModeOk(n) {
-    if (papersMode === "curated") return n.curated;
-    if (papersMode === "impact") return n.impact >= 7;
-    return true;
-  }
-
-  /* ================= GRAPH (exploration lens) ================= */
-  function datasetFor(idx) {
-    const vNodes = [];
-    const visible = new Set();
-    for (const n of papers) {
-      const ok =
-        n.step <= idx && papersModeOk(n) &&
-        (!topicFilter || n.topic === topicFilter);
-      if (ok) { vNodes.push(n); visible.add(n.id); }
-    }
-    for (const n of concepts) {
-      if (cum(n.label, idx) > 0) { vNodes.push(n); visible.add(n.id); }
-    }
-    const vLinks = links.filter((l) => {
-      if (l.k === "pp" && !showPPEdges) return false;
-      return visible.has(l.s) && visible.has(l.t);
-    });
-    return { nodes: vNodes, links: vLinks };
-  }
-
-  function nodeStyle(n, idx) {
-    if (n.type === "paper") {
-      return {
-        symbol: "circle",
-        symbolSize: 9 + n.impact * 1.4 + (n.curated ? 2 : 0),
-        itemStyle: { color: G.topicColors[n.topic] || "#38bdf8", opacity: 0.92 },
-        label: { show: false },
-      };
-    }
-    const c = cum(n.label, idx);
-    return {
-      symbol: "diamond",
-      symbolSize: 10 + Math.sqrt(c) * 2.6,
-      itemStyle: {
-        color: n.domColor,
-        opacity: 0.9,
-        borderColor: "rgba(0,0,0,0.4)",
-        borderWidth: 1,
-      },
-      label: {
-        show: true,
-        position: "top",
-        distance: 4,
-        fontSize: 13,
-        fontWeight: 600,
-        color: "#d7dcee",
-        formatter: () => n.label,
-      },
-    };
-  }
-
-  const LINK_STYLE = {
-    pp: { color: "rgba(148,163,184,0.22)", width: 0.6, curveness: 0.05 },
-    pc: { color: "rgba(148,163,184,0.13)", width: 0.5, curveness: 0.03 },
-    cc: { color: "rgba(167,139,250,0.35)", width: 1.4, curveness: 0.06 },
-  };
-
-  function renderGraph() {
-    const el = $("#netChart");
-    el.hidden = false;
-    $("#timelineChart").hidden = true;
-    $("#forestChart").hidden = true;
-    $("#graphControls").hidden = false;
-
-    const chart = charts.graph;
-    const { nodes, links: ls } = datasetFor(stepIdx);
-    chart.setOption(
-      {
-        backgroundColor: "transparent",
-        tooltip: {
-          formatter: (p) => {
-            if (p.dataType === "edge") {
-              const a = p.data.source.split(":").pop();
-              const b = p.data.target.split(":").pop();
-              return `${a} ↔ ${b}<br/>weight ${p.data.w}`;
-            }
-            const d = p.data._raw || {};
-            return d.type === "paper"
-              ? `${d.label}<br/><b>${d.topic}</b> · impact ${d.impact}${d.upvotes ? " · ♥" + d.upvotes : ""}`
-              : `<b>${d.label}</b><br/>mentioned by ${d.df} papers · mostly ${d.domTopic}`;
-          },
-          backgroundColor: "rgba(17,21,36,0.94)",
-          borderColor: "rgba(255,255,255,0.15)",
-          textStyle: { color: "#e8ecf8", fontSize: 12 },
-        },
-        series: [
-          {
-            type: "graph",
-            layout: "force",
-            roam: true,
-            draggable: true,
-            data: nodes.map((n) => ({
-              id: n.id,
-              name: n.label,
-              ...nodeStyle(n, stepIdx),
-              _raw: n,
-            })),
-            links: ls.map((l) => ({
-              source: l.s,
-              target: l.t,
-              value: l.w,
-              lineStyle: LINK_STYLE[l.k] || LINK_STYLE.pp,
-            })),
-            force: {
-              repulsion: 260,
-              gravity: 0.05,
-              edgeLength: [46, 115],
-              friction: 0.18,
-              layoutAnimation: true,
-            },
-            emphasis: { focus: "adjacency", label: { show: true } },
-            labelLayout: { hideOverlap: true },
-            zlevel: 2,
-          },
-        ],
-      },
-      { notMerge: true }
-    );
-    $("#netStepLabel").textContent = G.steps[stepIdx];
-    $("#netCount").textContent = `${nodes.filter((n) => n.type === "paper").length} papers · ${nodes.filter((n) => n.type === "concept").length} concepts`;
-  }
-
-  /* ---------- forest lens: lineage trees, growing bottom-up ---------- */
+  /* ---------- forest render ---------- */
   function pruneForest(node, idx) {
-    const stepOk = node.step <= idx;
     const kids = (node.children || [])
       .map((c) => pruneForest(c, idx))
       .filter(Boolean);
-    // keep a node once it has appeared, even if its children are still young
-    if (!stepOk && kids.length === 0) return null;
-    return { name: node.name, step: node.step, df: node.df, topic: node.topic, children: kids };
+    if (node.step > idx && kids.length === 0) return null;
+    return {
+      name: node.name,
+      step: node.step,
+      df: node.df,
+      topic: node.topic,
+      children: kids,
+    };
   }
 
-  function renderForest() {
-    const el = $("#forestChart");
-    el.hidden = false;
-    $("#timelineChart").hidden = true;
-    $("#netChart").hidden = true;
-    $("#graphControls").hidden = false;
+  let leafCount = 0;
 
-    const chart = charts.forest;
+  function render() {
+    if (!G || !chart) return;
     const forest = (G.forest || [])
       .map((t) => pruneForest(t, stepIdx))
       .filter(Boolean);
 
-    const leaves = [];
-    const count = (n) => {
-      leaves.push(n);
-      (n.children || []).forEach(count);
-    };
+    leafCount = 0;
+    const count = (n) => { leafCount += 1; (n.children || []).forEach(count); };
     forest.forEach(count);
 
     chart.setOption(
@@ -397,7 +75,7 @@
           trigger: "item",
           formatter: (p) => {
             const d = p.data;
-            return `<b>${d.name}</b><br/>appeared ${G.steps[d.step] || "?"} · mentioned by ${d.df} papers${d.topic ? `<br/>mostly ${d.topic}` : ""}<br/>click for details`;
+            return `<b>${d.name}</b><br/>appeared ${G.steps[d.step] || "?"} · mentioned by ${d.df} papers${d.topic ? `<br/>mostly ${d.topic}` : ""}<br/>click for details & papers`;
           },
           backgroundColor: "rgba(17,21,36,0.94)",
           borderColor: "rgba(255,255,255,0.15)",
@@ -407,30 +85,32 @@
           {
             type: "tree",
             data: forest,
-            orient: "BT",               // roots at the bottom, growing upward
-            left: "4%", right: "4%", top: "4%", bottom: "6%",
+            orient: "BT", // roots at the bottom, growing upward like a forest
+            left: "5%", right: "5%", top: "5%", bottom: "7%",
             roam: true,
             expandAndCollapse: false,
             initialTreeDepth: -1,
             symbol: "circle",
-            symbolSize: (val, params) => 8 + Math.sqrt(params.data.df || 1) * 2.1,
+            symbolSize: (val, params) =>
+              9 + Math.sqrt(params.data.df || 1) * 2.2,
             itemStyle: {
               color: (params) =>
-                (params.data.topic && G.topicColors[params.data.topic]) || "#a78bfa",
+                (params.data.topic && G.topicColors[params.data.topic]) ||
+                "#a78bfa",
               borderColor: "rgba(0,0,0,0.4)",
               borderWidth: 1,
             },
-            lineStyle: { color: "rgba(148,163,184,0.4)", width: 1.4, curveness: 0 },
+            lineStyle: { color: "rgba(148,163,184,0.45)", width: 1.6 },
             label: {
               position: "top",
               distance: 5,
-              fontSize: 12,
+              fontSize: 12.5,
               fontWeight: 600,
               color: "#d7dcee",
               formatter: (p) => p.data.name,
             },
             leaves: {
-              label: { show: true, fontSize: 11, color: "#9aa3bd", position: "top" },
+              label: { show: true, fontSize: 11.5, color: "#9aa3bd", position: "top" },
             },
             emphasis: { focus: "descendant" },
             animationDuration: 550,
@@ -441,170 +121,13 @@
       { notMerge: true }
     );
 
-    chart.off("click");
-    chart.on("click", (params) => {
-      if (params.data?.name) openConceptPanel(params.data.name);
-    });
-
     $("#netStepLabel").textContent = G.steps[stepIdx];
-    $("#netCount").textContent = `${leaves.length} concepts in ${forest.length} lineage trees`;
-  }
-
-  /* ---------- concept / edge panels ---------- */
-  let panelChart = null;
-
-  function openNetPanel(html) {
-    $("#netPanelBody").innerHTML = html;
-    const p = $("#netPanel");
-    p.hidden = false;
-    requestAnimationFrame(() => p.classList.add("open"));
-  }
-
-  function closeNetPanel() {
-    const p = $("#netPanel");
-    p.classList.remove("open");
-    if (panelChart) { panelChart.dispose(); panelChart = null; }
-    setTimeout(() => { p.hidden = true; }, 260);
-  }
-
-  function paperRow(pid) {
-    const n = byId.get("p:" + pid);
-    if (!n) return "";
-    return `<li><a data-net-open="${n.id}" href="javascript:void(0)">${esc(n.label)}</a>
-      <span class="d-rel-meta">${esc(shortTopic(n.topic))} · imp ${n.impact}</span></li>`;
-  }
-
-  const esc = (s) => {
-    const d = document.createElement("div");
-    d.textContent = s == null ? "" : String(s);
-    return d.innerHTML;
-  };
-
-  function spark(host, labels, primary, secondary) {
-    host.innerHTML = '<div class="net-spark"></div>';
-    const el = host.querySelector(".net-spark");
-    el.style.width = "100%";
-    el.style.height = "180px";
-    const c = echarts.init(el);
-    c.setOption({
-      backgroundColor: "transparent",
-      grid: { left: 34, right: 10, top: 26, bottom: 22 },
-      tooltip: { trigger: "axis" },
-      legend: {
-        top: 0, textStyle: { color: "#8b93a7", fontSize: 10 }, itemWidth: 10,
-      },
-      xAxis: {
-        type: "category",
-        data: labels.map((s) => s.slice(5)),
-        axisLabel: { color: "#8b93a7", fontSize: 10 },
-      },
-      yAxis: { type: "value", minInterval: 1, axisLabel: { color: "#8b93a7", fontSize: 10 } },
-      series: [
-        {
-          name: primary.name, type: "line", smooth: true, data: primary.data,
-          itemStyle: { color: primary.color },
-          lineStyle: { color: primary.color, width: 2.4 },
-        },
-        ...(secondary ? [{
-          name: secondary.name, type: "line", smooth: true, data: secondary.data,
-          itemStyle: { color: secondary.color },
-          lineStyle: { color: secondary.color, width: 2, type: "dashed" },
-        }] : []),
-      ],
-    });
-    panelChart = c;
-  }
-
-  function wirePanel() {
-    $("#netPanelBody").querySelectorAll("[data-net-open]").forEach((a) => {
-      a.onclick = () => window.SW.openDrawer(a.dataset.netOpen.replace(/^p:/, ""));
-    });
-    $("#netPanelBody").querySelectorAll("[data-net-concept]").forEach((b) => {
-      b.onclick = () => openConceptPanel(b.dataset.netConcept);
-    });
-  }
-
-  function openConceptPanel(term) {
-    const labels = G.steps;
-    const series = G.conceptSeries[term] || [];
-    const papersList = (G.conceptPapers[term] || []).map(paperRow).join("");
-    const nb = (neighbors.get(term) || [])
-      .slice().sort((a, b) => b.w - a.w).slice(0, 10);
-    openNetPanel(`
-      <div class="d-top">
-        <span class="cat-badge" style="--pc:#a78bfa">Concept</span>
-        <span class="d-date">${cum(term, stepIdx)} papers total</span>
-      </div>
-      <h2 class="d-title">${esc(term)}</h2>
-      <p class="panel-sub">Cumulative papers per harvest batch. Click a paper for its drawer; click a co-evolving concept to hop.</p>
-      <div id="netSparkHost"></div>
-      <h4 class="d-h">Strongest papers</h4>
-      <ul class="d-related">${papersList || "<li>—</li>"}</ul>
-      <h4 class="d-h">Co-evolving concepts</h4>
-      <div class="mini-tags">${nb
-        .map((n) => `<button class="mini-tag" data-net-concept="${esc(n.term)}">${esc(n.term)}</button>`)
-        .join("") || "—"}</div>
-    `);
-    spark($("#netSparkHost"), labels,
-      { name: term, data: series, color: "#a78bfa" }, null);
-    wirePanel();
-  }
-
-  function openEdgePanel(a, b) {
-    const labels = G.steps;
-    const sa = G.conceptSeries[a] || [];
-    const sb = G.conceptSeries[b] || [];
-    const setA = new Set(papersWith(a));
-    const both = papersWith(b).filter((pid) => setA.has(pid));
-    const perStep = new Array(labels.length).fill(0);
-    for (const pid of both) perStep[paperStep.get(pid) ?? 0] += 1;
-    let c = 0;
-    const pairCum = perStep.map((v) => (c += v));
-    const rep = both
-      .sort((x, y) => {
-        const nx = byId.get("p:" + x), ny = byId.get("p:" + y);
-        return (ny?.impact || 0) - (nx?.impact || 0);
-      })
-      .slice(0, 8).map(paperRow).join("");
-
-    openNetPanel(`
-      <div class="d-top">
-        <span class="cat-badge" style="--pc:#38bdf8">Question evolution</span>
-        <span class="d-date">${both.length} shared papers</span>
-      </div>
-      <h2 class="d-title">${esc(a)} <span style="color:#8b93a7">↔</span> ${esc(b)}</h2>
-      <p class="panel-sub">Co-occurrence per harvest batch: this edge is a research question whose shape changes over time. Dashed = the weaker side alone.</p>
-      <div id="netSparkHost"></div>
-      <h4 class="d-h">Representative papers</h4>
-      <ul class="d-related">${rep || "<li>—</li>"}</ul>
-    `);
-    spark($("#netSparkHost"), labels,
-      { name: `${a} ↔ ${b}`, data: pairCum, color: "#38bdf8" },
-      { name: a, data: sa, color: "#a78bfa" });
-    wirePanel();
-  }
-
-  /* ---------- controls ---------- */
-  function renderTopicChips() {
-    const wrap = $("#netTopics");
-    wrap.innerHTML = "";
-    const mk = (label, val, color) => {
-      const b = document.createElement("button");
-      b.className = "chip" + (topicFilter === val ? " active" : "");
-      b.style.setProperty("--cc", color);
-      b.textContent = label;
-      b.onclick = () => {
-        topicFilter = topicFilter === val ? null : val;
-        renderTopicChips();
-        render();
-      };
-      wrap.appendChild(b);
-    };
-    mk("All topics", null, "#38bdf8");
-    for (const [t, c] of Object.entries(G.topicColors)) mk(shortTopic(t), t, c);
+    $("#netCount").textContent =
+      `${leafCount} concepts · ${forest.length} lineage trees`;
   }
 
   function setStep(idx) {
+    if (!G) return;
     stepIdx = Math.max(0, Math.min(G.steps.length - 1, idx));
     $("#netSlider").value = String(stepIdx);
     render();
@@ -626,25 +149,100 @@
     }, 1100);
   }
 
-  function setNetView(v) {
-    activeView = ["timeline", "forest", "graph"].includes(v) ? v : "timeline";
-    $$("#netViewSeg .seg-btn").forEach((b) =>
-      b.classList.toggle("active", b.dataset.netview === activeView)
-    );
-    $("#netViewSub").textContent =
-      activeView === "timeline"
-        ? "Papers placed by harvest date (x) and topic lane (y). Bubble size = AI impact. \u{1F53A} pins are bursting concepts \u2014 this is where the field is accelerating."
-        : activeView === "forest"
-        ? "Lineage trees of research concepts: roots = established questions, branches = approaches that grew out of them, newest shoots on top. Replay growth with the slider."
-        : "Exploration lens: drag to rearrange, hover to see neighborhoods, click violet edges for a question's evolution. For trends, stay on Timeline or Forest.";
-    render();
+  /* ---------- concept panel ---------- */
+  const esc = (s) => {
+    const d = document.createElement("div");
+    d.textContent = s == null ? "" : String(s);
+    return d.innerHTML;
+  };
+
+  function openConceptPanel(term) {
+    const labels = G.steps;
+    const series = conceptSeries.get(term) || [];
+    const papersList = (conceptPapers.get(term) || [])
+      .map((pid) => {
+        const n = paperMeta(pid);
+        return n
+          ? `<li><a data-net-open="${esc(pid)}" href="javascript:void(0)">${esc(n.label)}</a> <span class="d-rel-meta">${esc(n.topic || "")}</span></li>`
+          : "";
+      })
+      .join("");
+    const related = [
+      ...(childrenMap.get(term) || []),
+      ...(parentMap.has(term) ? [parentMap.get(term)] : []),
+    ].filter((t) => t && t !== term);
+
+    openNetPanel(`
+      <div class="d-top">
+        <span class="cat-badge" style="--pc:#a78bfa">Concept</span>
+        <span class="d-date">${cum(term, stepIdx)} papers total</span>
+      </div>
+      <h2 class="d-title">${esc(term)}</h2>
+      <p class="panel-sub">Cumulative papers per harvest batch. Click a paper for its drawer; click a related concept to hop.</p>
+      <div id="netSparkHost"></div>
+      <h4 class="d-h">Strongest papers</h4>
+      <ul class="d-related">${papersList || "<li>—</li>"}</ul>
+      <h4 class="d-h">Related concepts</h4>
+      <div class="mini-tags">${related
+        .map((t) => `<button class="mini-tag" data-net-concept="${esc(t)}">${esc(t)}</button>`)
+        .join("") || "—"}</div>
+    `);
+    spark($("#netSparkHost"), labels,
+      { name: term, data: series, color: "#a78bfa" }, null);
+    wirePanel();
   }
 
-  function render() {
-    if (!G) return;
-    if (activeView === "timeline") renderTimeline();
-    else if (activeView === "forest") renderForest();
-    else renderGraph();
+  let paperMeta = () => null;
+
+  function spark(host, labels, primary) {
+    host.innerHTML = '<div class="net-spark"></div>';
+    const el = host.querySelector(".net-spark");
+    el.style.width = "100%";
+    el.style.height = "180px";
+    panelChart = echarts.init(el);
+    panelChart.setOption({
+      backgroundColor: "transparent",
+      grid: { left: 34, right: 10, top: 20, bottom: 22 },
+      tooltip: { trigger: "axis" },
+      xAxis: {
+        type: "category",
+        data: labels.map((s) => s.slice(5)),
+        axisLabel: { color: "#8b93a7", fontSize: 10 },
+      },
+      yAxis: {
+        type: "value", minInterval: 1,
+        axisLabel: { color: "#8b93a7", fontSize: 10 },
+      },
+      series: [{
+        name: primary.name, type: "line", smooth: true, data: primary.data,
+        itemStyle: { color: primary.color },
+        lineStyle: { color: primary.color, width: 2.4 },
+        areaStyle: { color: primary.color, opacity: 0.12 },
+      }],
+    });
+  }
+
+  function wirePanel() {
+    $("#netPanelBody").querySelectorAll("[data-net-open]").forEach((a) => {
+      a.onclick = () => window.SW.openDrawer(a.dataset.netOpen);
+    });
+    $("#netPanelBody").querySelectorAll("[data-net-concept]").forEach((b) => {
+      b.onclick = () => openConceptPanel(b.dataset.netConcept);
+    });
+  }
+
+  function openNetPanel(html) {
+    $("#netPanelBody").innerHTML = html;
+    const p = $("#netPanel");
+    p.hidden = false;
+    requestAnimationFrame(() => p.classList.add("open"));
+  }
+
+  function closeNetPanel() {
+    const p = $("#netPanel");
+    p.classList.remove("open");
+    if (panelChart) { panelChart.dispose(); panelChart = null; }
+    setTimeout(() => { p.hidden = true; }, 260);
   }
 
   /* ---------- boot ---------- */
@@ -659,31 +257,21 @@
     G = await res.json();
     index();
 
-    charts.timeline = echarts.init($("#timelineChart"));
-    charts.graph = echarts.init($("#netChart"));
-    charts.forest = echarts.init($("#forestChart"));
+    // paper titles for panels come from app.js corpus
+    const cm = window.SW.corpusMap();
+    paperMeta = (pid) => {
+      const p = cm.get(pid);
+      return p ? { label: p.title, topic: p.category } : null;
+    };
+
+    chart = echarts.init($("#forestChart"));
     window.addEventListener("resize", () => {
-      Object.values(charts).forEach((c) => c.resize());
+      chart.resize();
       if (panelChart) panelChart.resize();
     });
 
-    charts.graph.on("click", (params) => {
-      const d = params.data || {};
-      if (params.dataType === "node" && d._raw) {
-        if (d._raw.type === "paper") window.SW.openDrawer(d._raw.id.slice(2));
-        else openConceptPanel(d._raw.label);
-        return;
-      }
-      if (params.dataType === "edge") {
-        const a = d.source || "", b = d.target || "";
-        if (a.startsWith("c:") && b.startsWith("c:")) {
-          openEdgePanel(a.slice(2), b.slice(2));
-        } else if (a.startsWith("p:")) {
-          window.SW.openDrawer(a.slice(2));
-        } else if (b.startsWith("p:")) {
-          window.SW.openDrawer(b.slice(2));
-        }
-      }
+    chart.on("click", (params) => {
+      if (params.data?.name) openConceptPanel(params.data.name);
     });
 
     const slider = $("#netSlider");
@@ -692,32 +280,20 @@
     stepIdx = G.steps.length - 1;
     slider.addEventListener("input", () => setStep(parseInt(slider.value, 10)));
     $("#netPlay").onclick = togglePlay;
-    $("#netMode").value = papersMode;
-    $("#netMode").addEventListener("change", (e) => {
-      papersMode = e.target.value;
-      render();
-    });
-    $("#netPP").addEventListener("change", (e) => {
-      showPPEdges = e.target.checked;
-      render();
-    });
     $("#netPanelClose").onclick = closeNetPanel;
-    $$("#netViewSeg .seg-btn").forEach((b) => {
-      b.onclick = () => setNetView(b.dataset.netview);
-    });
-    renderTopicChips();
+
+    setTimeout(() => { chart.resize(); render(); }, 60);
     render();
   }
 
   function onShow() {
-    setTimeout(() => {
-      Object.values(charts).forEach((c) => c.resize());
-      render();
-    }, 60);
+    boot().then(() => {
+      setTimeout(() => { chart.resize(); render(); }, 60);
+    });
   }
 
   window.addEventListener("sw:view", (e) => {
-    if (e.detail === "net") boot().then(onShow);
+    if (e.detail === "net") onShow();
     else closeNetPanel();
   });
 })();
