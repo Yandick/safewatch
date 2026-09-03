@@ -188,7 +188,11 @@
       <div class="panel-head panel-head--row">
         <div>
           <h2>Research Net <span id="netCount" class="lib-count mono">…</span></h2>
-          <p class="panel-sub"><b>Drag</b> to stretch · <b>scroll</b> to zoom · <b>▶</b> replays growth. <span class="net-legend"><i class="dot circle"></i> paper (topic color) &nbsp;◆ concept &nbsp;· click an edge for a question's evolution</span></p>
+          <div class="seg-switch" id="netViewSeg">
+            <button class="seg-btn active" data-netview="timeline" type="button">📈 Timeline</button>
+            <button class="seg-btn" data-netview="graph" type="button">🕸 Graph</button>
+          </div>
+          <p class="panel-sub" id="netViewSub">Papers placed by harvest date (x) and topic (lane). Bubble size = AI impact rating. 🔺 markers are bursting concepts — this is where the field is accelerating.</p>
         </div>
         <div class="head-controls">
           <div id="netTopics" class="chips"></div>
@@ -200,13 +204,21 @@
           <label class="net-toggle"><input id="netPP" type="checkbox" /> similarity edges</label>
         </div>
       </div>
-      <div class="net-controls">
+      <div class="net-controls" id="graphControls">
         <button id="netPlay" class="chip" type="button">▶ Play growth</button>
         <input id="netSlider" type="range" min="0" max="1" value="1" />
         <span id="netStepLabel" class="mono net-step-label">—</span>
+        <label class="net-toggle"><input id="netPP" type="checkbox" /> similarity edges</label>
       </div>
       <div id="netChart" class="net-chart"></div>
-      <p class="kbd-hint">Graph rebuilt automatically from <code>data/graph.json</code> after every harvest. Force layout is seed-stable per session — your arrangement resets on reload.</p>
+      <div id="timelineChart" class="timeline-chart" hidden></div>
+      <details class="readbox">
+        <summary>How to read this view</summary>
+        <div class="readbox-body">
+          <p><b>Timeline</b> (default): each <b>dot = one paper</b>; x = when we first harvested it, lane (y) = its topic, size = AI impact rating (1–10), ♥ = HF community upvotes. <b>🔺 pins</b> mark concepts whose weekly paper-count jumped — click a pin to search that concept; click a dot for the paper drawer. A lane getting denser to the right = that topic accelerating.</p>
+          <p><b>Graph</b>: <b>● circle = paper</b> (color = topic, size = impact), <b>◆ diamond = research concept</b> (size = how many papers mention it), violet edges connect co-occurring concepts (click one to see a question evolve), gray edges are paper–concept membership. Drag to rearrange; this view is for exploring neighborhoods, not for reading trends.</p>
+        </div>
+      </details>
     </section>
   </main>
 
