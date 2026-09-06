@@ -1,6 +1,6 @@
 {
-  "last_updated": "2026-09-05T19:44:41+00:00",
-  "latest_day": "2026-09-05",
+  "last_updated": "2026-09-06T11:18:58+00:00",
+  "latest_day": "2026-09-06",
   "curated_by": "z-ai/glm-5.3-flash",
   "total_today": 0,
   "categories": [
@@ -38,6 +38,13 @@
   "total_papers": 215,
   "total_picks": 75,
   "days": [
+    {
+      "batch_date": "2026-09-06",
+      "papers": [],
+      "collected": [],
+      "total_count": 0,
+      "archived_count": 0
+    },
     {
       "batch_date": "2026-09-05",
       "papers": [],
