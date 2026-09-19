@@ -1,8 +1,8 @@
 {
-  "last_updated": "2026-09-18T20:02:45+00:00",
-  "latest_day": "2026-09-18",
+  "last_updated": "2026-09-19T11:14:53+00:00",
+  "latest_day": "2026-09-19",
   "curated_by": "z-ai/glm-5.3-flash",
-  "total_today": 0,
+  "total_today": 1,
   "categories": [
     "Jailbreaking & Red Teaming",
     "Prompt Injection & LLM Attacks",
@@ -20,24 +20,67 @@
     "Defenses, Privacy & Robustness": "#60a5fa"
   },
   "proportions": {
-    "Jailbreaking & Red Teaming": 8.7,
+    "Jailbreaking & Red Teaming": 8.6,
     "Prompt Injection & LLM Attacks": 9.2,
     "Reward Hacking & Deceptive Alignment": 5.2,
-    "Agentic AI Safety": 22.8,
+    "Agentic AI Safety": 23.1,
     "Safety Training & Alignment": 17.3,
-    "Defenses, Privacy & Robustness": 36.7
+    "Defenses, Privacy & Robustness": 36.6
   },
   "category_counts": {
     "Jailbreaking & Red Teaming": 30,
     "Prompt Injection & LLM Attacks": 32,
     "Reward Hacking & Deceptive Alignment": 18,
-    "Agentic AI Safety": 79,
+    "Agentic AI Safety": 80,
     "Safety Training & Alignment": 60,
     "Defenses, Privacy & Robustness": 127
   },
-  "total_papers": 346,
-  "total_picks": 117,
+  "total_papers": 347,
+  "total_picks": 118,
   "days": [
+    {
+      "batch_date": "2026-09-19",
+      "papers": [
+        {
+          "id": "2609.18605",
+          "title": "PACT: Can Enterprise AI Assistants Be Trusted Under Pressure?",
+          "authors": [
+            "Mika Okamoto",
+            "Ansel Kaplan Erol"
+          ],
+          "abstract": "As corporate AI adoption continues to grow, enterprise-grade LLM agents are being deployed into sensitive contexts such as hiring, healthcare, and finance. In these contexts, compliance with rules specified in an agent's system context is a first-order legal concern. Currently, no evaluation framework systematically measures which LLM models tend to violate compliance rules, especially under pressure from a persistent user, a hurried manager, or circumstances where violation is convenient or attractive. We introduce PACT (Pressure-Applied Compliance Testing), a benchmark for rule-following under pressure in AI agents assisting employees in daily tasks across twelve regulated enterprise domains and forty-eight scenarios, each set in a realistic multi-turn conversation. Each benchmark item pairs a standing rule against a rule-violating shortcut, and applies a battery of pressures across different wordings and system-prompt modes. We construct PACT component by component under strict LLM-as-judge auditing to ensure samples are unambiguous, ungameable, and realistic enough to avoid eliciting evaluation-aware behavior. We use PACT to profile LLM compliance across six complementary metrics that create a holistic picture of an AI assistant's robustness under pressure and throughout multi-turn conversations, its transparency, and ability to correctly discern where a rule applies. We aggregate this profile into PACTScore, a reliability-weighted compliance rate over all items and modes. Our results across 22 common LLM models spanning multiple providers and sizes show substantial variability in compliance across models and metric dimensions. Even the strongest assistants mis-apply a rule on 6 to 10% of items, and ordinary user pressure raises the violation rate by 65% on average. PACT highlights compliance risks in LLM assistants, motivating guardrails and careful model selection.",
+          "category": "Agentic AI Safety",
+          "date": "2026-09-16",
+          "url": "https://arxiv.org/abs/2609.18605",
+          "repo": null,
+          "score": 1,
+          "upvotes": 14,
+          "ai_rel": 8,
+          "ai_imp": 6,
+          "tldr": "构建企业智能体压力下合规测试基准，系统评估规则遵循的脆弱性",
+          "related": [
+            "2609.09090",
+            "2608.23264",
+            "2608.26008",
+            "2608.28833",
+            "2609.02246"
+          ]
+        }
+      ],
+      "collected": [
+        {
+          "id": "2609.18605",
+          "title": "PACT: Can Enterprise AI Assistants Be Trusted Under Pressure?",
+          "category": "Agentic AI Safety",
+          "date": "2026-09-16",
+          "url": "https://arxiv.org/abs/2609.18605",
+          "repo": null,
+          "upvotes": 14
+        }
+      ],
+      "total_count": 1,
+      "archived_count": 1
+    },
     {
       "batch_date": "2026-09-18",
       "papers": [],
@@ -163,8 +206,8 @@
           "tldr": "系统分析自主渗透测试智能体的威胁面与防护栏，提出全生命周期威胁分类",
           "related": [
             "2609.10780",
-            "2609.09798",
             "2609.17320",
+            "2609.09798",
             "2608.23858",
             "2609.04159"
           ]
@@ -209,8 +252,8 @@
           "upvotes": 0,
           "related": [
             "2608.23028",
-            "2608.30748",
             "2609.03781",
+            "2608.30748",
             "2608.25429",
             "2608.21606"
           ]
@@ -400,8 +443,8 @@
             "2609.09798",
             "2608.27580",
             "2608.27009",
-            "2609.15013",
-            "2609.03920"
+            "2609.03920",
+            "2609.15013"
           ]
         },
         {
@@ -647,8 +690,8 @@
           "tldr": "发现重复输入可致护栏模型恶意判良的翻转漏洞，暴露位置编码缺陷。",
           "related": [
             "2609.09798",
-            "2608.27009",
             "2609.03844",
+            "2608.27009",
             "2608.27580",
             "2609.08236"
           ]
@@ -994,8 +1037,8 @@
           "related": [
             "2609.00591",
             "2609.15671",
-            "2609.16589",
             "2608.23264",
+            "2609.16589",
             "2609.00605"
           ]
         },
@@ -1361,7 +1404,7 @@
             "2609.03693",
             "2609.05850",
             "2608.26008",
-            "2608.21895"
+            "2609.12413"
           ]
         },
         {
@@ -2081,7 +2124,7 @@
             "2609.12413",
             "2608.17202",
             "2609.05794",
-            "2608.27141"
+            "2609.02168"
           ]
         },
         {
@@ -2106,9 +2149,9 @@
           "related": [
             "2608.31079",
             "2608.25267",
+            "2609.18605",
             "2608.28833",
-            "2609.00067",
-            "2609.13334"
+            "2609.00067"
           ]
         },
         {
@@ -2241,7 +2284,7 @@
             "2608.24354",
             "2609.11799",
             "2608.21577",
-            "2609.16229"
+            "2609.15029"
           ]
         },
         {
@@ -2596,7 +2639,7 @@
             "2608.21656",
             "2608.21100",
             "2608.25490",
-            "2608.19598"
+            "2609.08025"
           ]
         },
         {
@@ -2902,7 +2945,7 @@
             "2608.21126",
             "2609.15781",
             "2608.23867",
-            "2608.17659"
+            "2609.07507"
           ]
         },
         {
@@ -3302,8 +3345,8 @@
           "upvotes": 69,
           "related": [
             "2608.30005",
-            "2609.13058",
             "2609.08025",
+            "2609.13058",
             "2609.03342",
             "2609.02316"
           ]
@@ -3358,8 +3401,8 @@
           "repo": null,
           "upvotes": 1,
           "related": [
-            "2609.13058",
             "2609.08025",
+            "2609.13058",
             "2608.17776",
             "2609.05009",
             "2609.00638"
@@ -4220,7 +4263,7 @@
             "2608.19598",
             "2608.25490",
             "2609.09604",
-            "2609.09404"
+            "2609.12472"
           ]
         },
         {
@@ -4483,7 +4526,7 @@
             "2608.17776",
             "2609.02246",
             "2608.26237",
-            "2608.15445"
+            "2609.04665"
           ]
         },
         {
@@ -5064,7 +5107,7 @@
             "2609.08404",
             "2608.27906",
             "2608.29814",
-            "2609.02730"
+            "2608.30724"
           ]
         },
         {
@@ -6182,8 +6225,8 @@
           "related": [
             "2608.29942",
             "2609.09798",
-            "2609.15013",
             "2608.24777",
+            "2609.15013",
             "2608.27443"
           ]
         },
@@ -6503,8 +6546,8 @@
           "ai_imp": 7,
           "tldr": "StepGuard步级审查代理工具调用，平衡防过防漏，开放权重守卫表现强。",
           "related": [
-            "2608.29942",
             "2609.14987",
+            "2608.29942",
             "2608.25711",
             "2608.27009",
             "2609.16305"
@@ -7397,8 +7440,8 @@
           "tldr": "首个多轮对话认证鲁棒性框架,组合界与安全持续性显著收紧退化率",
           "related": [
             "2608.23959",
-            "2608.30748",
             "2609.00051",
+            "2608.30748",
             "2608.23028",
             "2609.00487"
           ]
@@ -7665,7 +7708,7 @@
             "2608.21606",
             "2608.22527",
             "2609.00605",
-            "2608.30748"
+            "2608.21544"
           ]
         },
         {
@@ -7782,10 +7825,10 @@
           "tldr": "用LRP揭示模型对不道德请求的归因偏差并引导解码拒答，解释有害服从机制。",
           "related": [
             "2608.27504",
+            "2609.18605",
             "2608.30065",
             "2609.00051",
-            "2609.00624",
-            "2609.00495"
+            "2609.00624"
           ]
         },
         {
@@ -7994,17 +8037,12 @@
   ],
   "pending": [],
   "momentum": {
-    "Jailbreaking & Red Teaming": -33,
-    "Prompt Injection & LLM Attacks": 0,
+    "Jailbreaking & Red Teaming": -40,
+    "Prompt Injection & LLM Attacks": 133,
     "Reward Hacking & Deceptive Alignment": -100,
-    "Agentic AI Safety": -39,
-    "Safety Training & Alignment": -20,
-    "Defenses, Privacy & Robustness": -28
+    "Agentic AI Safety": -26,
+    "Safety Training & Alignment": 9,
+    "Defenses, Privacy & Robustness": -46
   },
-  "emerging": [
-    {
-      "term": "ratio",
-      "count": 4
-    }
-  ]
+  "emerging": []
 }
