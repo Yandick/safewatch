@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-09-21T13:04:11+00:00",
+  "last_updated": "2026-09-21T21:16:38+00:00",
   "latest_day": "2026-09-21",
   "curated_by": "z-ai/glm-5.3-flash",
   "total_today": 0,
@@ -8058,10 +8058,5 @@
     "Safety Training & Alignment": 0,
     "Defenses, Privacy & Robustness": -46
   },
-  "emerging": [
-    {
-      "term": "mask",
-      "count": 3
-    }
-  ]
+  "emerging": []
 }
