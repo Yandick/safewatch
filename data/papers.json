@@ -1,6 +1,6 @@
 {
-  "last_updated": "2026-09-20T19:52:09+00:00",
-  "latest_day": "2026-09-20",
+  "last_updated": "2026-09-21T13:04:11+00:00",
+  "latest_day": "2026-09-21",
   "curated_by": "z-ai/glm-5.3-flash",
   "total_today": 0,
   "categories": [
@@ -38,6 +38,13 @@
   "total_papers": 347,
   "total_picks": 118,
   "days": [
+    {
+      "batch_date": "2026-09-21",
+      "papers": [],
+      "collected": [],
+      "total_count": 0,
+      "archived_count": 0
+    },
     {
       "batch_date": "2026-09-20",
       "papers": [],
@@ -8051,5 +8058,10 @@
     "Safety Training & Alignment": 0,
     "Defenses, Privacy & Robustness": -46
   },
-  "emerging": []
+  "emerging": [
+    {
+      "term": "mask",
+      "count": 3
+    }
+  ]
 }
