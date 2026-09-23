@@ -1,8 +1,8 @@
 {
-  "last_updated": "2026-09-22T20:31:22+00:00",
-  "latest_day": "2026-09-22",
+  "last_updated": "2026-09-23T11:54:00+00:00",
+  "latest_day": "2026-09-23",
   "curated_by": "z-ai/glm-5.3-flash",
-  "total_today": 0,
+  "total_today": 1,
   "categories": [
     "Jailbreaking & Red Teaming",
     "Prompt Injection & LLM Attacks",
@@ -21,23 +21,97 @@
   },
   "proportions": {
     "Jailbreaking & Red Teaming": 8.6,
-    "Prompt Injection & LLM Attacks": 9.2,
-    "Reward Hacking & Deceptive Alignment": 5.2,
-    "Agentic AI Safety": 23.1,
-    "Safety Training & Alignment": 17.3,
+    "Prompt Injection & LLM Attacks": 9.1,
+    "Reward Hacking & Deceptive Alignment": 5.4,
+    "Agentic AI Safety": 22.9,
+    "Safety Training & Alignment": 17.4,
     "Defenses, Privacy & Robustness": 36.6
   },
   "category_counts": {
     "Jailbreaking & Red Teaming": 30,
     "Prompt Injection & LLM Attacks": 32,
-    "Reward Hacking & Deceptive Alignment": 18,
+    "Reward Hacking & Deceptive Alignment": 19,
     "Agentic AI Safety": 80,
-    "Safety Training & Alignment": 60,
-    "Defenses, Privacy & Robustness": 127
+    "Safety Training & Alignment": 61,
+    "Defenses, Privacy & Robustness": 128
   },
-  "total_papers": 347,
-  "total_picks": 118,
+  "total_papers": 350,
+  "total_picks": 119,
   "days": [
+    {
+      "batch_date": "2026-09-23",
+      "papers": [
+        {
+          "id": "2609.21996",
+          "title": "A Lie Detector Test for Language Models: Reading Knowledge a Model Won't Reveal",
+          "authors": [
+            "Hiskias Dingeto"
+          ],
+          "abstract": "Large language models can hold knowledge they do not report. A model may sandbag on a capability evaluation, or answer against what it internally knows, and its outputs alone cannot tell whether it is hiding an answer or simply does not have one. We borrow the Concealed Information Test, a forensic method that identifies guilty knowledge by presenting a suspect with the true detail among plausible decoys and measuring a stronger response to the item they recognize. Our method, Probe of Internal Recognition (PIR), does the same inside a model. It presents a question with its candidate answers and reads, from the model's internal states, which candidate the model recognizes as correct. PIR is reference-free, needing no honest reference model and no labeled truth corpus. Across eight models from five families (Gemma, Qwen, Llama, Mistral, and Phi), PIR recovers the recognized answer at 0.70 to 0.87 balanced accuracy, well above the 0.28 to 0.40 unknown-item baseline and the 0.25 chance rate. It stays readable across every form of concealment we test, from prompted deception and trained sandbagging to external password-locked and circuit-broken checkpoints, with recognition between 0.85 and 0.93. When the model hides a known answer, recognition stays high. When unlearning removes the knowledge, recognition drops to the level of a question the model never knew. PIR therefore separates a model that will not answer from one that cannot, which supports sandbagging audits and unlearning verification. The signal is causal, adds information beyond black-box behavioral cues, and extends from multiple-choice questions to free-form generation.",
+          "category": "Reward Hacking & Deceptive Alignment",
+          "date": "2026-09-18",
+          "url": "https://arxiv.org/abs/2609.21996",
+          "repo": null,
+          "score": 1,
+          "upvotes": 4,
+          "ai_rel": 9,
+          "ai_imp": 7,
+          "tldr": "用内部状态探测模型未言明的知识,可审计沙袋与欺骗隐瞒",
+          "related": [
+            "2608.29461",
+            "2608.15445",
+            "2608.17202",
+            "2608.28502",
+            "2608.29357"
+          ]
+        }
+      ],
+      "collected": [
+        {
+          "id": "2609.21996",
+          "title": "A Lie Detector Test for Language Models: Reading Knowledge a Model Won't Reveal",
+          "category": "Reward Hacking & Deceptive Alignment",
+          "date": "2026-09-18",
+          "url": "https://arxiv.org/abs/2609.21996",
+          "repo": null,
+          "upvotes": 4
+        },
+        {
+          "id": "2609.22870",
+          "title": "Towards Full Pipeline FP8 Reinforcement Learning for LLMs",
+          "category": "Safety Training & Alignment",
+          "date": "2026-09-19",
+          "url": "https://arxiv.org/abs/2609.22870",
+          "repo": null,
+          "upvotes": 7,
+          "related": [
+            "2608.30005",
+            "2609.08025",
+            "2609.13058",
+            "2609.03342",
+            "2609.00638"
+          ]
+        },
+        {
+          "id": "2609.23796",
+          "title": "Mira-Scene: Pixel-Aligned Layouts for Generative 3D Scene",
+          "category": "Defenses, Privacy & Robustness",
+          "date": "2026-09-20",
+          "url": "https://arxiv.org/abs/2609.23796",
+          "repo": null,
+          "upvotes": 4,
+          "related": [
+            "2609.00638",
+            "2609.02316",
+            "2608.21570",
+            "2608.27531",
+            "2609.01046"
+          ]
+        }
+      ],
+      "total_count": 1,
+      "archived_count": 3
+    },
     {
       "batch_date": "2026-09-22",
       "papers": [],
@@ -140,8 +214,8 @@
           "related": [
             "2608.25390",
             "2608.17202",
-            "2609.06934",
             "2609.09793",
+            "2609.06934",
             "2608.23959"
           ]
         },
@@ -332,10 +406,10 @@
           "upvotes": 9,
           "related": [
             "2609.08025",
-            "2608.30005",
+            "2609.22870",
             "2608.25490",
-            "2608.21100",
-            "2608.28411"
+            "2608.30005",
+            "2608.21100"
           ]
         },
         {
@@ -348,10 +422,10 @@
           "upvotes": 8,
           "related": [
             "2609.10780",
+            "2609.22870",
             "2608.26237",
             "2608.30005",
-            "2608.27009",
-            "2608.29357"
+            "2608.27009"
           ]
         },
         {
@@ -372,11 +446,11 @@
           "repo": null,
           "upvotes": 3,
           "related": [
+            "2609.22870",
             "2608.30005",
             "2609.08025",
             "2609.00638",
-            "2609.03342",
-            "2609.02293"
+            "2609.03342"
           ]
         },
         {
@@ -543,7 +617,7 @@
             "2608.21278",
             "2608.21775",
             "2609.00051",
-            "2608.27906"
+            "2608.29461"
           ]
         },
         {
@@ -888,8 +962,8 @@
           "related": [
             "2609.00495",
             "2609.06893",
-            "2608.27348",
             "2609.01455",
+            "2608.27348",
             "2608.30703"
           ]
         },
@@ -1308,7 +1382,7 @@
             "2609.03815",
             "2609.10439",
             "2609.15654",
-            "2609.05094"
+            "2609.22870"
           ]
         },
         {
@@ -1320,8 +1394,8 @@
           "repo": null,
           "upvotes": 0,
           "related": [
-            "2609.08410",
             "2609.08267",
+            "2609.08410",
             "2609.04444",
             "2608.30050",
             "2608.24135"
@@ -1425,7 +1499,7 @@
             "2609.03693",
             "2609.05850",
             "2608.26008",
-            "2609.12413"
+            "2608.21895"
           ]
         },
         {
@@ -1692,8 +1766,8 @@
             "2609.11028",
             "2608.23858",
             "2609.16694",
-            "2608.24534",
-            "2608.25605"
+            "2609.22870",
+            "2608.24534"
           ]
         }
       ],
@@ -1894,8 +1968,8 @@
           "upvotes": 0,
           "related": [
             "2608.22868",
-            "2608.25667",
             "2608.30378",
+            "2608.25667",
             "2608.27505",
             "2608.27910"
           ]
@@ -1926,8 +2000,8 @@
           "upvotes": 27,
           "related": [
             "2609.16589",
-            "2609.15654",
             "2609.08410",
+            "2609.15654",
             "2609.06951",
             "2608.30197"
           ]
@@ -1952,8 +2026,8 @@
           "related": [
             "2608.21544",
             "2608.21606",
-            "2608.22527",
             "2609.12373",
+            "2608.22527",
             "2609.16229"
           ]
         },
@@ -1968,9 +2042,9 @@
           "related": [
             "2608.27800",
             "2608.16465",
-            "2608.25580",
             "2609.16461",
-            "2608.30050"
+            "2608.30050",
+            "2608.25580"
           ]
         },
         {
@@ -2144,8 +2218,8 @@
             "2609.16098",
             "2609.12413",
             "2608.17202",
-            "2609.05794",
-            "2609.02168"
+            "2609.02168",
+            "2609.05794"
           ]
         },
         {
@@ -2305,7 +2379,7 @@
             "2608.24354",
             "2609.11799",
             "2608.21577",
-            "2609.15029"
+            "2609.16229"
           ]
         },
         {
@@ -2428,8 +2502,8 @@
           "related": [
             "2609.06289",
             "2609.06951",
-            "2609.14839",
             "2608.30197",
+            "2609.14839",
             "2609.06879"
           ]
         },
@@ -2688,11 +2762,11 @@
           "repo": null,
           "upvotes": 0,
           "related": [
+            "2609.22870",
             "2608.30005",
             "2608.30457",
             "2609.03342",
-            "2609.01867",
-            "2609.15051"
+            "2609.01867"
           ]
         },
         {
@@ -3365,11 +3439,11 @@
           "repo": null,
           "upvotes": 69,
           "related": [
+            "2609.22870",
             "2608.30005",
             "2609.08025",
             "2609.13058",
-            "2609.03342",
-            "2609.02316"
+            "2609.23796"
           ]
         },
         {
@@ -3401,7 +3475,7 @@
             "2608.31035",
             "2609.00213",
             "2609.03342",
-            "2608.30005"
+            "2609.22870"
           ]
         },
         {
@@ -3422,11 +3496,11 @@
           "repo": null,
           "upvotes": 1,
           "related": [
+            "2609.22870",
             "2609.08025",
             "2609.13058",
             "2608.17776",
-            "2609.05009",
-            "2609.00638"
+            "2609.05009"
           ]
         },
         {
@@ -3471,10 +3545,10 @@
           "upvotes": 0,
           "related": [
             "2609.15671",
+            "2609.22870",
             "2609.08025",
             "2609.03844",
-            "2608.30005",
-            "2608.30457"
+            "2608.30005"
           ]
         },
         {
@@ -4008,9 +4082,9 @@
           "related": [
             "2609.07162",
             "2608.29357",
+            "2609.21996",
             "2609.05540",
-            "2609.01867",
-            "2608.15445"
+            "2609.01867"
           ]
         },
         {
@@ -4329,10 +4403,10 @@
           "upvotes": 0,
           "related": [
             "2609.09090",
+            "2609.21996",
             "2608.31079",
             "2608.31035",
-            "2609.00213",
-            "2608.15445"
+            "2609.00213"
           ]
         },
         {
@@ -4514,10 +4588,10 @@
           "ai_imp": 8,
           "tldr": "因果定位沙袋化机制，单层嫁接即可恢复被隐藏能力，助力评估可信。",
           "related": [
+            "2609.21996",
             "2609.13534",
             "2609.05241",
             "2609.05794",
-            "2609.07162",
             "2608.21775"
           ]
         },
@@ -4790,8 +4864,8 @@
             "2609.15029",
             "2608.26222",
             "2608.23028",
-            "2608.30122",
-            "2608.26506"
+            "2608.26506",
+            "2608.30122"
           ]
         },
         {
@@ -4821,11 +4895,11 @@
           "repo": null,
           "upvotes": 0,
           "related": [
+            "2609.21996",
             "2609.00264",
             "2608.23811",
             "2609.05540",
-            "2608.25580",
-            "2609.08025"
+            "2608.25580"
           ]
         },
         {
@@ -5023,7 +5097,7 @@
             "2608.22868",
             "2608.29942",
             "2608.25091",
-            "2609.00264"
+            "2608.23858"
           ]
         },
         {
@@ -5124,10 +5198,10 @@
           "repo": "https://github.com/CogEvol/CogEvol-4B",
           "upvotes": 0,
           "related": [
+            "2609.22870",
             "2609.01572",
             "2609.08404",
             "2608.27906",
-            "2608.29814",
             "2608.30724"
           ]
         },
@@ -5522,7 +5596,7 @@
             "2608.22312",
             "2608.25490",
             "2609.03693",
-            "2608.16465"
+            "2608.23959"
           ]
         },
         {
@@ -5599,9 +5673,9 @@
           "related": [
             "2608.27496",
             "2608.24017",
+            "2609.21996",
             "2609.13889",
-            "2609.14003",
-            "2608.27800"
+            "2609.14003"
           ]
         },
         {
@@ -6037,7 +6111,7 @@
             "2609.17320",
             "2608.30207",
             "2609.16305",
-            "2608.30041"
+            "2608.25711"
           ]
         },
         {
@@ -6090,8 +6164,8 @@
             "2609.04166",
             "2608.30428",
             "2609.03815",
-            "2609.01519",
-            "2608.30362"
+            "2609.21996",
+            "2609.01519"
           ]
         },
         {
@@ -6567,8 +6641,8 @@
           "ai_imp": 7,
           "tldr": "StepGuard步级审查代理工具调用，平衡防过防漏，开放权重守卫表现强。",
           "related": [
-            "2609.14987",
             "2608.29942",
+            "2609.14987",
             "2608.25711",
             "2608.27009",
             "2609.16305"
@@ -7074,10 +7148,10 @@
           "ai_imp": 7,
           "tldr": "测量位置混淆优化下的奖励破解与推理答案解耦，揭示基准分数失真。",
           "related": [
-            "2608.30724",
+            "2609.21996",
             "2608.17776",
+            "2608.30724",
             "2608.25267",
-            "2608.29357",
             "2609.06649"
           ]
         },
@@ -7099,10 +7173,10 @@
           "tldr": "提出诱饵加固防御，安全层被剥离后输出虚假答案以抵御去对齐攻击。",
           "related": [
             "2609.16204",
+            "2609.21996",
             "2608.25390",
             "2609.09793",
-            "2609.03693",
-            "2609.06934"
+            "2609.03693"
           ]
         },
         {
@@ -7420,11 +7494,11 @@
           "ai_imp": 7,
           "tldr": "审计端侧模型可靠性:发现任务不对称误校准与表面无法分辨的自信错误",
           "related": [
+            "2609.21996",
             "2609.07507",
             "2609.03247",
             "2609.13534",
-            "2608.21895",
-            "2608.17202"
+            "2608.21895"
           ]
         },
         {
@@ -7464,7 +7538,7 @@
             "2609.00051",
             "2608.30748",
             "2608.23028",
-            "2609.00487"
+            "2608.21775"
           ]
         },
         {
@@ -7729,7 +7803,7 @@
             "2608.21606",
             "2608.22527",
             "2609.00605",
-            "2608.21544"
+            "2608.30748"
           ]
         },
         {
@@ -7929,7 +8003,7 @@
             "2609.00605",
             "2608.22527",
             "2609.10439",
-            "2609.16229"
+            "2608.24017"
           ]
         },
         {
@@ -8058,12 +8132,29 @@
   ],
   "pending": [],
   "momentum": {
-    "Jailbreaking & Red Teaming": -57,
-    "Prompt Injection & LLM Attacks": -12,
-    "Reward Hacking & Deceptive Alignment": -100,
-    "Agentic AI Safety": -33,
-    "Safety Training & Alignment": -31,
-    "Defenses, Privacy & Robustness": -59
+    "Jailbreaking & Red Teaming": -88,
+    "Prompt Injection & LLM Attacks": -89,
+    "Reward Hacking & Deceptive Alignment": -67,
+    "Agentic AI Safety": -77,
+    "Safety Training & Alignment": -71,
+    "Defenses, Privacy & Robustness": -90
   },
-  "emerging": []
+  "emerging": [
+    {
+      "term": "qualitatively",
+      "count": 2
+    },
+    {
+      "term": "recognize",
+      "count": 2
+    },
+    {
+      "term": "item",
+      "count": 2
+    },
+    {
+      "term": "decoy",
+      "count": 2
+    }
+  ]
 }
