@@ -1,8 +1,8 @@
 {
-  "last_updated": "2026-09-23T20:44:33+00:00",
-  "latest_day": "2026-09-23",
+  "last_updated": "2026-09-24T12:00:51+00:00",
+  "latest_day": "2026-09-24",
   "curated_by": "z-ai/glm-5.3-flash",
-  "total_today": 1,
+  "total_today": 0,
   "categories": [
     "Jailbreaking & Red Teaming",
     "Prompt Injection & LLM Attacks",
@@ -20,24 +20,48 @@
     "Defenses, Privacy & Robustness": "#60a5fa"
   },
   "proportions": {
-    "Jailbreaking & Red Teaming": 8.6,
+    "Jailbreaking & Red Teaming": 8.5,
     "Prompt Injection & LLM Attacks": 9.1,
-    "Reward Hacking & Deceptive Alignment": 5.4,
-    "Agentic AI Safety": 22.9,
+    "Reward Hacking & Deceptive Alignment": 5.7,
+    "Agentic AI Safety": 22.8,
     "Safety Training & Alignment": 17.4,
-    "Defenses, Privacy & Robustness": 36.6
+    "Defenses, Privacy & Robustness": 36.5
   },
   "category_counts": {
     "Jailbreaking & Red Teaming": 30,
     "Prompt Injection & LLM Attacks": 32,
-    "Reward Hacking & Deceptive Alignment": 19,
+    "Reward Hacking & Deceptive Alignment": 20,
     "Agentic AI Safety": 80,
     "Safety Training & Alignment": 61,
     "Defenses, Privacy & Robustness": 128
   },
-  "total_papers": 350,
+  "total_papers": 351,
   "total_picks": 119,
   "days": [
+    {
+      "batch_date": "2026-09-24",
+      "papers": [],
+      "collected": [
+        {
+          "id": "2609.25270",
+          "title": "RULER: Instance-aware Rubric Rewards for SVG Generation",
+          "category": "Reward Hacking & Deceptive Alignment",
+          "date": "2026-09-21",
+          "url": "https://arxiv.org/abs/2609.25270",
+          "repo": null,
+          "upvotes": 64,
+          "related": [
+            "2609.09076",
+            "2608.27505",
+            "2609.00892",
+            "2608.25580",
+            "2608.31035"
+          ]
+        }
+      ],
+      "total_count": 0,
+      "archived_count": 1
+    },
     {
       "batch_date": "2026-09-23",
       "papers": [
@@ -1464,11 +1488,11 @@
           "repo": null,
           "upvotes": 12,
           "related": [
+            "2609.25270",
             "2609.00892",
             "2608.27505",
             "2608.25580",
-            "2609.05901",
-            "2608.31035"
+            "2609.05901"
           ]
         }
       ],
@@ -2143,8 +2167,8 @@
             "2608.17776",
             "2609.00213",
             "2608.27348",
-            "2608.24135",
-            "2609.06893"
+            "2609.06893",
+            "2608.24135"
           ]
         },
         {
@@ -3020,8 +3044,8 @@
           "repo": null,
           "upvotes": 0,
           "related": [
-            "2608.17776",
             "2609.08404",
+            "2608.17776",
             "2609.00213",
             "2608.30724",
             "2608.30429"
@@ -4213,8 +4237,8 @@
             "2608.17202",
             "2608.29151",
             "2609.09793",
-            "2608.27141",
-            "2608.28502"
+            "2608.28502",
+            "2608.27141"
           ]
         },
         {
@@ -4421,8 +4445,8 @@
             "2608.27505",
             "2609.13534",
             "2608.25580",
-            "2609.09076",
-            "2608.21278"
+            "2609.25270",
+            "2609.09076"
           ]
         },
         {
@@ -5202,7 +5226,7 @@
             "2609.01572",
             "2609.08404",
             "2608.27906",
-            "2608.30724"
+            "2608.29814"
           ]
         },
         {
@@ -5808,10 +5832,10 @@
           "upvotes": 0,
           "related": [
             "2609.00892",
-            "2608.25580",
+            "2609.25270",
             "2609.12651",
-            "2609.09076",
-            "2608.30005"
+            "2608.25580",
+            "2609.09076"
           ]
         },
         {
@@ -7552,8 +7576,8 @@
           "abstract": "The critical failure modes in deployed large language models (LLMs) are cross-dimensional: a model can score 99.3 in safety alignment while refusing one in three benign queries, or improve across every capability metric while losing 21 points in privacy. Existing evaluation frameworks that assess safety, security, and privacy independently cannot detect these patterns. We introduce aiXamine, a unified black-box platform that evaluates LLM trustworthiness across safety, security, and privacy as interdependent properties. aiXamine orchestrates 46 tests across nine services through an automated red-teaming pipeline, producing hierarchical risk profiles, from prompt-level diagnostics to cross-service trade-off analytics, that enable reproducible comparison of proprietary and open-weight systems under identical conditions. Applying aiXamine to over 120 LLMs through more than 5,000 test runs, we conduct the largest joint safety, security, and privacy study to date and uncover three cross-dimensional phenomena invisible to single-axis evaluation. First, safety enforcement incurs a quantifiable safety tax: stronger alignment systematically increases over-refusal, forcing providers to choose between protection and utility. Second, privacy is near-orthogonal to other trustworthiness dimensions and not captured by standard alignment. Third, we identify and formally characterize distillation-induced robustness collapse: off-policy distillation without on-policy correction causes entropy collapse, catastrophically destroying robustness (56.9$\\to$2.6) on the same base architecture. These findings, compounded by diminishing returns from scale and category-dependent safety behaviors, demonstrate that trustworthiness is inherently multi-dimensional: progress along one axis does not guarantee, and can actively undermine, progress along others, yet current alignment methods treat it as a single objective.",
           "related": [
             "2608.26324",
-            "2608.25727",
             "2609.01455",
+            "2608.25727",
             "2609.08634",
             "2608.21775"
           ]
@@ -8132,22 +8156,14 @@
   ],
   "pending": [],
   "momentum": {
-    "Jailbreaking & Red Teaming": -88,
-    "Prompt Injection & LLM Attacks": -89,
-    "Reward Hacking & Deceptive Alignment": -67,
-    "Agentic AI Safety": -77,
-    "Safety Training & Alignment": -71,
-    "Defenses, Privacy & Robustness": -90
+    "Jailbreaking & Red Teaming": -100,
+    "Prompt Injection & LLM Attacks": -100,
+    "Reward Hacking & Deceptive Alignment": 100,
+    "Agentic AI Safety": -94,
+    "Safety Training & Alignment": -92,
+    "Defenses, Privacy & Robustness": -97
   },
   "emerging": [
-    {
-      "term": "decoy",
-      "count": 2
-    },
-    {
-      "term": "recognize",
-      "count": 2
-    },
     {
       "term": "item",
       "count": 2
