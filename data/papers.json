@@ -1,6 +1,6 @@
 {
-  "last_updated": "2026-09-24T20:50:10+00:00",
-  "latest_day": "2026-09-24",
+  "last_updated": "2026-09-25T12:00:56+00:00",
+  "latest_day": "2026-09-25",
   "curated_by": "z-ai/glm-5.3-flash",
   "total_today": 0,
   "categories": [
@@ -23,21 +23,61 @@
     "Jailbreaking & Red Teaming": 8.5,
     "Prompt Injection & LLM Attacks": 9.1,
     "Reward Hacking & Deceptive Alignment": 5.7,
-    "Agentic AI Safety": 22.8,
-    "Safety Training & Alignment": 17.4,
-    "Defenses, Privacy & Robustness": 36.5
+    "Agentic AI Safety": 22.9,
+    "Safety Training & Alignment": 17.6,
+    "Defenses, Privacy & Robustness": 36.3
   },
   "category_counts": {
     "Jailbreaking & Red Teaming": 30,
     "Prompt Injection & LLM Attacks": 32,
     "Reward Hacking & Deceptive Alignment": 20,
-    "Agentic AI Safety": 80,
-    "Safety Training & Alignment": 61,
+    "Agentic AI Safety": 81,
+    "Safety Training & Alignment": 62,
     "Defenses, Privacy & Robustness": 128
   },
-  "total_papers": 351,
+  "total_papers": 353,
   "total_picks": 119,
   "days": [
+    {
+      "batch_date": "2026-09-25",
+      "papers": [],
+      "collected": [
+        {
+          "id": "2609.26780",
+          "title": "SpeakerMem-R1: Speaker-Centered Dual-Track Memory for Multi-Party Dialogue",
+          "category": "Agentic AI Safety",
+          "date": "2026-09-22",
+          "url": "https://arxiv.org/abs/2609.26780",
+          "repo": null,
+          "upvotes": 81,
+          "related": [
+            "2609.12373",
+            "2609.13889",
+            "2608.29326",
+            "2608.25618",
+            "2609.10144"
+          ]
+        },
+        {
+          "id": "2609.26355",
+          "title": "PACT: From Credit Assignment to Critic Alignment",
+          "category": "Safety Training & Alignment",
+          "date": "2026-09-22",
+          "url": "https://arxiv.org/abs/2609.26355",
+          "repo": null,
+          "upvotes": 15,
+          "related": [
+            "2609.04518",
+            "2608.27906",
+            "2609.18605",
+            "2608.30378",
+            "2608.25580"
+          ]
+        }
+      ],
+      "total_count": 0,
+      "archived_count": 2
+    },
     {
       "batch_date": "2026-09-24",
       "papers": [],
@@ -178,11 +218,11 @@
           "ai_imp": 6,
           "tldr": "构建企业智能体压力下合规测试基准，系统评估规则遵循的脆弱性",
           "related": [
+            "2609.26355",
             "2609.09090",
             "2608.23264",
             "2608.26008",
-            "2608.28833",
-            "2609.02246"
+            "2608.28833"
           ]
         }
       ],
@@ -1141,8 +1181,8 @@
             "2609.16760",
             "2608.24192",
             "2608.19598",
-            "2609.06893",
-            "2608.30141"
+            "2608.30141",
+            "2609.06893"
           ]
         },
         {
@@ -1156,8 +1196,8 @@
           "related": [
             "2609.00591",
             "2609.15671",
-            "2608.23264",
             "2609.16589",
+            "2608.23264",
             "2609.00605"
           ]
         },
@@ -1402,11 +1442,11 @@
           "repo": null,
           "upvotes": 0,
           "related": [
-            "2608.29326",
             "2609.03815",
+            "2608.29326",
             "2609.10439",
             "2609.15654",
-            "2609.22870"
+            "2609.26780"
           ]
         },
         {
@@ -1523,7 +1563,7 @@
             "2609.03693",
             "2609.05850",
             "2608.26008",
-            "2608.21895"
+            "2609.12413"
           ]
         },
         {
@@ -1979,7 +2019,7 @@
             "2609.13889",
             "2608.25618",
             "2608.22061",
-            "2609.17320"
+            "2609.26780"
           ]
         },
         {
@@ -3032,7 +3072,7 @@
             "2609.03814",
             "2609.04482",
             "2608.29936",
-            "2608.23858"
+            "2609.01455"
           ]
         },
         {
@@ -3108,11 +3148,11 @@
           "repo": null,
           "upvotes": 0,
           "related": [
+            "2609.26355",
             "2608.27906",
             "2608.25817",
             "2608.25580",
-            "2608.24275",
-            "2608.30122"
+            "2608.24275"
           ]
         },
         {
@@ -4522,11 +4562,11 @@
           "repo": null,
           "upvotes": 6,
           "related": [
+            "2609.26355",
             "2609.04518",
             "2608.25580",
             "2609.00892",
-            "2608.30457",
-            "2608.27505"
+            "2608.30457"
           ]
         },
         {
@@ -4952,10 +4992,10 @@
           "upvotes": 0,
           "related": [
             "2609.12373",
+            "2609.26780",
             "2609.02817",
             "2609.04629",
-            "2608.29378",
-            "2608.30141"
+            "2608.29378"
           ]
         },
         {
@@ -5833,8 +5873,8 @@
           "related": [
             "2609.00892",
             "2609.25270",
-            "2609.12651",
             "2608.25580",
+            "2609.12651",
             "2609.09076"
           ]
         },
@@ -7578,8 +7618,8 @@
             "2608.26324",
             "2609.01455",
             "2608.25727",
-            "2609.08634",
-            "2608.21775"
+            "2608.21775",
+            "2609.08634"
           ]
         },
         {
@@ -8158,12 +8198,16 @@
   "momentum": {
     "Jailbreaking & Red Teaming": -100,
     "Prompt Injection & LLM Attacks": -100,
-    "Reward Hacking & Deceptive Alignment": 100,
-    "Agentic AI Safety": -94,
-    "Safety Training & Alignment": -92,
+    "Reward Hacking & Deceptive Alignment": 200,
+    "Agentic AI Safety": -86,
+    "Safety Training & Alignment": -83,
     "Defenses, Privacy & Robustness": -97
   },
   "emerging": [
+    {
+      "term": "pact",
+      "count": 2
+    },
     {
       "term": "item",
       "count": 2
