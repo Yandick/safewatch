@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-09-26T11:36:47+00:00",
+  "last_updated": "2026-09-26T20:15:00+00:00",
   "latest_day": "2026-09-26",
   "curated_by": "z-ai/glm-5.3-flash",
   "total_today": 1,
@@ -61,7 +61,7 @@
           "url": "https://arxiv.org/abs/2609.29429",
           "repo": "https://github.com/sumleo/RLCDAlignBench",
           "score": 3,
-          "upvotes": 2,
+          "upvotes": 5,
           "ai_rel": 8,
           "ai_imp": 7,
           "tldr": "提出RLCDAlignBench，单次调用校准检测十类对齐失效，是安全审计的高价值基准。",
@@ -82,7 +82,7 @@
           "date": "2026-09-24",
           "url": "https://arxiv.org/abs/2609.29429",
           "repo": "https://github.com/sumleo/RLCDAlignBench",
-          "upvotes": 2
+          "upvotes": 5
         },
         {
           "id": "2609.29816",
@@ -107,7 +107,7 @@
           "date": "2026-09-24",
           "url": "https://arxiv.org/abs/2609.29421",
           "repo": null,
-          "upvotes": 9,
+          "upvotes": 12,
           "related": [
             "2608.21570",
             "2609.09875",
@@ -8287,11 +8287,11 @@
   },
   "emerging": [
     {
-      "term": "pact",
+      "term": "item",
       "count": 2
     },
     {
-      "term": "item",
+      "term": "pact",
       "count": 2
     }
   ]
