@@ -1,8 +1,8 @@
 {
-  "last_updated": "2026-09-25T20:48:16+00:00",
-  "latest_day": "2026-09-25",
+  "last_updated": "2026-09-26T11:36:47+00:00",
+  "latest_day": "2026-09-26",
   "curated_by": "z-ai/glm-5.3-flash",
-  "total_today": 0,
+  "total_today": 1,
   "categories": [
     "Jailbreaking & Red Teaming",
     "Prompt Injection & LLM Attacks",
@@ -20,24 +20,106 @@
     "Defenses, Privacy & Robustness": "#60a5fa"
   },
   "proportions": {
-    "Jailbreaking & Red Teaming": 8.5,
-    "Prompt Injection & LLM Attacks": 9.1,
-    "Reward Hacking & Deceptive Alignment": 5.7,
-    "Agentic AI Safety": 22.9,
-    "Safety Training & Alignment": 17.6,
-    "Defenses, Privacy & Robustness": 36.3
+    "Jailbreaking & Red Teaming": 8.4,
+    "Prompt Injection & LLM Attacks": 9.0,
+    "Reward Hacking & Deceptive Alignment": 5.6,
+    "Agentic AI Safety": 22.8,
+    "Safety Training & Alignment": 18.0,
+    "Defenses, Privacy & Robustness": 36.2
   },
   "category_counts": {
     "Jailbreaking & Red Teaming": 30,
     "Prompt Injection & LLM Attacks": 32,
     "Reward Hacking & Deceptive Alignment": 20,
     "Agentic AI Safety": 81,
-    "Safety Training & Alignment": 62,
-    "Defenses, Privacy & Robustness": 128
+    "Safety Training & Alignment": 64,
+    "Defenses, Privacy & Robustness": 129
   },
-  "total_papers": 353,
-  "total_picks": 119,
+  "total_papers": 356,
+  "total_picks": 120,
   "days": [
+    {
+      "batch_date": "2026-09-26",
+      "papers": [
+        {
+          "id": "2609.29429",
+          "title": "Just Ask Jev: Reinforcement Learning for Calibrated Decisions as a Zero-Shot Detector of AI Alignment Failures",
+          "authors": [
+            "Ruoqi Guo",
+            "Yi Liu",
+            "Gelei Deng",
+            "Yuekang Li",
+            "Lida Zhao",
+            "Yutao Wu",
+            "Simin Chen",
+            "Ying Zhang",
+            "Leo Yu Zhang"
+          ],
+          "abstract": "Detectors of alignment failures screen deployed language models and score alignment benchmarks. Most are generative judges that spend a decoding pass on every criterion, and classifiers that read token probabilities, such as Llama Guard, still score one fixed label per call. Jev, a model trained with reinforcement learning for calibrated decisions (RLCD), answers many typed questions about one input with calibrated probabilities in a single call. Whether it detects alignment failures has not been measured. We present RLCDAlignBench, which benchmarks Jev on ten alignment failures: sycophancy, jailbreaks, deception, prompt injection, hallucination, privacy violation, social bias, reward hacking, concealing uncertainty, and power seeking. It spans 44 benchmarks and five target models, labelled by each benchmark's scorer and, on two, by humans. Many of these failures are relational, defined against a reference, such as the user's belief or an injected instruction, that the response alone does not reveal. Our key idea is therefore to vary what Jev is asked separately from what it sees: the question's wording and answer type on one side, the fields of the input on the other. A single generic question reaches a median AUROC of 0.886 zero-shot and beats supervised baselines on most benchmarks. Question wording matters little, while context matters more, mostly through fields that encode the label. Jev matches the reference scorer's agreement with human labels, surfaces label defects in existing benchmarks, and costs 63x less than LLM-judge scorers. Code and data: https://github.com/sumleo/RLCDAlignBench.",
+          "category": "Defenses, Privacy & Robustness",
+          "date": "2026-09-24",
+          "url": "https://arxiv.org/abs/2609.29429",
+          "repo": "https://github.com/sumleo/RLCDAlignBench",
+          "score": 3,
+          "upvotes": 2,
+          "ai_rel": 8,
+          "ai_imp": 7,
+          "tldr": "提出RLCDAlignBench，单次调用校准检测十类对齐失效，是安全审计的高价值基准。",
+          "related": [
+            "2608.27009",
+            "2608.25267",
+            "2609.21996",
+            "2609.02246",
+            "2608.30005"
+          ]
+        }
+      ],
+      "collected": [
+        {
+          "id": "2609.29429",
+          "title": "Just Ask Jev: Reinforcement Learning for Calibrated Decisions as a Zero-Shot Detector of AI Alignment Failures",
+          "category": "Defenses, Privacy & Robustness",
+          "date": "2026-09-24",
+          "url": "https://arxiv.org/abs/2609.29429",
+          "repo": "https://github.com/sumleo/RLCDAlignBench",
+          "upvotes": 2
+        },
+        {
+          "id": "2609.29816",
+          "title": "AV-GRPO: Modality-Anchored Decoupling Diffusion Reinforcement Learning for Joint Audio-Video Generation",
+          "category": "Safety Training & Alignment",
+          "date": "2026-09-24",
+          "url": "https://arxiv.org/abs/2609.29816",
+          "repo": "https://github.com/zhiyuxu03/AV-GRPO",
+          "upvotes": 3,
+          "related": [
+            "2609.22870",
+            "2608.30005",
+            "2609.14257",
+            "2609.08025",
+            "2609.13058"
+          ]
+        },
+        {
+          "id": "2609.29421",
+          "title": "Rufus-Air: An Open LLM Post-Training Recipe",
+          "category": "Safety Training & Alignment",
+          "date": "2026-09-24",
+          "url": "https://arxiv.org/abs/2609.29421",
+          "repo": null,
+          "upvotes": 9,
+          "related": [
+            "2608.21570",
+            "2609.09875",
+            "2609.15051",
+            "2608.27351",
+            "2608.25580"
+          ]
+        }
+      ],
+      "total_count": 1,
+      "archived_count": 3
+    },
     {
       "batch_date": "2026-09-25",
       "papers": [],
@@ -470,10 +552,10 @@
           "upvotes": 9,
           "related": [
             "2609.08025",
+            "2609.29421",
             "2609.22870",
             "2608.25490",
-            "2608.30005",
-            "2608.21100"
+            "2608.30005"
           ]
         },
         {
@@ -527,10 +609,10 @@
           "upvotes": 0,
           "related": [
             "2609.02967",
+            "2609.29429",
             "2608.29028",
             "2609.00595",
-            "2608.23179",
-            "2609.15293"
+            "2608.23179"
           ]
         },
         {
@@ -561,8 +643,8 @@
             "2608.22527",
             "2608.21544",
             "2608.21606",
-            "2609.00605",
-            "2609.10439"
+            "2609.10439",
+            "2609.00605"
           ]
         },
         {
@@ -1163,8 +1245,8 @@
           "upvotes": 0,
           "related": [
             "2609.09090",
-            "2608.25267",
             "2609.01723",
+            "2608.25267",
             "2609.00067",
             "2608.29198"
           ]
@@ -1458,8 +1540,8 @@
           "repo": null,
           "upvotes": 0,
           "related": [
-            "2609.08267",
             "2609.08410",
+            "2609.08267",
             "2609.04444",
             "2608.30050",
             "2608.24135"
@@ -1563,7 +1645,7 @@
             "2609.03693",
             "2609.05850",
             "2608.26008",
-            "2609.12413"
+            "2608.21895"
           ]
         },
         {
@@ -2047,11 +2129,11 @@
           "repo": null,
           "upvotes": 0,
           "related": [
+            "2609.29421",
             "2609.03247",
             "2609.16305",
-            "2609.00595",
             "2608.24017",
-            "2609.14079"
+            "2609.00595"
           ]
         },
         {
@@ -2106,9 +2188,9 @@
           "related": [
             "2608.27800",
             "2608.16465",
-            "2609.16461",
             "2608.30050",
-            "2608.25580"
+            "2608.25580",
+            "2609.16461"
           ]
         },
         {
@@ -2282,8 +2364,8 @@
             "2609.16098",
             "2609.12413",
             "2608.17202",
-            "2609.02168",
-            "2609.05794"
+            "2609.05794",
+            "2609.02168"
           ]
         },
         {
@@ -2310,7 +2392,7 @@
             "2608.25267",
             "2609.18605",
             "2608.28833",
-            "2609.00067"
+            "2609.13334"
           ]
         },
         {
@@ -2598,9 +2680,9 @@
           "related": [
             "2608.22312",
             "2608.21895",
+            "2609.29816",
             "2608.29575",
-            "2609.17164",
-            "2609.15781"
+            "2609.17164"
           ]
         },
         {
@@ -2689,9 +2771,9 @@
           "related": [
             "2609.00052",
             "2609.08331",
+            "2609.29429",
             "2608.22312",
-            "2609.00595",
-            "2608.29942"
+            "2609.00595"
           ]
         },
         {
@@ -2993,8 +3075,8 @@
             "2608.30842",
             "2608.26324",
             "2608.30703",
-            "2609.08267",
-            "2609.00873"
+            "2609.00873",
+            "2609.08267"
           ]
         },
         {
@@ -3008,8 +3090,8 @@
           "related": [
             "2608.25390",
             "2609.01867",
-            "2608.29357",
             "2608.29378",
+            "2608.29357",
             "2609.00264"
           ]
         }
@@ -3104,7 +3186,7 @@
             "2608.21126",
             "2609.15781",
             "2608.23867",
-            "2609.07507"
+            "2608.17659"
           ]
         },
         {
@@ -3448,8 +3530,8 @@
           "related": [
             "2609.14860",
             "2609.12413",
-            "2608.28411",
             "2609.00595",
+            "2608.28411",
             "2609.04533"
           ]
         },
@@ -3920,7 +4002,7 @@
             "2608.27496",
             "2609.13889",
             "2609.17320",
-            "2608.25091"
+            "2608.22868"
           ]
         },
         {
@@ -4294,7 +4376,7 @@
             "2608.21895",
             "2609.03342",
             "2608.30188",
-            "2608.30373"
+            "2608.31035"
           ]
         },
         {
@@ -4452,8 +4534,8 @@
           "related": [
             "2609.00051",
             "2609.09090",
-            "2608.25267",
             "2609.06951",
+            "2608.25267",
             "2608.30197"
           ]
         },
@@ -4470,7 +4552,7 @@
             "2609.21996",
             "2608.31079",
             "2608.31035",
-            "2609.00213"
+            "2609.29429"
           ]
         },
         {
@@ -4685,7 +4767,7 @@
             "2608.17776",
             "2609.02246",
             "2608.26237",
-            "2609.04665"
+            "2608.15445"
           ]
         },
         {
@@ -4928,8 +5010,8 @@
             "2609.15029",
             "2608.26222",
             "2608.23028",
-            "2608.26506",
-            "2608.30122"
+            "2608.30122",
+            "2608.26506"
           ]
         },
         {
@@ -5218,7 +5300,7 @@
             "2609.01723",
             "2608.25605",
             "2608.25267",
-            "2608.30724"
+            "2608.27351"
           ]
         },
         {
@@ -5265,8 +5347,8 @@
             "2609.22870",
             "2609.01572",
             "2609.08404",
-            "2608.27906",
-            "2608.29814"
+            "2609.29429",
+            "2608.27906"
           ]
         },
         {
@@ -5330,7 +5412,7 @@
             "2608.27338",
             "2608.21057",
             "2608.17776",
-            "2609.02246"
+            "2608.31035"
           ]
         },
         {
@@ -5873,8 +5955,8 @@
           "related": [
             "2609.00892",
             "2609.25270",
-            "2608.25580",
             "2609.12651",
+            "2608.25580",
             "2609.09076"
           ]
         },
@@ -7215,8 +7297,8 @@
             "2609.21996",
             "2608.17776",
             "2608.30724",
-            "2608.25267",
-            "2609.06649"
+            "2609.29816",
+            "2608.25267"
           ]
         },
         {
@@ -7297,8 +7379,8 @@
           "tldr": "提出多模态DPO改进，缓解视觉不敏感以减少幻觉，属对齐能力工作。",
           "related": [
             "2608.24192",
-            "2608.21100",
             "2608.26105",
+            "2608.21100",
             "2608.25490",
             "2608.30141"
           ]
@@ -7561,8 +7643,8 @@
             "2609.21996",
             "2609.07507",
             "2609.03247",
-            "2609.13534",
-            "2608.21895"
+            "2609.29429",
+            "2609.13534"
           ]
         },
         {
@@ -7806,8 +7888,8 @@
             "2609.00267",
             "2609.16694",
             "2608.23763",
-            "2608.27800",
-            "2609.09647"
+            "2609.09647",
+            "2608.27800"
           ]
         },
         {
@@ -8043,11 +8125,11 @@
           "ai_imp": 6,
           "tldr": "蒸馏小型安全分类器至CPU可部署,兼顾许可证合规与防过度拦截。",
           "related": [
+            "2609.29421",
             "2608.29030",
             "2609.01046",
             "2608.17202",
-            "2609.09793",
-            "2608.27548"
+            "2609.09793"
           ]
         },
         {
@@ -8065,8 +8147,8 @@
           "related": [
             "2608.21606",
             "2609.00605",
-            "2608.22527",
             "2609.10439",
+            "2608.22527",
             "2608.24017"
           ]
         },
@@ -8124,8 +8206,8 @@
           "tldr": "系统评估LLM增强GNN的隐私泄露风险,性能增益伴随攻击面扩大。",
           "related": [
             "2609.13873",
-            "2609.00873",
             "2608.20991",
+            "2609.00873",
             "2608.26324",
             "2608.20554"
           ]
@@ -8200,8 +8282,8 @@
     "Prompt Injection & LLM Attacks": -100,
     "Reward Hacking & Deceptive Alignment": 200,
     "Agentic AI Safety": -86,
-    "Safety Training & Alignment": -83,
-    "Defenses, Privacy & Robustness": -97
+    "Safety Training & Alignment": -67,
+    "Defenses, Privacy & Robustness": -89
   },
   "emerging": [
     {
