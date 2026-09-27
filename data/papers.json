@@ -1,8 +1,8 @@
 {
-  "last_updated": "2026-09-26T20:15:00+00:00",
-  "latest_day": "2026-09-26",
+  "last_updated": "2026-09-27T12:15:38+00:00",
+  "latest_day": "2026-09-27",
   "curated_by": "z-ai/glm-5.3-flash",
-  "total_today": 1,
+  "total_today": 0,
   "categories": [
     "Jailbreaking & Red Teaming",
     "Prompt Injection & LLM Attacks",
@@ -38,6 +38,13 @@
   "total_papers": 356,
   "total_picks": 120,
   "days": [
+    {
+      "batch_date": "2026-09-27",
+      "papers": [],
+      "collected": [],
+      "total_count": 0,
+      "archived_count": 0
+    },
     {
       "batch_date": "2026-09-26",
       "papers": [
@@ -8281,18 +8288,9 @@
     "Jailbreaking & Red Teaming": -100,
     "Prompt Injection & LLM Attacks": -100,
     "Reward Hacking & Deceptive Alignment": 200,
-    "Agentic AI Safety": -86,
-    "Safety Training & Alignment": -67,
+    "Agentic AI Safety": -93,
+    "Safety Training & Alignment": -64,
     "Defenses, Privacy & Robustness": -89
   },
-  "emerging": [
-    {
-      "term": "item",
-      "count": 2
-    },
-    {
-      "term": "pact",
-      "count": 2
-    }
-  ]
+  "emerging": []
 }
