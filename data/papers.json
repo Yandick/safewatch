@@ -1,8 +1,8 @@
 {
-  "last_updated": "2026-10-02T21:50:29+00:00",
-  "latest_day": "2026-10-02",
+  "last_updated": "2026-10-03T12:14:57+00:00",
+  "latest_day": "2026-10-03",
   "curated_by": "z-ai/glm-5.3-flash",
-  "total_today": 2,
+  "total_today": 0,
   "categories": [
     "Jailbreaking & Red Teaming",
     "Prompt Injection & LLM Attacks",
@@ -23,7 +23,7 @@
     "Jailbreaking & Red Teaming": 6.9,
     "Prompt Injection & LLM Attacks": 8.5,
     "Reward Hacking & Deceptive Alignment": 5.1,
-    "Agentic AI Safety": 24.0,
+    "Agentic AI Safety": 24.1,
     "Safety Training & Alignment": 17.6,
     "Defenses, Privacy & Robustness": 37.9
   },
@@ -31,13 +31,37 @@
     "Jailbreaking & Red Teaming": 39,
     "Prompt Injection & LLM Attacks": 48,
     "Reward Hacking & Deceptive Alignment": 29,
-    "Agentic AI Safety": 136,
+    "Agentic AI Safety": 137,
     "Safety Training & Alignment": 100,
     "Defenses, Privacy & Robustness": 215
   },
-  "total_papers": 567,
+  "total_papers": 568,
   "total_picks": 179,
   "days": [
+    {
+      "batch_date": "2026-10-03",
+      "papers": [],
+      "collected": [
+        {
+          "id": "2609.32536",
+          "title": "Do Audio LLMs Listen Before They Act? Diagnosing Acoustic-Context Gating in Voice Agents",
+          "category": "Agentic AI Safety",
+          "date": "2026-09-26",
+          "url": "https://arxiv.org/abs/2609.32536",
+          "repo": null,
+          "upvotes": 8,
+          "related": [
+            "2609.09404",
+            "2609.29287",
+            "2609.35870",
+            "2608.29942",
+            "2609.16986"
+          ]
+        }
+      ],
+      "total_count": 0,
+      "archived_count": 1
+    },
     {
       "batch_date": "2026-10-02",
       "papers": [
@@ -982,7 +1006,7 @@
             "2609.39050",
             "2609.28915",
             "2609.34262",
-            "2609.31054"
+            "2609.04286"
           ]
         },
         {
@@ -1824,10 +1848,10 @@
           "upvotes": 0,
           "related": [
             "2608.28312",
+            "2609.32536",
             "2609.32635",
             "2609.03247",
-            "2610.01962",
-            "2609.16777"
+            "2610.01962"
           ]
         },
         {
@@ -3457,9 +3481,9 @@
           "related": [
             "2609.15939",
             "2608.22868",
-            "2609.09647",
             "2609.36603",
-            "2609.16098"
+            "2609.09647",
+            "2609.39086"
           ]
         },
         {
@@ -3831,7 +3855,7 @@
             "2608.27800",
             "2609.39450",
             "2608.24017",
-            "2609.16098"
+            "2609.34790"
           ]
         },
         {
@@ -4796,8 +4820,8 @@
           "upvotes": 12,
           "related": [
             "2608.21570",
-            "2609.30657",
             "2609.31054",
+            "2609.30657",
             "2609.33221",
             "2609.39533"
           ]
@@ -4989,8 +5013,8 @@
             "2609.39107",
             "2609.38909",
             "2609.09090",
-            "2609.37616",
-            "2609.26355"
+            "2609.26355",
+            "2609.37616"
           ]
         }
       ],
@@ -6246,8 +6270,8 @@
             "2609.29349",
             "2608.29209",
             "2608.25490",
-            "2609.30657",
-            "2608.30457"
+            "2608.30457",
+            "2609.30657"
           ]
         },
         {
@@ -6261,8 +6285,8 @@
           "related": [
             "2608.26237",
             "2609.16461",
-            "2609.30824",
             "2609.15383",
+            "2609.30824",
             "2609.31054"
           ]
         }
@@ -7870,8 +7894,8 @@
           "upvotes": 0,
           "related": [
             "2609.34790",
-            "2609.05901",
             "2609.31282",
+            "2609.05901",
             "2609.16694",
             "2609.02127"
           ]
@@ -8273,8 +8297,8 @@
           "upvotes": 69,
           "related": [
             "2608.21656",
-            "2609.16986",
             "2609.08188",
+            "2609.16986",
             "2609.32522",
             "2609.04286"
           ]
@@ -9826,8 +9850,8 @@
           "related": [
             "2609.27620",
             "2608.30750",
-            "2609.33634",
             "2609.07746",
+            "2609.33634",
             "2609.34920"
           ]
         },
@@ -10050,8 +10074,8 @@
             "2609.09404",
             "2610.01195",
             "2608.27910",
-            "2608.22868",
-            "2609.12373"
+            "2609.12373",
+            "2608.22868"
           ]
         },
         {
@@ -11171,7 +11195,7 @@
             "2608.29942",
             "2608.22868",
             "2608.30378",
-            "2609.34245"
+            "2608.27009"
           ]
         },
         {
@@ -11357,8 +11381,8 @@
           "related": [
             "2609.29287",
             "2609.39076",
-            "2609.34463",
             "2609.36121",
+            "2609.34463",
             "2609.16098"
           ]
         },
@@ -12969,8 +12993,8 @@
     "Prompt Injection & LLM Attacks": 1600,
     "Reward Hacking & Deceptive Alignment": 350,
     "Agentic AI Safety": 2700,
-    "Safety Training & Alignment": 1850,
-    "Defenses, Privacy & Robustness": 8600
+    "Safety Training & Alignment": 850,
+    "Defenses, Privacy & Robustness": 4250
   },
   "emerging": []
 }
