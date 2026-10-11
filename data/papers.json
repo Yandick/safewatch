@@ -1,6 +1,6 @@
 {
-  "last_updated": "2026-10-10T21:01:16+00:00",
-  "latest_day": "2026-10-10",
+  "last_updated": "2026-10-11T13:24:21+00:00",
+  "latest_day": "2026-10-11",
   "curated_by": "z-ai/glm-5.3-flash",
   "total_today": 0,
   "categories": [
@@ -38,6 +38,13 @@
   "total_papers": 719,
   "total_picks": 210,
   "days": [
+    {
+      "batch_date": "2026-10-11",
+      "papers": [],
+      "collected": [],
+      "total_count": 0,
+      "archived_count": 0
+    },
     {
       "batch_date": "2026-10-10",
       "papers": [],
@@ -16179,8 +16186,8 @@
     "Jailbreaking & Red Teaming": 0,
     "Prompt Injection & LLM Attacks": 0,
     "Reward Hacking & Deceptive Alignment": 0,
-    "Agentic AI Safety": -43,
-    "Safety Training & Alignment": -24,
+    "Agentic AI Safety": -45,
+    "Safety Training & Alignment": -19,
     "Defenses, Privacy & Robustness": -34
   },
   "emerging": []
