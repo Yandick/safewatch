@@ -1,8 +1,8 @@
 {
-  "last_updated": "2026-11-03T00:15:02+00:00",
+  "last_updated": "2026-11-03T14:49:21+00:00",
   "latest_day": "2026-11-03",
   "curated_by": "z-ai/glm-5.3-flash",
-  "total_today": 0,
+  "total_today": 9,
   "categories": [
     "Jailbreaking & Red Teaming",
     "Prompt Injection & LLM Attacks",
@@ -20,30 +20,832 @@
     "Defenses, Privacy & Robustness": "#60a5fa"
   },
   "proportions": {
-    "Jailbreaking & Red Teaming": 7.7,
-    "Prompt Injection & LLM Attacks": 9.0,
-    "Reward Hacking & Deceptive Alignment": 5.7,
-    "Agentic AI Safety": 23.1,
-    "Safety Training & Alignment": 17.1,
-    "Defenses, Privacy & Robustness": 37.4
+    "Jailbreaking & Red Teaming": 7.5,
+    "Prompt Injection & LLM Attacks": 9.1,
+    "Reward Hacking & Deceptive Alignment": 5.8,
+    "Agentic AI Safety": 23.5,
+    "Safety Training & Alignment": 16.8,
+    "Defenses, Privacy & Robustness": 37.2
   },
   "category_counts": {
     "Jailbreaking & Red Teaming": 85,
-    "Prompt Injection & LLM Attacks": 99,
-    "Reward Hacking & Deceptive Alignment": 62,
-    "Agentic AI Safety": 253,
-    "Safety Training & Alignment": 188,
-    "Defenses, Privacy & Robustness": 410
+    "Prompt Injection & LLM Attacks": 103,
+    "Reward Hacking & Deceptive Alignment": 66,
+    "Agentic AI Safety": 267,
+    "Safety Training & Alignment": 191,
+    "Defenses, Privacy & Robustness": 422
   },
-  "total_papers": 1097,
-  "total_picks": 303,
+  "total_papers": 1134,
+  "total_picks": 312,
   "days": [
     {
       "batch_date": "2026-11-03",
-      "papers": [],
-      "collected": [],
-      "total_count": 0,
-      "archived_count": 0
+      "papers": [
+        {
+          "id": "2611.02503",
+          "title": "Towards Multi-Value Alignment via Value Localization in LLMs",
+          "authors": [
+            "Xueqi Ma",
+            "Yanbei Jiang",
+            "Xingjun Ma",
+            "James Bailey",
+            "Sarah M. Erfani"
+          ],
+          "abstract": "Aligning large language models (LLMs) with multiple, potentially conflicting human values remains challenging, as existing multi-objective alignment methods often require costly fine-tuning and provide limited insight into the internal mechanisms underlying value-related behaviors. In this work, we investigate multi-value alignment from a mechanistic interpretability perspective by identifying value-sensitive attention heads (value heads) in LLMs. Using a probing-based value localization framework, we discover sparse sets of attention heads associated with diverse dimensions, spanning both human values (e.g., harmlessness, honesty) and stylistic preferences (e.g., coherence, complexity). Analyses across multiple LLM families reveal functional specialization and structured interactions among value heads, including conflicts between certain values. Targeted head ablations further induce substantial, value-specific behavioral changes, providing causal evidence of their functional importance. Building on these findings, we propose an inference-time activation steering strategy that enables controllable alignment with individual values or combinations of values without updating the underlying model parameters, supported by theoretical analysis. Experiments across multiple value alignment benchmarks demonstrate effective single- and multi-value control while largely preserving non-target model performance. Our findings connect mechanistic interpretability with flexible multi-value alignment, offering a foundation for more interpretable and pluralistic LLM behavior. The code is available at https://github.com/sihuo-design/ValueHeads.",
+          "category": "Safety Training & Alignment",
+          "date": "2026-11-02",
+          "url": "https://arxiv.org/abs/2611.02503",
+          "repo": "https://github.com/sihuo-design/ValueHeads",
+          "score": 4,
+          "upvotes": 0,
+          "ai_rel": 8,
+          "ai_imp": 7,
+          "tldr": "定位价值注意力头并转向激活，为多价值对齐提供机制证据与推理时干预。",
+          "related": [
+            "2610.12410",
+            "2610.19817",
+            "2609.28942",
+            "2610.41793",
+            "2609.16589"
+          ]
+        },
+        {
+          "id": "2611.02815",
+          "title": "Predictive Safety Guardrails Do Not Always Make LLM Agents Safer",
+          "authors": [
+            "Weixiang Zhao",
+            "Zhihao Liu",
+            "Guancheng Li",
+            "Yanyan Zhao",
+            "Bing Qin",
+            "Ting Liu"
+          ],
+          "abstract": "Large language model agents increasingly take consequential actions in digital and physical environments, where safety risks may emerge only after multiple interaction steps. This has motivated world-model-driven predictive safety guardrails, which anticipate future consequences before execution. However, existing evaluations largely focus on end-to-end safety outcomes, leaving unclear whether safety gains arise from reliable prediction and faithful use of predicted risks. In this work, we systematically diagnose the prediction-to-action pipeline along three dimensions: how world-model predictions are integrated into decision making, whether the predictions themselves are reliable, and whether their content is faithfully used. Across seven policy models and two safety environments, we find that stronger prediction involvement does not yield monotonic safety gains and can reduce task completion while substantially increasing inference cost. We further find that world-model predictions remain insufficiently reliable, especially over longer horizons, where safety prediction degrades substantially relative to near-term forecasting. Finally, we find that safety gains can persist even under corrupted predictions, while locally verified predictions still leave subsequent safety violations, showing that predictive content is not faithfully incorporated into the decision process. Together, these findings expose a fundamental prediction-to-action gap in current predictive guardrails: producing more or seemingly accurate foresight is insufficient unless that foresight is both reliable and faithfully translated into safer decisions.",
+          "category": "Agentic AI Safety",
+          "date": "2026-11-02",
+          "url": "https://arxiv.org/abs/2611.02815",
+          "repo": null,
+          "score": 3,
+          "upvotes": 0,
+          "ai_rel": 8,
+          "ai_imp": 7,
+          "tldr": "系统诊断预测式安全护栏，发现其未必提升智能体安全且成本高",
+          "related": [
+            "2610.26809",
+            "2609.13737",
+            "2610.12813",
+            "2610.09294",
+            "2609.36580"
+          ]
+        },
+        {
+          "id": "2611.02332",
+          "title": "LEANGUARD: Lean-Verified Guardrails for Tool-Using Agents",
+          "authors": [
+            "Sreehari Sankar",
+            "Debargha Ganguly",
+            "Vikash Singh",
+            "Mohsen Hariri",
+            "Weicong Chen",
+            "Yanyan Zhang",
+            "Shouren Wang",
+            "Wang Yang",
+            "Chaoda Song",
+            "Alexander Nemecek",
+            "Osama Zafar",
+            "Idan Davidovich",
+            "Yuting Shao",
+            "Kai Ye",
+            "Biyao Zhang",
+            "Xinpeng Li",
+            "Joe Stubbs",
+            "Erman Ayday",
+            "Jing Ma",
+            "Vipin Chaudhary"
+          ],
+          "abstract": "Tool-using language-model agents often execute actions that their domain policies forbid. We present LeanGuard, a runtime that checks every proposed tool call against a policy written in Lean4 before the call reaches the environment. Policies combine state predicates with scoped past-time temporal operators over the execution history, evaluation is fail-closed, and the decision procedure is proved equivalent to a LeanLTL semantics. A denied call can be corrected in two ways. With feedback, the agent receives the violated rule and a hint; with proof-guided repair, Lean metaprogramming searches for a nearby call that preserves the user's intent and proves that the policy admits it, without the model. On Tau-Bench with five Qwen models (0.8B-27B), unguarded agents execute at least 33 calls that the Lean policy forbids, while LeanGuard executes none; with feedback, task success does not change significantly. On DTap, LeanGuard reduces direct prompt-injection success from 57.9% to 5.9%, and in telecom, where benign tasks need no writes, benign success is unchanged. Feedback reduces repeated blocked calls and raises task success for four of five models over a bare denial. On replayed denials, repair proves an admissible edit for 88 of 252 denials caused by argument values, in a median of 2,ms.",
+          "category": "Agentic AI Safety",
+          "date": "2026-11-02",
+          "url": "https://arxiv.org/abs/2611.02332",
+          "repo": null,
+          "score": 3,
+          "upvotes": 0,
+          "ai_rel": 8,
+          "ai_imp": 7,
+          "tldr": "用Lean4形式化策略在运行时校验智能体工具调用，可证明安全",
+          "related": [
+            "2610.22124",
+            "2609.35659",
+            "2610.22448",
+            "2610.23071",
+            "2610.40588"
+          ]
+        },
+        {
+          "id": "2611.01976",
+          "title": "Beyond Prompt Injection: The Tool Update Gap in LLM Agent Security",
+          "authors": [
+            "Shiyu Kan",
+            "Yue Qi",
+            "Yufei Han",
+            "Xinjian Luo",
+            "Guojun Xiong",
+            "Xiaofeng Gao"
+          ],
+          "abstract": "Large language model based agents increasingly rely on external tools to invoke services and interact with web resources. These tools can evolve through software updates, yet agentic frameworks may continue trusting them without re-verifying their safety after implementation changes. This tool update gap creates a supply-chain vulnerability in agentic systems: because updated tool code executes outside the LLM's context window, malicious functionality embedded in tool updates can bypass defenses centered on model-visible interactions, leaving agents exposed to stealthy, persistent threats that existing in-context defenses can hardly address. To thoroughly investigate this threat, we introduce ETUDE (Exploiting Tool Updates for Direct Execution), an attack that embeds malicious functionality into updates of initially benign tools to produce compromised tools, while preserving their legitimate tool functionality. Unlike prompt-based attacks, ETUDE operates entirely outside the LLM's context and requires no adversarial instructions, thereby bypassing defenses restricted to model-visible content. We evaluate ETUDE across three representative attack workloads and seven widely used commercial and open-source agentic frameworks, including Gemini CLI, Codex CLI, and Claude Code. The results show that ETUDE achieves a 97.6% ASR while maintaining a 95.9% legitimate task completion rate. We further examine existing defenses and find that they provide insufficient protection against this threat. These findings expose a fundamental blind spot in current agent security practices: trust established for a tool does not necessarily remain valid after its implementation updates.",
+          "category": "Agentic AI Safety",
+          "date": "2026-11-01",
+          "url": "https://arxiv.org/abs/2611.01976",
+          "repo": null,
+          "score": 3,
+          "upvotes": 0,
+          "ai_rel": 8,
+          "ai_imp": 7,
+          "tldr": "揭示工具更新供应链漏洞,恶意代码绕过上下文防御,威胁代理系统安全",
+          "related": [
+            "2608.27800",
+            "2608.24017",
+            "2609.16098",
+            "2609.12413",
+            "2608.30441"
+          ]
+        },
+        {
+          "id": "2611.00138",
+          "title": "Kerkoporta: Injecting Structured-Output Backdoors in Reasoning Coding Agents",
+          "authors": [
+            "Georgios Syros",
+            "Blake Bullwinkel",
+            "Alina Oprea",
+            "Cristina Nita-Rotaru",
+            "Amanda Minnich",
+            "Xiaodong Liu",
+            "Giorgio Severi"
+          ],
+          "abstract": "Existing large language model (LLM) backdoor attacks operate primarily in chat settings, where the risk is bounded by free-form text outputs. AI agents remove that bound by performing actions and executing commands on the user's machine. We introduce structured-output backdoor attacks against reasoning models in agentic coding settings. A trigger placed anywhere in the agent's context causes the model to emit an attacker-chosen tool call, which the harness executes, directly compromising the system's confidentiality, integrity, or availability. We present Kerkoporta, a methodology that constructs high-quality poison samples, injects the backdoor via supervised fine-tuning, and recovers utility loss with lightweight reinforcement learning. We evaluate on modern, heavily post-trained open-weight models across proprietary and open-source harnesses, focusing on coding for its wide adoption and long-horizon task structure. The attack reaches success rates of up to 96.2% and can be configured to generalize across harnesses or bind to a single target. The resulting models can outperform the clean baseline on standard utility benchmarks, giving victims a direct incentive to adopt them. Overall, we demonstrate that LLM backdoors can have critical security impacts in the context of modern coding agents, and we characterize the poisoning methodology required to insert backdoors that are both effective and stealthy in this setting.",
+          "category": "Agentic AI Safety",
+          "date": "2026-10-29",
+          "url": "https://arxiv.org/abs/2611.00138",
+          "repo": null,
+          "score": 3,
+          "upvotes": 0,
+          "ai_rel": 8,
+          "ai_imp": 7,
+          "tldr": "结构化输出后门使编码代理执行恶意工具调用,成功率高达96%",
+          "related": [
+            "2608.24354",
+            "2610.37741",
+            "2610.12644",
+            "2609.11799",
+            "2610.07510"
+          ]
+        },
+        {
+          "id": "2611.02643",
+          "title": "SearchInject: Retrieval Exposure Control for Indirect Prompt Injection in Language-Model Search",
+          "authors": [
+            "Kainan Zhou",
+            "Gangzhen Qian",
+            "Janet Sung",
+            "Zhi Jing",
+            "Rong Bao",
+            "Qianru Lao"
+          ],
+          "abstract": "An indirect prompt injection can affect a search-augmented large language model only after its carrier page reaches model context. SearchInject controls this admission decision with a joint score combining retrieval relevance, search-abuse cues, instruction likelihood, and two relevance interactions. A quarantine threshold is selected under an empirical 0.5% clean-candidate false-quarantine constraint on a calibration split. Evaluation uses 300 held-out SciFact queries and held-out payload categories within four construction families already represented during development. Across 1,200 query-family outcomes per retriever, top-10 target exposure falls from 0.9408 to 0.1583 for BM25, from 0.9158 to 0.1508 for a normalized hybrid, and from 0.8450 to 0.1375 for latent semantic analysis. These are relative reductions of 83.2-83.7%; the largest absolute change in clean normalized discounted cumulative gain at rank 10 is 0.0018. The frozen threshold yields clean test false-quarantine rates of 0.59-0.65%, above the empirical calibration constraint. A query-level analytical reanalysis accounts for the repeated construction outcomes under an independent-query assumption. A separate 104-case generation follow-up records context removal but no confirmed undefended hijacks under a post hoc endpoint, so it cannot estimate a reduction in attack success. The evidence supports retrieval exposure control within the evaluated construction families; the benefit of the interaction terms at matched clean cost remains unresolved.",
+          "category": "Defenses, Privacy & Robustness",
+          "date": "2026-11-02",
+          "url": "https://arxiv.org/abs/2611.02643",
+          "repo": null,
+          "score": 3,
+          "upvotes": 0,
+          "ai_rel": 8,
+          "ai_imp": 6,
+          "tldr": "检索阶段隔离可疑页面以阻断间接提示注入,防御有效但评估规模有限",
+          "related": [
+            "2610.20907",
+            "2611.02522",
+            "2610.38001",
+            "2609.30909",
+            "2610.28364"
+          ]
+        },
+        {
+          "id": "2611.01334",
+          "title": "The Verifier Is Part of the Simulator: Evidence-View Gaming in Agentic Equation Discovery",
+          "authors": [
+            "Orestis Oikonomou",
+            "Bogdan Raonic"
+          ],
+          "abstract": "A growing number of agentic pipelines search for governing equations: an agent proposes laws and a verifier checks them against simulated trajectories. The verifier sees only a numerical summary: integrals against test functions on a time grid. That summary carries its own discretization error, making the verifier part of the simulator. We freeze the trajectory, candidate library, verifier and thresholds, leaving the agent one move: which permitted summary to admit. Without scores or language models, finer time grids reduce numerical discrepancies and false library rejections. On PDEBench, the verifier instead accepts equations missing diffusion on score-selected summaries. Maximizing a public score rewarding decisive verdicts and larger mismatches when rejecting the library wrongly rejects all 1,500 in-library cases; retrospectively retuning score constants on a separate bank reduces errors to 13/180 at best. We call this evidence-view gaming: reward hacking by choice of permitted summary. In single-turn forced-choice tests, Claude models rarely choose summaries giving wrong verdicts when asked to be accurate, but often do so when asked to maximize the score or report missing physics. In separate trust prompts, they often rank those harmful summaries least trustworthy. Requiring several summaries to agree reduces errors but often withholds a verdict and performs worse than a fixed fine view on PDEBench: a safeguard, not a certificate. Evidence chosen after its verdict is known cannot alone authorize a claim.",
+          "category": "Reward Hacking & Deceptive Alignment",
+          "date": "2026-10-31",
+          "url": "https://arxiv.org/abs/2611.01334",
+          "repo": null,
+          "score": 2,
+          "upvotes": 0,
+          "ai_rel": 8,
+          "ai_imp": 7,
+          "tldr": "揭示智能体方程发现中的证据视角作弊，新颖奖励黑客案例研究。",
+          "related": [
+            "2609.09250",
+            "2610.28045",
+            "2610.11464",
+            "2609.35677",
+            "2610.15924"
+          ]
+        },
+        {
+          "id": "2611.02522",
+          "title": "Ranked but Not Stopped: Detecting Prompt-Injection Hijacks from Typed Decision Models' Output Probabilities",
+          "authors": [
+            "Junwei Yao",
+            "Jianan Liu",
+            "Yongxi Zhou",
+            "Zike Yang"
+          ],
+          "abstract": "Programs that use a language model as a classifier act on its most probable label. Text injected into the input can move that label to one the attacker chooses, a hijack. A monitor that does not know the attacker's label can read the model's own confidence and raise an alarm when the top probability is low. We test this monitor on AG News topic classification with five systems, three of them served through a provider's API. Pooled over five families of injected text, low confidence ranks hijacked answers above clean ones on four of the five systems (AUROC 0.86-0.90). Ranking them does not stop many of them. A threshold set so that at most 5% of clean answers to separate calibration articles alarm falls among the least confident clean answers, and every more confident hijack passes. In our main gate run on the three API-served systems, the monitor misses 51-70% of the hijacks caused by a plain injected note (per-system point estimates). When the note adds one handwritten sentence that calls the target certain and asks for full probability, the monitor misses 99-100% of the hijacks, although low confidence still ranks them at AUROC 0.70-0.79. Confidence monitors should be tested at their operating alarm rate, against attackers who claim certainty.",
+          "category": "Prompt Injection & LLM Attacks",
+          "date": "2026-11-02",
+          "url": "https://arxiv.org/abs/2611.02522",
+          "repo": null,
+          "score": 3,
+          "upvotes": 0,
+          "ai_rel": 7,
+          "ai_imp": 6,
+          "tldr": "实证表明基于置信度的提示注入检测易被攻击者操纵而失效",
+          "related": [
+            "2610.20941",
+            "2610.24048",
+            "2610.18614",
+            "2609.07162",
+            "2610.31579"
+          ]
+        },
+        {
+          "id": "2611.00725",
+          "title": "The Long Con on the Web: Earn-then-Exploit Fraud Attacks against Coding Agents",
+          "authors": [
+            "Xingling Xu",
+            "Zhengwei Jiang",
+            "Zheng Zhi",
+            "Fangming Dong",
+            "LingJia Guo",
+            "Wei Dong",
+            "Chunyan Ma",
+            "Jun Jiang"
+          ],
+          "abstract": "Coding agents increasingly operate with web access and high privileges, creating a new attack surface where web fraud can directly target autonomous agents. Existing studies mainly focus on malicious links, prompt injection, and interface deception, while content-level web fraud against agents and the amplification of attacks through agent trust remain underexplored. In this paper, we present EtE (Earn-then-Exploit), a web fraud attack framework against coding agents, in which a malicious website first provides multiple rounds of genuinely verifiable assistance to establish trust and then introduces task-related instructions that cross intended operational boundaries. To systematically evaluate its effectiveness, we construct 56 organizational environments (8 task contexts x 7 attack consequences) and evaluate three representative coding agents. EtE achieves an average scene-level attack success rate of 71.4%, including 85.7% on Codex-GPT-5.5, 67.9% on ZCode-GLM-5.3-Flash, and 60.7% on QwenCode-Qwen3.7-Plus, significantly outperforming all injection-based baselines. More importantly, our experiments reveal that coding agents exhibit trust-like behavioral reliance on previously helpful Web sources, and that such accumulated credibility significantly increases their susceptibility to subsequent malicious instructions. Based on this finding, we propose action-authorization separation (AAS), which prevents web content from directly authorizing privileged actions and reduces the attack success rate to 0% while preserving 100% task completion, outperforming all evaluated defense baselines.",
+          "category": "Prompt Injection & LLM Attacks",
+          "date": "2026-10-31",
+          "url": "https://arxiv.org/abs/2611.00725",
+          "repo": null,
+          "score": 1,
+          "upvotes": 0,
+          "ai_rel": 9,
+          "ai_imp": 8,
+          "tldr": "提出先助后骗的网页欺诈攻击框架，对编码智能体攻击成功率高达71%。",
+          "related": [
+            "2609.03999",
+            "2610.41181",
+            "2610.12823",
+            "2610.09264",
+            "2610.41272"
+          ]
+        }
+      ],
+      "collected": [
+        {
+          "id": "2611.03575",
+          "title": "VeriHarm-Bench: Measuring Harmful Success in LLM Coding Agents Verifiably",
+          "category": "Agentic AI Safety",
+          "date": "2026-11-02",
+          "url": "https://arxiv.org/abs/2611.03575",
+          "repo": null,
+          "upvotes": 0,
+          "related": [
+            "2610.35188",
+            "2610.24379",
+            "2610.13886",
+            "2610.07089",
+            "2610.25683"
+          ]
+        },
+        {
+          "id": "2611.00420",
+          "title": "Circuit Oracle: Automating Attribution Graph Analysis via Natural-Language Queries",
+          "category": "Defenses, Privacy & Robustness",
+          "date": "2026-10-30",
+          "url": "https://arxiv.org/abs/2611.00420",
+          "repo": null,
+          "upvotes": 0,
+          "related": [
+            "2610.05541",
+            "2608.27504",
+            "2610.09600",
+            "2609.38798",
+            "2610.24556"
+          ]
+        },
+        {
+          "id": "2611.02643",
+          "title": "SearchInject: Retrieval Exposure Control for Indirect Prompt Injection in Language-Model Search",
+          "category": "Defenses, Privacy & Robustness",
+          "date": "2026-11-02",
+          "url": "https://arxiv.org/abs/2611.02643",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2611.01976",
+          "title": "Beyond Prompt Injection: The Tool Update Gap in LLM Agent Security",
+          "category": "Agentic AI Safety",
+          "date": "2026-11-01",
+          "url": "https://arxiv.org/abs/2611.01976",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2611.00748",
+          "title": "Inherited or Learned? Backdoor Selectivity in Distilled Language Models",
+          "category": "Prompt Injection & LLM Attacks",
+          "date": "2026-10-31",
+          "url": "https://arxiv.org/abs/2611.00748",
+          "repo": null,
+          "upvotes": 0,
+          "related": [
+            "2610.07654",
+            "2610.38917",
+            "2610.03185",
+            "2610.36445",
+            "2609.29995"
+          ]
+        },
+        {
+          "id": "2611.00138",
+          "title": "Kerkoporta: Injecting Structured-Output Backdoors in Reasoning Coding Agents",
+          "category": "Agentic AI Safety",
+          "date": "2026-10-29",
+          "url": "https://arxiv.org/abs/2611.00138",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2611.02611",
+          "title": "Where Does MCP Security End? A Three-Tier Mitigation Mapping Framework for the OWASP MCP Top 10",
+          "category": "Defenses, Privacy & Robustness",
+          "date": "2026-11-02",
+          "url": "https://arxiv.org/abs/2611.02611",
+          "repo": null,
+          "upvotes": 0,
+          "related": [
+            "2608.23763",
+            "2610.36108",
+            "2609.10854",
+            "2609.03920",
+            "2610.04378"
+          ]
+        },
+        {
+          "id": "2611.02605",
+          "title": "StateFence: Task-State Protection Against Evidence-Chain Contamination in Blue-Team LLM Agents",
+          "category": "Defenses, Privacy & Robustness",
+          "date": "2026-11-02",
+          "url": "https://arxiv.org/abs/2611.02605",
+          "repo": null,
+          "upvotes": 0,
+          "related": [
+            "2609.06250",
+            "2609.10707",
+            "2609.13889",
+            "2608.30041",
+            "2609.14003"
+          ]
+        },
+        {
+          "id": "2611.02484",
+          "title": "Benchmark of THReD: Evaluating an LLM Agent and Its Preprocessing Tools for Turning Electronic Health Records into AI-Ready Datasets",
+          "category": "Agentic AI Safety",
+          "date": "2026-11-02",
+          "url": "https://arxiv.org/abs/2611.02484",
+          "repo": null,
+          "upvotes": 0,
+          "related": [
+            "2610.04749",
+            "2610.30229",
+            "2610.02588",
+            "2609.35659",
+            "2608.27856"
+          ]
+        },
+        {
+          "id": "2611.00729",
+          "title": "AgentCap: Capability-Based Runtime Authorization for Secure LLM Agent Execution",
+          "category": "Defenses, Privacy & Robustness",
+          "date": "2026-10-31",
+          "url": "https://arxiv.org/abs/2611.00729",
+          "repo": null,
+          "upvotes": 0,
+          "related": [
+            "2608.29942",
+            "2609.00267",
+            "2610.16426",
+            "2610.18457",
+            "2609.34790"
+          ]
+        },
+        {
+          "id": "2611.00725",
+          "title": "The Long Con on the Web: Earn-then-Exploit Fraud Attacks against Coding Agents",
+          "category": "Prompt Injection & LLM Attacks",
+          "date": "2026-10-31",
+          "url": "https://arxiv.org/abs/2611.00725",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2611.01313",
+          "title": "Are Fake Citations a Form of Reward Hacking? A Pre-Registered Study of Post-Training and Citation Cues",
+          "category": "Reward Hacking & Deceptive Alignment",
+          "date": "2026-10-31",
+          "url": "https://arxiv.org/abs/2611.01313",
+          "repo": "https://github.com/zainnab-sparq/citation-reward-hacking",
+          "upvotes": 0,
+          "related": [
+            "2610.37788",
+            "2610.26496",
+            "2609.39533",
+            "2610.22937",
+            "2610.26655"
+          ]
+        },
+        {
+          "id": "2611.00407",
+          "title": "Hacking or Just Failing? A More Capable LLM Monitor Better Separates Reward Hacking from Honest Failure",
+          "category": "Reward Hacking & Deceptive Alignment",
+          "date": "2026-10-30",
+          "url": "https://arxiv.org/abs/2611.00407",
+          "repo": null,
+          "upvotes": 0,
+          "related": [
+            "2610.20941",
+            "2610.07089",
+            "2610.24048",
+            "2610.17062",
+            "2609.00264"
+          ]
+        },
+        {
+          "id": "2611.03627",
+          "title": "Not All Reasoning Generalizes: A Case Study on Learning Generalizable Reasoning Strategies in RLVR",
+          "category": "Safety Training & Alignment",
+          "date": "2026-11-02",
+          "url": "https://arxiv.org/abs/2611.03627",
+          "repo": "https://github.com/ziqipang/rl_meta_thinking",
+          "upvotes": 0,
+          "related": [
+            "2609.02817",
+            "2609.01867",
+            "2609.24760",
+            "2609.35677",
+            "2610.17313"
+          ]
+        },
+        {
+          "id": "2611.02849",
+          "title": "TLAPS-Bench: Formally Proving Correctness of Real-World System Specifications with TLA+ Proof System",
+          "category": "Agentic AI Safety",
+          "date": "2026-11-02",
+          "url": "https://arxiv.org/abs/2611.02849",
+          "repo": null,
+          "upvotes": 0,
+          "related": [
+            "2610.31831",
+            "2610.26342",
+            "2610.33258",
+            "2610.40036",
+            "2610.36258"
+          ]
+        },
+        {
+          "id": "2611.02501",
+          "title": "SpecPilot: Autonomous Algorithm Discovery and Systems Optimization for Speculative Decoding",
+          "category": "Agentic AI Safety",
+          "date": "2026-11-02",
+          "url": "https://arxiv.org/abs/2611.02501",
+          "repo": null,
+          "upvotes": 0,
+          "related": [
+            "2610.08678",
+            "2610.03394",
+            "2609.11799",
+            "2609.39549",
+            "2610.40613"
+          ]
+        },
+        {
+          "id": "2611.01334",
+          "title": "The Verifier Is Part of the Simulator: Evidence-View Gaming in Agentic Equation Discovery",
+          "category": "Reward Hacking & Deceptive Alignment",
+          "date": "2026-10-31",
+          "url": "https://arxiv.org/abs/2611.01334",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2611.02318",
+          "title": "A Capitulation Direction Emerges With Scale and Is Causally Load-Bearing Where Validation Is Strong: Eight Models, Two Families, and Five Measurement Hazards",
+          "category": "Reward Hacking & Deceptive Alignment",
+          "date": "2026-11-02",
+          "url": "https://arxiv.org/abs/2611.02318",
+          "repo": null,
+          "upvotes": 0,
+          "related": [
+            "2609.06951",
+            "2609.37616",
+            "2610.06522",
+            "2610.30363",
+            "2610.37788"
+          ]
+        },
+        {
+          "id": "2611.02516",
+          "title": "Cumulative and Audited Guardrail Tool Evolution for LLM Agent Safety",
+          "category": "Agentic AI Safety",
+          "date": "2026-11-02",
+          "url": "https://arxiv.org/abs/2611.02516",
+          "repo": null,
+          "upvotes": 0,
+          "related": [
+            "2610.06122",
+            "2610.12813",
+            "2610.03434",
+            "2609.16694",
+            "2610.07256"
+          ]
+        },
+        {
+          "id": "2611.02503",
+          "title": "Towards Multi-Value Alignment via Value Localization in LLMs",
+          "category": "Safety Training & Alignment",
+          "date": "2026-11-02",
+          "url": "https://arxiv.org/abs/2611.02503",
+          "repo": "https://github.com/sihuo-design/ValueHeads",
+          "upvotes": 0
+        },
+        {
+          "id": "2611.03233",
+          "title": "Axion 1.0: Open Agent Foundation Models, Simplified",
+          "category": "Agentic AI Safety",
+          "date": "2026-11-02",
+          "url": "https://arxiv.org/abs/2611.03233",
+          "repo": null,
+          "upvotes": 0,
+          "related": [
+            "2609.29421",
+            "2609.31054",
+            "2610.33451",
+            "2610.30882",
+            "2609.33898"
+          ]
+        },
+        {
+          "id": "2611.03184",
+          "title": "ACTOR: Action-Centered Temporal Organization for Literary Role-Playing Agents",
+          "category": "Agentic AI Safety",
+          "date": "2026-11-02",
+          "url": "https://arxiv.org/abs/2611.03184",
+          "repo": "https://github.com/SilentStar233/ACTOR",
+          "upvotes": 0,
+          "related": [
+            "2609.06951",
+            "2608.19729",
+            "2608.30378",
+            "2610.23256",
+            "2610.06576"
+          ]
+        },
+        {
+          "id": "2611.02414",
+          "title": "SGR-OPSD: Learning from Subgoal Plans with Graph-Regularized Credit Assignment for Agentic Reinforcement Learning",
+          "category": "Agentic AI Safety",
+          "date": "2026-11-02",
+          "url": "https://arxiv.org/abs/2611.02414",
+          "repo": null,
+          "upvotes": 0,
+          "related": [
+            "2610.00838",
+            "2609.36178",
+            "2608.24114",
+            "2610.38391",
+            "2610.01161"
+          ]
+        },
+        {
+          "id": "2611.01643",
+          "title": "CREDO: Evidence-Conditioned Credit Assignment for Temporal Reasoning Agents",
+          "category": "Agentic AI Safety",
+          "date": "2026-11-01",
+          "url": "https://arxiv.org/abs/2611.01643",
+          "repo": null,
+          "upvotes": 0,
+          "related": [
+            "2610.01161",
+            "2609.36178",
+            "2608.30457",
+            "2610.25269",
+            "2609.34929"
+          ]
+        },
+        {
+          "id": "2611.01551",
+          "title": "TopoDPO: Dense Preference Alignment for Structure-Sensitive Aerial Referring Segmentation",
+          "category": "Safety Training & Alignment",
+          "date": "2026-11-01",
+          "url": "https://arxiv.org/abs/2611.01551",
+          "repo": "https://github.com/phy709/TopoDPO",
+          "upvotes": 0,
+          "related": [
+            "2610.23256",
+            "2609.06893",
+            "2610.01511",
+            "2610.00715",
+            "2610.04845"
+          ]
+        },
+        {
+          "id": "2611.02815",
+          "title": "Predictive Safety Guardrails Do Not Always Make LLM Agents Safer",
+          "category": "Agentic AI Safety",
+          "date": "2026-11-02",
+          "url": "https://arxiv.org/abs/2611.02815",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2611.02791",
+          "title": "PGuard: A Native, Streaming, and Plug-in Guardrail for Multimodal Large Language Models",
+          "category": "Defenses, Privacy & Robustness",
+          "date": "2026-11-02",
+          "url": "https://arxiv.org/abs/2611.02791",
+          "repo": null,
+          "upvotes": 0,
+          "related": [
+            "2608.30703",
+            "2610.00815",
+            "2610.36574",
+            "2610.03955",
+            "2610.34961"
+          ]
+        },
+        {
+          "id": "2611.02522",
+          "title": "Ranked but Not Stopped: Detecting Prompt-Injection Hijacks from Typed Decision Models' Output Probabilities",
+          "category": "Prompt Injection & LLM Attacks",
+          "date": "2026-11-02",
+          "url": "https://arxiv.org/abs/2611.02522",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2611.02332",
+          "title": "LEANGUARD: Lean-Verified Guardrails for Tool-Using Agents",
+          "category": "Agentic AI Safety",
+          "date": "2026-11-02",
+          "url": "https://arxiv.org/abs/2611.02332",
+          "repo": null,
+          "upvotes": 0
+        },
+        {
+          "id": "2611.02310",
+          "title": "Detect, Repair and Audit: A Hierarchical Multi-Agent Defense Against Adversarial Attacks in Energy Forecasting",
+          "category": "Defenses, Privacy & Robustness",
+          "date": "2026-11-02",
+          "url": "https://arxiv.org/abs/2611.02310",
+          "repo": null,
+          "upvotes": 0,
+          "related": [
+            "2609.30841",
+            "2610.01058",
+            "2610.22684",
+            "2610.32345",
+            "2610.09892"
+          ]
+        },
+        {
+          "id": "2611.02030",
+          "title": "Query-efficient scan-and-search watermark localization",
+          "category": "Defenses, Privacy & Robustness",
+          "date": "2026-11-01",
+          "url": "https://arxiv.org/abs/2611.02030",
+          "repo": null,
+          "upvotes": 0,
+          "related": [
+            "2610.04169",
+            "2610.14289",
+            "2610.27653",
+            "2610.37266",
+            "2609.16681"
+          ]
+        },
+        {
+          "id": "2611.01342",
+          "title": "J-Anchor: Defending Against Prefill Attacks via J-Space Selective Refusal Restoration",
+          "category": "Defenses, Privacy & Robustness",
+          "date": "2026-10-31",
+          "url": "https://arxiv.org/abs/2611.01342",
+          "repo": null,
+          "upvotes": 0,
+          "related": [
+            "2608.25390",
+            "2610.13078",
+            "2610.30727",
+            "2609.38389",
+            "2610.29555"
+          ]
+        },
+        {
+          "id": "2611.03434",
+          "title": "Optimize the Harness, Not the Model: Fitting a Minimal Agent to a Self-Hostable LLM for Investigative Analysis",
+          "category": "Agentic AI Safety",
+          "date": "2026-11-02",
+          "url": "https://arxiv.org/abs/2611.03434",
+          "repo": null,
+          "upvotes": 0,
+          "related": [
+            "2610.32045",
+            "2609.02730",
+            "2609.32691",
+            "2609.16694",
+            "2609.02786"
+          ]
+        },
+        {
+          "id": "2611.02741",
+          "title": "ATrust: Adaptive Trust Boundary Expansion for Securing LLM Agents",
+          "category": "Defenses, Privacy & Robustness",
+          "date": "2026-11-02",
+          "url": "https://arxiv.org/abs/2611.02741",
+          "repo": null,
+          "upvotes": 0,
+          "related": [
+            "2610.06064",
+            "2610.38867",
+            "2609.33017",
+            "2610.18457",
+            "2610.11634"
+          ]
+        },
+        {
+          "id": "2611.02273",
+          "title": "When the Text Is Silent: Memory Shortcuts and the Validity of LLM Annotation under Evidence Insufficiency",
+          "category": "Defenses, Privacy & Robustness",
+          "date": "2026-11-01",
+          "url": "https://arxiv.org/abs/2611.02273",
+          "repo": null,
+          "upvotes": 0,
+          "related": [
+            "2608.30724",
+            "2610.03585",
+            "2610.04793",
+            "2610.32415",
+            "2610.21147"
+          ]
+        },
+        {
+          "id": "2611.00911",
+          "title": "S1CogBench: What System One Decision Models Can and Cannot Do on Cognitive Experiments",
+          "category": "Defenses, Privacy & Robustness",
+          "date": "2026-10-31",
+          "url": "https://arxiv.org/abs/2611.00911",
+          "repo": null,
+          "upvotes": 0,
+          "related": [
+            "2610.38895",
+            "2609.28940",
+            "2610.20907",
+            "2610.02293",
+            "2610.07276"
+          ]
+        },
+        {
+          "id": "2611.00726",
+          "title": "Constructing Budgeted KGW Evasion through Token-Event Evidence Replacement",
+          "category": "Prompt Injection & LLM Attacks",
+          "date": "2026-10-31",
+          "url": "https://arxiv.org/abs/2611.00726",
+          "repo": null,
+          "upvotes": 0,
+          "related": [
+            "2609.30909",
+            "2610.23362",
+            "2610.17810",
+            "2610.03448",
+            "2609.30217"
+          ]
+        }
+      ],
+      "total_count": 9,
+      "archived_count": 37
     },
     {
       "batch_date": "2026-11-02",
@@ -159,11 +961,11 @@
           "ai_imp": 8,
           "tldr": "构建可验证网页代理红队基准REEF并配自适应攻击器，更真实评估代理注入脆弱性",
           "related": [
+            "2611.00725",
             "2609.03999",
             "2610.24052",
             "2610.41181",
-            "2610.12823",
-            "2610.09240"
+            "2610.12823"
           ]
         },
         {
@@ -296,10 +1098,10 @@
           "upvotes": 0,
           "related": [
             "2609.03999",
+            "2611.00725",
             "2610.09240",
             "2610.24277",
-            "2610.12823",
-            "2610.41272"
+            "2610.12823"
           ]
         },
         {
@@ -313,9 +1115,9 @@
           "related": [
             "2610.06514",
             "2609.26316",
-            "2609.30841",
+            "2611.02310",
             "2609.06250",
-            "2610.09906"
+            "2609.30841"
           ]
         },
         {
@@ -346,8 +1148,8 @@
             "2609.15781",
             "2610.28810",
             "2609.14003",
-            "2610.27350",
-            "2609.38604"
+            "2609.38604",
+            "2610.27350"
           ]
         },
         {
@@ -362,8 +1164,8 @@
             "2610.38833",
             "2610.03448",
             "2608.24017",
-            "2608.27800",
-            "2610.06064"
+            "2611.01976",
+            "2608.27800"
           ]
         },
         {
@@ -388,7 +1190,7 @@
             "2609.04022",
             "2610.22706",
             "2609.01867",
-            "2610.40511"
+            "2610.06977"
           ]
         },
         {
@@ -403,8 +1205,8 @@
             "2610.12410",
             "2610.19817",
             "2609.28942",
-            "2609.16589",
-            "2608.29209"
+            "2611.02503",
+            "2609.16589"
           ]
         },
         {
@@ -466,9 +1268,9 @@
           "repo": null,
           "upvotes": 0,
           "related": [
+            "2610.11915",
             "2610.21799",
             "2610.17659",
-            "2610.11915",
             "2609.33639",
             "2610.19613"
           ]
@@ -518,7 +1320,7 @@
             "2610.41307",
             "2610.22594",
             "2609.12607",
-            "2608.30188"
+            "2609.09404"
           ]
         }
       ],
@@ -653,11 +1455,11 @@
           "ai_imp": 8,
           "tldr": "首次证明预训练投毒可植入智能体后门实现远程代码执行，威胁严重。",
           "related": [
+            "2611.00138",
             "2609.15029",
             "2610.34074",
             "2610.07654",
-            "2610.07723",
-            "2608.24354"
+            "2610.07723"
           ]
         },
         {
@@ -682,7 +1484,7 @@
             "2609.16098",
             "2608.21606",
             "2610.04467",
-            "2610.24823"
+            "2610.38732"
           ]
         },
         {
@@ -1046,10 +1848,10 @@
           "upvotes": 0,
           "related": [
             "2610.05637",
+            "2611.02484",
             "2609.10144",
-            "2610.12463",
-            "2609.37616",
-            "2610.05308"
+            "2611.01313",
+            "2610.12463"
           ]
         },
         {
@@ -1061,11 +1863,11 @@
           "repo": null,
           "upvotes": 0,
           "related": [
+            "2611.00911",
             "2609.34862",
             "2609.28940",
             "2609.29429",
-            "2610.20907",
-            "2610.06522"
+            "2610.20907"
           ]
         },
         {
@@ -1140,7 +1942,7 @@
             "2609.30802",
             "2610.06401",
             "2610.04467",
-            "2610.25683"
+            "2611.00748"
           ]
         },
         {
@@ -1178,10 +1980,10 @@
           "upvotes": 0,
           "related": [
             "2609.29995",
+            "2611.00748",
             "2610.15685",
             "2610.03185",
-            "2610.00332",
-            "2610.07654"
+            "2610.00332"
           ]
         },
         {
@@ -1229,9 +2031,9 @@
           "related": [
             "2608.31128",
             "2608.30188",
+            "2611.02815",
             "2610.22594",
-            "2610.30229",
-            "2610.02588"
+            "2611.02484"
           ]
         },
         {
@@ -1343,8 +2145,8 @@
           "related": [
             "2610.37451",
             "2610.27350",
-            "2609.15781",
             "2610.17246",
+            "2609.15781",
             "2610.28955"
           ]
         },
@@ -1390,10 +2192,10 @@
           "upvotes": 0,
           "related": [
             "2608.27548",
+            "2611.03233",
             "2610.08678",
             "2610.33451",
-            "2610.36445",
-            "2610.26809"
+            "2610.36445"
           ]
         },
         {
@@ -1592,8 +2394,8 @@
             "2609.04533",
             "2610.19452",
             "2610.06401",
-            "2608.28411",
-            "2609.16098"
+            "2609.16098",
+            "2608.28411"
           ]
         },
         {
@@ -1616,10 +2418,10 @@
           "ai_imp": 6,
           "tldr": "揭示MCP日志注入新攻击面，可诱导代理额外泄露调用，防御不足。",
           "related": [
+            "2611.02611",
             "2608.23763",
             "2610.04378",
             "2609.10854",
-            "2610.03213",
             "2608.27800"
           ]
         },
@@ -1648,8 +2450,8 @@
           "related": [
             "2608.29378",
             "2610.40516",
-            "2610.26474",
             "2610.02844",
+            "2610.26474",
             "2608.25390"
           ]
         }
@@ -1764,8 +2566,8 @@
           "related": [
             "2609.39050",
             "2610.17907",
-            "2610.34253",
             "2609.03920",
+            "2610.34253",
             "2610.08993"
           ]
         },
@@ -1805,9 +2607,9 @@
           "related": [
             "2610.00332",
             "2610.04596",
+            "2611.00748",
             "2609.34597",
-            "2610.02516",
-            "2610.18304"
+            "2610.02516"
           ]
         },
         {
@@ -1855,7 +2657,7 @@
             "2608.29151",
             "2609.35881",
             "2610.14289",
-            "2609.16681"
+            "2611.02030"
           ]
         },
         {
@@ -1871,7 +2673,7 @@
             "2610.31937",
             "2609.36849",
             "2609.38389",
-            "2610.23670"
+            "2610.18095"
           ]
         },
         {
@@ -1885,8 +2687,8 @@
           "related": [
             "2608.27910",
             "2608.23028",
-            "2610.25032",
             "2610.30349",
+            "2610.25032",
             "2609.16777"
           ]
         },
@@ -1899,11 +2701,11 @@
           "repo": null,
           "upvotes": 0,
           "related": [
-            "2610.15218",
             "2610.10625",
+            "2610.15218",
             "2610.00815",
-            "2608.21775",
-            "2610.15365"
+            "2611.02791",
+            "2608.21775"
           ]
         }
       ],
@@ -1989,7 +2791,7 @@
             "2610.01535",
             "2610.17728",
             "2610.07089",
-            "2610.23254"
+            "2611.03575"
           ]
         },
         {
@@ -2122,9 +2924,9 @@
           "related": [
             "2610.09264",
             "2609.15939",
+            "2611.00725",
             "2610.38617",
-            "2609.03999",
-            "2609.31318"
+            "2609.03999"
           ]
         },
         {
@@ -2151,8 +2953,8 @@
             "2609.27336",
             "2610.05282",
             "2609.09647",
-            "2610.23726",
-            "2610.38895"
+            "2610.38895",
+            "2610.23726"
           ]
         },
         {
@@ -2181,10 +2983,10 @@
           "tldr": "构建可验证危害的编码代理安全基准，212项任务显示前沿模型仍致害两成。",
           "related": [
             "2610.03153",
+            "2611.03575",
             "2610.40716",
             "2609.34514",
-            "2609.33658",
-            "2610.28381"
+            "2609.33658"
           ]
         }
       ],
@@ -2220,7 +3022,7 @@
             "2610.40926",
             "2610.05282",
             "2608.27531",
-            "2609.33628"
+            "2610.22928"
           ]
         },
         {
@@ -2234,8 +3036,8 @@
           "related": [
             "2610.09384",
             "2610.19817",
-            "2610.03434",
             "2610.12410",
+            "2610.03434",
             "2609.15849"
           ]
         },
@@ -2398,11 +3200,11 @@
           "repo": null,
           "upvotes": 0,
           "related": [
+            "2611.02414",
             "2609.36178",
-            "2610.23181",
             "2610.01161",
-            "2610.04596",
-            "2609.08025"
+            "2610.23181",
+            "2610.04596"
           ]
         },
         {
@@ -2433,8 +3235,8 @@
             "2608.27856",
             "2610.12711",
             "2610.18430",
-            "2610.01195",
-            "2609.38604"
+            "2609.38604",
+            "2610.01195"
           ]
         },
         {
@@ -2449,8 +3251,8 @@
             "2610.22594",
             "2610.39835",
             "2610.19458",
-            "2609.08025",
-            "2610.28397"
+            "2610.28397",
+            "2609.08025"
           ]
         },
         {
@@ -2465,8 +3267,8 @@
             "2610.34074",
             "2610.26655",
             "2609.29421",
-            "2610.38120",
-            "2609.06934"
+            "2611.03233",
+            "2610.38120"
           ]
         },
         {
@@ -2498,9 +3300,9 @@
           "related": [
             "2610.18588",
             "2609.03814",
-            "2609.34572",
-            "2610.02293",
-            "2608.30842"
+            "2608.30842",
+            "2611.02522",
+            "2610.02293"
           ]
         },
         {
@@ -2550,7 +3352,7 @@
             "2610.38867",
             "2610.36108",
             "2609.04533",
-            "2609.06972"
+            "2611.03575"
           ]
         },
         {
@@ -2610,7 +3412,7 @@
             "2609.09798",
             "2610.03434",
             "2608.21775",
-            "2610.30742"
+            "2611.02815"
           ]
         },
         {
@@ -2662,7 +3464,7 @@
             "2610.18457",
             "2610.17659",
             "2609.14003",
-            "2610.35188"
+            "2611.03575"
           ]
         },
         {
@@ -2752,11 +3554,11 @@
           "repo": null,
           "upvotes": 0,
           "related": [
+            "2611.02849",
             "2609.03999",
             "2609.15939",
             "2610.38617",
-            "2610.29379",
-            "2610.41181"
+            "2610.29379"
           ]
         },
         {
@@ -2771,8 +3573,8 @@
             "2610.37868",
             "2610.18588",
             "2608.30842",
-            "2609.35044",
-            "2610.41951"
+            "2611.02273",
+            "2609.35044"
           ]
         },
         {
@@ -2785,8 +3587,8 @@
           "upvotes": 0,
           "related": [
             "2610.23256",
-            "2609.06893",
             "2608.24192",
+            "2609.06893",
             "2610.30099",
             "2608.27505"
           ]
@@ -2931,9 +3733,9 @@
           "related": [
             "2609.31876",
             "2609.35932",
+            "2611.03233",
             "2610.26809",
-            "2610.41307",
-            "2610.14270"
+            "2610.41307"
           ]
         }
       ],
@@ -2993,8 +3795,8 @@
             "2609.04533",
             "2609.36121",
             "2608.26105",
-            "2610.19452",
-            "2608.25580"
+            "2608.25580",
+            "2610.19452"
           ]
         },
         {
@@ -3022,8 +3824,8 @@
           "related": [
             "2610.26809",
             "2610.06122",
-            "2610.03434",
             "2610.40627",
+            "2610.03434",
             "2610.12813"
           ]
         },
@@ -3090,10 +3892,10 @@
           "upvotes": 0,
           "related": [
             "2609.00624",
-            "2610.13886",
             "2610.28381",
-            "2609.34245",
-            "2608.19729"
+            "2610.13886",
+            "2608.19729",
+            "2609.34245"
           ]
         },
         {
@@ -3139,8 +3941,8 @@
           "related": [
             "2610.37788",
             "2610.06064",
+            "2611.02522",
             "2609.37616",
-            "2610.18614",
             "2609.33017"
           ]
         },
@@ -3157,7 +3959,7 @@
             "2609.39863",
             "2608.25667",
             "2609.38604",
-            "2610.22594"
+            "2610.01768"
           ]
         },
         {
@@ -3214,7 +4016,7 @@
             "2610.04749",
             "2609.31062",
             "2608.31128",
-            "2610.14360"
+            "2611.02484"
           ]
         },
         {
@@ -3245,8 +4047,8 @@
           "upvotes": 0,
           "related": [
             "2610.25161",
-            "2609.02246",
             "2609.08236",
+            "2609.02246",
             "2610.12361",
             "2610.12758"
           ]
@@ -3279,8 +4081,8 @@
             "2609.30657",
             "2608.30429",
             "2610.13227",
-            "2609.14079",
-            "2609.03781"
+            "2609.03781",
+            "2609.14079"
           ]
         },
         {
@@ -3310,9 +4112,9 @@
           "related": [
             "2608.25390",
             "2610.17728",
+            "2611.01342",
             "2610.29555",
-            "2610.04998",
-            "2610.16761"
+            "2610.04998"
           ]
         },
         {
@@ -3328,7 +4130,7 @@
             "2609.34686",
             "2610.15177",
             "2609.12841",
-            "2609.34563"
+            "2609.13534"
           ]
         },
         {
@@ -3340,11 +4142,11 @@
           "repo": null,
           "upvotes": 0,
           "related": [
+            "2611.02501",
             "2610.07276",
             "2610.33544",
             "2610.10833",
-            "2610.00815",
-            "2608.27338"
+            "2610.00815"
           ]
         },
         {
@@ -3357,8 +4159,8 @@
           "upvotes": 0,
           "related": [
             "2609.12413",
-            "2609.32522",
             "2609.24994",
+            "2609.32522",
             "2609.16694",
             "2610.18052"
           ]
@@ -3534,8 +4336,8 @@
             "2610.22987",
             "2610.29379",
             "2609.03884",
-            "2609.04518",
-            "2610.09264"
+            "2611.00138",
+            "2609.04518"
           ]
         },
         {
@@ -3592,7 +4394,7 @@
             "2609.26355",
             "2610.25269",
             "2609.14767",
-            "2608.23811"
+            "2610.07256"
           ]
         },
         {
@@ -3685,10 +4487,10 @@
           "upvotes": 0,
           "related": [
             "2609.38971",
-            "2610.40276",
+            "2611.02516",
             "2610.26809",
-            "2610.28381",
-            "2609.39050"
+            "2610.40276",
+            "2610.28381"
           ]
         },
         {
@@ -3785,11 +4587,11 @@
           "ai_imp": 6,
           "tldr": "BenchDoor利用基准激励投毒植入后门,30种配置攻击成功率82%-100%",
           "related": [
+            "2611.00138",
             "2610.37741",
             "2610.30514",
             "2610.12644",
-            "2610.19114",
-            "2610.07654"
+            "2610.19114"
           ]
         }
       ],
@@ -3813,10 +4615,10 @@
           "upvotes": 19,
           "related": [
             "2610.26496",
+            "2611.02332",
             "2609.33221",
             "2609.33086",
-            "2610.28303",
-            "2609.36820"
+            "2610.28303"
           ]
         },
         {
@@ -3841,7 +4643,7 @@
             "2609.30657",
             "2610.25937",
             "2609.11758",
-            "2610.36295"
+            "2610.03448"
           ]
         },
         {
@@ -3882,7 +4684,7 @@
             "2610.37788",
             "2609.37616",
             "2609.26579",
-            "2610.30696"
+            "2609.30986"
           ]
         },
         {
@@ -4119,10 +4921,10 @@
           "upvotes": 0,
           "related": [
             "2609.16986",
+            "2611.00911",
             "2610.20907",
             "2610.02293",
-            "2610.07276",
-            "2610.11354"
+            "2610.07276"
           ]
         },
         {
@@ -4168,8 +4970,8 @@
           "related": [
             "2610.16426",
             "2609.05901",
-            "2609.00267",
             "2609.07162",
+            "2609.00267",
             "2609.34790"
           ]
         }
@@ -4348,8 +5150,8 @@
           "tldr": "在有限预算下调度越狱攻击库，为高效鲁棒性评估提供优先级策略。",
           "related": [
             "2610.17313",
-            "2610.19971",
             "2608.19737",
+            "2610.19971",
             "2608.30748",
             "2609.05850"
           ]
@@ -4404,7 +5206,7 @@
             "2610.37788",
             "2610.18159",
             "2610.33451",
-            "2610.06522"
+            "2610.30363"
           ]
         },
         {
@@ -4431,7 +5233,7 @@
             "2610.23085",
             "2610.12233",
             "2609.36580",
-            "2610.19422"
+            "2611.02815"
           ]
         },
         {
@@ -4458,7 +5260,7 @@
             "2610.24379",
             "2610.25611",
             "2609.09553",
-            "2610.07125"
+            "2611.03575"
           ]
         },
         {
@@ -4496,8 +5298,8 @@
             "2609.06972",
             "2610.23254",
             "2610.38867",
-            "2610.40588",
-            "2610.18457"
+            "2610.18457",
+            "2610.40588"
           ]
         },
         {
@@ -4526,8 +5328,8 @@
             "2610.25683",
             "2609.36862",
             "2610.25611",
-            "2609.01455",
-            "2608.21100"
+            "2611.03575",
+            "2609.01455"
           ]
         }
       ],
@@ -4594,8 +5396,8 @@
             "2610.09973",
             "2610.39509",
             "2610.19971",
-            "2610.16305",
-            "2609.25848"
+            "2609.25848",
+            "2610.16305"
           ]
         },
         {
@@ -4743,8 +5545,8 @@
           "related": [
             "2610.30696",
             "2609.35544",
-            "2610.37788",
             "2610.02568",
+            "2610.37788",
             "2609.09090"
           ]
         },
@@ -4841,7 +5643,7 @@
             "2610.27295",
             "2609.31122",
             "2609.08410",
-            "2609.06289"
+            "2609.06879"
           ]
         },
         {
@@ -4882,7 +5684,7 @@
             "2610.41056",
             "2609.39050",
             "2610.07089",
-            "2610.21147"
+            "2609.35659"
           ]
         },
         {
@@ -4898,7 +5700,7 @@
             "2609.34514",
             "2609.09798",
             "2610.35451",
-            "2609.31282"
+            "2610.34253"
           ]
         },
         {
@@ -4911,8 +5713,8 @@
           "upvotes": 0,
           "related": [
             "2608.29209",
-            "2610.41793",
             "2609.34790",
+            "2610.41793",
             "2610.37245",
             "2609.08188"
           ]
@@ -4928,9 +5730,9 @@
           "related": [
             "2609.28963",
             "2608.23811",
-            "2610.23181",
             "2610.01161",
-            "2608.24777"
+            "2610.23181",
+            "2611.01643"
           ]
         },
         {
@@ -5100,8 +5902,8 @@
             "2609.34514",
             "2608.27844",
             "2608.27443",
-            "2608.21775",
-            "2610.37451"
+            "2611.00911",
+            "2608.21775"
           ]
         },
         {
@@ -5117,7 +5919,7 @@
             "2608.28312",
             "2609.00052",
             "2609.33481",
-            "2609.32635"
+            "2611.01334"
           ]
         },
         {
@@ -5331,8 +6133,8 @@
           "ai_imp": 5,
           "tldr": "经模型编辑植入稀疏坐标越狱后门,属攻击改进但创新有限且动机表述含混。",
           "related": [
-            "2609.36956",
             "2610.13078",
+            "2609.36956",
             "2609.07746",
             "2609.11799",
             "2610.38833"
@@ -5432,10 +6234,10 @@
           "upvotes": 0,
           "related": [
             "2609.36956",
-            "2610.31937",
             "2610.24379",
+            "2610.31937",
             "2610.38595",
-            "2610.25683"
+            "2611.03575"
           ]
         },
         {
@@ -5450,8 +6252,8 @@
             "2610.01349",
             "2610.03448",
             "2609.28915",
-            "2608.27141",
-            "2610.20941"
+            "2610.20941",
+            "2608.27141"
           ]
         },
         {
@@ -5594,8 +6396,8 @@
           "upvotes": 0,
           "related": [
             "2610.09600",
-            "2608.27504",
             "2610.37788",
+            "2608.27504",
             "2610.26655",
             "2609.00051"
           ]
@@ -5612,8 +6414,8 @@
             "2610.37984",
             "2610.31985",
             "2609.34929",
-            "2610.24896",
-            "2608.27351"
+            "2608.27351",
+            "2610.24896"
           ]
         },
         {
@@ -5667,8 +6469,8 @@
           "upvotes": 0,
           "related": [
             "2610.28982",
-            "2610.11188",
             "2608.25390",
+            "2610.11188",
             "2610.29555",
             "2610.01349"
           ]
@@ -5698,11 +6500,11 @@
           "repo": null,
           "upvotes": 0,
           "related": [
+            "2611.02310",
             "2609.04518",
             "2608.30457",
             "2609.36178",
-            "2610.11354",
-            "2609.34929"
+            "2611.02815"
           ]
         },
         {
@@ -5812,8 +6614,8 @@
             "2609.34929",
             "2609.13058",
             "2609.15051",
-            "2610.23085",
-            "2610.08963"
+            "2610.08963",
+            "2610.23085"
           ]
         }
       ],
@@ -5872,7 +6674,7 @@
             "2609.39050",
             "2610.24052",
             "2609.07162",
-            "2609.30217"
+            "2611.02522"
           ]
         },
         {
@@ -6032,8 +6834,8 @@
           "upvotes": 10,
           "related": [
             "2608.20960",
-            "2610.00531",
             "2610.23256",
+            "2610.00531",
             "2610.37058",
             "2610.32045"
           ]
@@ -6203,7 +7005,7 @@
             "2609.29429",
             "2609.34862",
             "2609.28940",
-            "2610.28522",
+            "2611.00911",
             "2610.30727"
           ]
         }
@@ -6268,7 +7070,7 @@
             "2609.33039",
             "2610.26809",
             "2610.15365",
-            "2610.41445"
+            "2610.25683"
           ]
         },
         {
@@ -6522,10 +7324,10 @@
           "upvotes": 0,
           "related": [
             "2610.19422",
+            "2611.02516",
             "2609.16694",
             "2608.26237",
-            "2609.34463",
-            "2610.24896"
+            "2609.34463"
           ]
         },
         {
@@ -6636,7 +7438,7 @@
             "2610.18326",
             "2610.02588",
             "2610.25269",
-            "2610.40396"
+            "2611.01334"
           ]
         },
         {
@@ -6652,7 +7454,7 @@
             "2609.28942",
             "2609.06289",
             "2610.41793",
-            "2609.16589"
+            "2611.02503"
           ]
         },
         {
@@ -7049,7 +7851,7 @@
             "2610.32415",
             "2608.30842",
             "2609.05676",
-            "2609.21996"
+            "2611.02273"
           ]
         },
         {
@@ -7129,7 +7931,7 @@
             "2610.15177",
             "2609.35224",
             "2610.27079",
-            "2610.32205"
+            "2610.07532"
           ]
         },
         {
@@ -7258,8 +8060,8 @@
             "2609.34320",
             "2608.23858",
             "2610.22124",
-            "2610.18457",
-            "2609.31282"
+            "2609.08082",
+            "2610.18457"
           ]
         },
         {
@@ -7304,8 +8106,8 @@
           "upvotes": 0,
           "related": [
             "2609.37311",
-            "2610.36389",
             "2609.02730",
+            "2610.36389",
             "2610.37741",
             "2608.30005"
           ]
@@ -7338,8 +8140,8 @@
             "2610.06522",
             "2609.25755",
             "2609.08188",
-            "2610.26438",
-            "2609.09090"
+            "2609.09090",
+            "2610.37788"
           ]
         },
         {
@@ -7451,7 +8253,7 @@
             "2610.01800",
             "2608.19737",
             "2610.31862",
-            "2610.17665"
+            "2610.20055"
           ]
         },
         {
@@ -7530,8 +8332,8 @@
             "2610.02302",
             "2610.22928",
             "2609.12607",
-            "2610.23256",
-            "2609.12373"
+            "2609.12373",
+            "2610.23256"
           ]
         },
         {
@@ -7586,9 +8388,9 @@
           "related": [
             "2609.36178",
             "2609.28963",
+            "2608.19653",
             "2609.29050",
-            "2610.00838",
-            "2608.19653"
+            "2610.00838"
           ]
         },
         {
@@ -7603,8 +8405,8 @@
             "2608.24114",
             "2610.38391",
             "2610.01161",
-            "2609.06972",
-            "2610.24048"
+            "2611.02522",
+            "2609.06972"
           ]
         },
         {
@@ -7619,8 +8421,8 @@
             "2608.25390",
             "2610.30727",
             "2609.04482",
-            "2606.31876",
-            "2609.35544"
+            "2609.35544",
+            "2606.31876"
           ]
         },
         {
@@ -7634,8 +8436,8 @@
           "related": [
             "2608.24114",
             "2610.18614",
-            "2608.30378",
             "2609.28963",
+            "2608.30378",
             "2610.38391"
           ]
         },
@@ -7684,7 +8486,7 @@
             "2608.29942",
             "2609.05901",
             "2609.34790",
-            "2610.27620"
+            "2611.00729"
           ]
         },
         {
@@ -7714,8 +8516,8 @@
           "related": [
             "2610.04998",
             "2609.05540",
-            "2610.22706",
             "2610.27908",
+            "2610.22706",
             "2608.30373"
           ]
         },
@@ -7870,8 +8672,8 @@
             "2610.27653",
             "2608.27899",
             "2610.04169",
-            "2609.37310",
-            "2609.36372"
+            "2611.02030",
+            "2609.37310"
           ]
         },
         {
@@ -7963,11 +8765,11 @@
           "repo": null,
           "upvotes": 0,
           "related": [
+            "2611.00748",
             "2610.38917",
-            "2610.37266",
             "2610.03185",
-            "2609.29995",
-            "2610.36445"
+            "2610.37266",
+            "2609.29995"
           ]
         }
       ],
@@ -8009,10 +8811,10 @@
           "tldr": "自进化红队框架，挖掘个人代理跨服务工具调用的组合性危害路径。",
           "related": [
             "2610.08951",
+            "2611.01976",
+            "2611.03575",
             "2608.27800",
-            "2608.24017",
-            "2609.38798",
-            "2608.27439"
+            "2608.24017"
           ]
         },
         {
@@ -8067,11 +8869,11 @@
           "ai_imp": 7,
           "tldr": "提出可验证演化的形式化护栏，让智能体安全策略确定且可终身更新",
           "related": [
+            "2611.02516",
             "2610.06122",
             "2608.27009",
             "2610.03434",
-            "2610.31062",
-            "2609.09798"
+            "2610.31062"
           ]
         }
       ],
@@ -8094,11 +8896,11 @@
           "repo": null,
           "upvotes": 0,
           "related": [
+            "2611.01342",
             "2608.25390",
             "2609.38389",
             "2610.30727",
-            "2610.29555",
-            "2609.04482"
+            "2610.29555"
           ]
         },
         {
@@ -8114,7 +8916,7 @@
             "2610.05308",
             "2609.36849",
             "2610.41014",
-            "2610.29555"
+            "2609.00892"
           ]
         },
         {
@@ -8127,10 +8929,10 @@
           "upvotes": 0,
           "related": [
             "2608.24354",
+            "2611.00138",
             "2610.07510",
             "2609.11799",
-            "2610.07723",
-            "2608.21577"
+            "2610.07723"
           ]
         },
         {
@@ -8184,10 +8986,10 @@
           "upvotes": 0,
           "related": [
             "2609.03999",
+            "2611.00725",
             "2610.41181",
             "2610.09240",
-            "2610.41272",
-            "2610.03089"
+            "2610.41272"
           ]
         },
         {
@@ -8395,9 +9197,9 @@
           "related": [
             "2608.19982",
             "2609.04533",
+            "2611.02741",
             "2610.06064",
-            "2610.38867",
-            "2608.27990"
+            "2610.38867"
           ]
         },
         {
@@ -8542,7 +9344,7 @@
             "2610.29139",
             "2609.17320",
             "2610.09294",
-            "2608.22103"
+            "2610.26496"
           ]
         },
         {
@@ -8573,8 +9375,8 @@
             "2610.23071",
             "2609.13889",
             "2610.05162",
-            "2609.04629",
-            "2609.10144"
+            "2609.10144",
+            "2609.04629"
           ]
         },
         {
@@ -8604,9 +9406,9 @@
           "related": [
             "2609.07984",
             "2610.06514",
+            "2611.00725",
             "2609.09647",
-            "2608.17659",
-            "2610.31985"
+            "2608.17659"
           ]
         },
         {
@@ -8620,9 +9422,9 @@
           "related": [
             "2610.28381",
             "2609.33039",
+            "2608.24777",
             "2610.09793",
-            "2610.08928",
-            "2608.24777"
+            "2610.08928"
           ]
         },
         {
@@ -8666,11 +9468,11 @@
           "repo": null,
           "upvotes": 0,
           "related": [
+            "2611.02503",
             "2610.19817",
             "2610.41793",
             "2609.28942",
-            "2609.16589",
-            "2609.06289"
+            "2609.16589"
           ]
         },
         {
@@ -8707,11 +9509,11 @@
           "repo": null,
           "upvotes": 0,
           "related": [
+            "2611.00911",
             "2610.28522",
             "2610.26496",
             "2610.02824",
-            "2610.35497",
-            "2609.04518"
+            "2610.35497"
           ]
         },
         {
@@ -8806,8 +9608,8 @@
             "2609.39533",
             "2610.05935",
             "2610.07935",
-            "2610.26496",
-            "2610.28707"
+            "2611.03233",
+            "2610.26496"
           ]
         },
         {
@@ -8885,10 +9687,10 @@
           "tldr": "统一期望危害与目标似然两类越狱目标并给出新采样攻击法",
           "related": [
             "2609.38389",
-            "2610.24823",
             "2610.13078",
+            "2610.24823",
             "2610.23030",
-            "2610.16761"
+            "2611.01342"
           ]
         },
         {
@@ -8940,10 +9742,10 @@
           "tldr": "经规则文件注入提示诱导编码代理装恶意包，揭示代理供应链风险。",
           "related": [
             "2610.34253",
+            "2611.00725",
             "2610.38867",
-            "2610.00392",
-            "2610.13227",
-            "2610.22987"
+            "2611.00138",
+            "2611.03575"
           ]
         },
         {
@@ -8972,7 +9774,7 @@
             "2608.27504",
             "2610.22937",
             "2608.25390",
-            "2609.04482"
+            "2611.00420"
           ]
         }
       ],
@@ -8998,8 +9800,8 @@
             "2610.32345",
             "2609.05850",
             "2610.30727",
-            "2610.09892",
-            "2610.06163"
+            "2610.31331",
+            "2610.02302"
           ]
         },
         {
@@ -9047,7 +9849,7 @@
             "2610.24277",
             "2609.03999",
             "2610.19384",
-            "2610.12823"
+            "2611.00725"
           ]
         },
         {
@@ -9105,8 +9907,8 @@
             "2610.17728",
             "2609.34514",
             "2610.01535",
-            "2610.34535",
-            "2610.18095"
+            "2611.03575",
+            "2610.34535"
           ]
         },
         {
@@ -9131,7 +9933,7 @@
             "2610.36445",
             "2610.07654",
             "2609.02817",
-            "2610.00332"
+            "2611.00748"
           ]
         },
         {
@@ -9395,9 +10197,9 @@
           "related": [
             "2608.24354",
             "2609.11799",
+            "2611.00748",
             "2609.07746",
-            "2610.12644",
-            "2610.15244"
+            "2611.00138"
           ]
         },
         {
@@ -9425,10 +10227,10 @@
           "tldr": "揭示安全蒸馏可传播教师后门，3%投毒达70%攻击成功率，风险关键。",
           "related": [
             "2610.03185",
+            "2611.00748",
             "2610.04596",
             "2610.37741",
-            "2608.24354",
-            "2609.11799"
+            "2608.24354"
           ]
         }
       ],
@@ -9475,10 +10277,10 @@
           "upvotes": 0,
           "related": [
             "2609.11799",
+            "2611.02501",
             "2609.39549",
             "2610.40613",
-            "2609.36956",
-            "2610.03394"
+            "2609.36956"
           ]
         },
         {
@@ -9534,8 +10336,8 @@
             "2610.20941",
             "2610.23670",
             "2610.24052",
-            "2610.22723",
-            "2610.30727"
+            "2611.03575",
+            "2610.22723"
           ]
         },
         {
@@ -9607,8 +10409,8 @@
             "2609.30266",
             "2610.41401",
             "2610.38526",
-            "2610.22124",
-            "2610.06454"
+            "2611.02516",
+            "2610.22124"
           ]
         },
         {
@@ -9681,9 +10483,9 @@
           "related": [
             "2609.11799",
             "2608.24354",
+            "2611.00138",
             "2610.12644",
-            "2610.25937",
-            "2608.21577"
+            "2610.25937"
           ]
         },
         {
@@ -9711,11 +10513,11 @@
           "repo": null,
           "upvotes": 0,
           "related": [
+            "2611.00911",
             "2610.23071",
             "2610.40627",
             "2610.26809",
-            "2610.28522",
-            "2608.30750"
+            "2611.02815"
           ]
         },
         {
@@ -9728,10 +10530,10 @@
           "upvotes": 0,
           "related": [
             "2610.07256",
+            "2611.02516",
             "2610.06122",
             "2610.28397",
-            "2610.02588",
-            "2610.18457"
+            "2610.02588"
           ]
         }
       ],
@@ -10085,8 +10887,8 @@
             "2609.07746",
             "2608.29936",
             "2609.31056",
-            "2608.24354",
-            "2609.11799"
+            "2609.11799",
+            "2608.24354"
           ]
         }
       ],
@@ -10129,7 +10931,7 @@
             "2610.26496",
             "2610.04467",
             "2610.28303",
-            "2609.36820"
+            "2610.40926"
           ]
         },
         {
@@ -10145,7 +10947,7 @@
             "2609.07746",
             "2608.29936",
             "2609.35544",
-            "2608.25390"
+            "2611.00420"
           ]
         },
         {
@@ -10177,7 +10979,7 @@
             "2609.34463",
             "2609.04533",
             "2610.41307",
-            "2609.26900"
+            "2611.01976"
           ]
         },
         {
@@ -10246,7 +11048,7 @@
             "2609.33017",
             "2610.19817",
             "2610.31579",
-            "2610.38867",
+            "2611.02741",
             "2609.06951"
           ]
         },
@@ -10260,10 +11062,10 @@
           "upvotes": 0,
           "related": [
             "2608.22868",
+            "2611.00729",
             "2609.00267",
             "2609.30830",
-            "2610.16426",
-            "2609.05901"
+            "2610.16426"
           ]
         },
         {
@@ -10278,8 +11080,8 @@
             "2608.30724",
             "2609.18605",
             "2610.04329",
-            "2610.39377",
-            "2610.06522"
+            "2611.02273",
+            "2610.39377"
           ]
         },
         {
@@ -10293,8 +11095,8 @@
           "related": [
             "2610.17989",
             "2610.37788",
+            "2611.02318",
             "2609.21996",
-            "2610.26655",
             "2608.25267"
           ]
         },
@@ -10326,8 +11128,8 @@
             "2610.28325",
             "2610.30696",
             "2609.18605",
-            "2609.00067",
-            "2610.39377"
+            "2610.39377",
+            "2609.00067"
           ]
         },
         {
@@ -10430,8 +11232,8 @@
           "related": [
             "2610.32345",
             "2609.09875",
-            "2610.09892",
             "2608.27496",
+            "2610.09892",
             "2609.15963"
           ]
         },
@@ -10599,8 +11401,8 @@
           "related": [
             "2610.27295",
             "2608.25390",
-            "2609.31122",
             "2610.16084",
+            "2609.31122",
             "2609.06951"
           ]
         },
@@ -10658,9 +11460,9 @@
           "related": [
             "2610.09294",
             "2610.03434",
+            "2611.02516",
             "2609.09798",
-            "2610.28381",
-            "2610.10742"
+            "2610.28381"
           ]
         },
         {
@@ -10675,8 +11477,8 @@
             "2610.18359",
             "2610.30601",
             "2610.27653",
-            "2609.02177",
-            "2609.33332"
+            "2609.33332",
+            "2609.02177"
           ]
         },
         {
@@ -10739,8 +11541,8 @@
             "2610.37266",
             "2609.16681",
             "2608.29151",
-            "2608.27899",
-            "2610.27653"
+            "2611.02030",
+            "2608.27899"
           ]
         },
         {
@@ -10785,8 +11587,8 @@
           "upvotes": 0,
           "related": [
             "2608.21544",
-            "2608.29357",
             "2610.20941",
+            "2608.29357",
             "2608.28312",
             "2609.03999"
           ]
@@ -10801,10 +11603,10 @@
           "upvotes": 0,
           "related": [
             "2610.30229",
+            "2611.02484",
             "2610.30514",
             "2609.38798",
-            "2610.26655",
-            "2609.31318"
+            "2610.26655"
           ]
         },
         {
@@ -10835,8 +11637,8 @@
             "2610.36108",
             "2608.27800",
             "2608.23763",
-            "2610.18430",
-            "2609.16098"
+            "2611.02611",
+            "2610.18430"
           ]
         },
         {
@@ -11049,8 +11851,8 @@
             "2608.20820",
             "2610.29395",
             "2609.00051",
-            "2610.25683",
-            "2610.16084"
+            "2611.02503",
+            "2610.25683"
           ]
         },
         {
@@ -11113,10 +11915,10 @@
           "upvotes": 0,
           "related": [
             "2610.18457",
+            "2611.01976",
             "2610.12463",
-            "2608.24017",
             "2609.30824",
-            "2609.09647"
+            "2608.24017"
           ]
         },
         {
@@ -11139,9 +11941,9 @@
           "related": [
             "2610.07654",
             "2610.04596",
+            "2611.00748",
             "2610.38917",
-            "2610.36445",
-            "2610.00332"
+            "2610.36445"
           ]
         },
         {
@@ -11156,8 +11958,8 @@
             "2609.35659",
             "2610.40227",
             "2610.24048",
-            "2609.38798",
-            "2610.35188"
+            "2611.02484",
+            "2609.38798"
           ]
         },
         {
@@ -11185,11 +11987,11 @@
           "repo": null,
           "upvotes": 0,
           "related": [
+            "2611.02273",
             "2609.09875",
             "2609.16098",
             "2609.25173",
-            "2610.36108",
-            "2610.23254"
+            "2610.36108"
           ]
         },
         {
@@ -11253,7 +12055,7 @@
             "2609.31039",
             "2609.12839",
             "2610.23071",
-            "2609.39450"
+            "2609.03493"
           ]
         },
         {
@@ -11300,8 +12102,8 @@
             "2609.08634",
             "2608.24192",
             "2609.39279",
-            "2609.39688",
-            "2609.00624"
+            "2611.02503",
+            "2609.39688"
           ]
         },
         {
@@ -11313,11 +12115,11 @@
           "repo": null,
           "upvotes": 0,
           "related": [
+            "2611.00748",
             "2610.36445",
             "2610.04596",
             "2610.00332",
-            "2608.21570",
-            "2610.07654"
+            "2608.21570"
           ]
         },
         {
@@ -11395,11 +12197,11 @@
           "repo": null,
           "upvotes": 0,
           "related": [
+            "2611.02501",
             "2610.08678",
             "2610.13267",
             "2610.21147",
-            "2610.18052",
-            "2610.28397"
+            "2610.18052"
           ]
         },
         {
@@ -11415,7 +12217,7 @@
             "2610.07089",
             "2610.31404",
             "2609.34686",
-            "2609.04166"
+            "2610.31558"
           ]
         },
         {
@@ -11428,10 +12230,10 @@
           "upvotes": 0,
           "related": [
             "2610.39062",
+            "2611.00725",
             "2610.09240",
             "2610.18614",
-            "2610.07256",
-            "2609.33017"
+            "2610.07256"
           ]
         },
         {
@@ -11443,11 +12245,11 @@
           "repo": null,
           "upvotes": 0,
           "related": [
+            "2611.00911",
             "2610.28522",
             "2610.33258",
             "2610.38895",
-            "2609.03814",
-            "2609.29429"
+            "2609.03814"
           ]
         }
       ],
@@ -11477,8 +12279,8 @@
             "2609.09404",
             "2609.29287",
             "2610.28522",
-            "2609.35870",
-            "2609.37127"
+            "2609.37127",
+            "2609.35870"
           ]
         }
       ],
@@ -11550,10 +12352,10 @@
           "upvotes": 0,
           "related": [
             "2609.30841",
+            "2611.02310",
             "2609.12413",
             "2609.05850",
-            "2608.21895",
-            "2609.36603"
+            "2608.21895"
           ]
         },
         {
@@ -11607,10 +12409,10 @@
           "upvotes": 0,
           "related": [
             "2610.36574",
+            "2611.02791",
             "2610.41401",
             "2609.05794",
-            "2610.13078",
-            "2609.04482"
+            "2610.13078"
           ]
         },
         {
@@ -11640,9 +12442,9 @@
           "related": [
             "2608.24354",
             "2610.07723",
+            "2611.00138",
             "2609.11799",
-            "2610.07510",
-            "2610.12644"
+            "2610.07510"
           ]
         },
         {
@@ -11711,8 +12513,8 @@
           "repo": null,
           "upvotes": 0,
           "related": [
-            "2608.20960",
             "2608.25667",
+            "2608.20960",
             "2610.27841",
             "2610.17246",
             "2609.35706"
@@ -11728,10 +12530,10 @@
           "upvotes": 0,
           "related": [
             "2610.36445",
+            "2611.00748",
             "2609.02817",
             "2610.04596",
-            "2610.18304",
-            "2610.03185"
+            "2610.18304"
           ]
         },
         {
@@ -11823,8 +12625,8 @@
           "repo": null,
           "upvotes": 10,
           "related": [
-            "2610.35716",
             "2610.21091",
+            "2610.35716",
             "2610.25735",
             "2610.38391",
             "2609.35677"
@@ -11889,9 +12691,9 @@
           "related": [
             "2609.36178",
             "2610.23181",
+            "2611.01643",
             "2609.26355",
-            "2610.00838",
-            "2608.22103"
+            "2610.00838"
           ]
         },
         {
@@ -11905,9 +12707,9 @@
           "related": [
             "2609.36178",
             "2610.01161",
+            "2611.02414",
             "2610.38391",
-            "2609.29050",
-            "2610.23181"
+            "2609.29050"
           ]
         },
         {
@@ -12050,8 +12852,8 @@
             "2610.00400",
             "2610.09973",
             "2610.13078",
-            "2609.36849",
-            "2610.30727"
+            "2611.01342",
+            "2609.36849"
           ]
         },
         {
@@ -12161,10 +12963,10 @@
           "tldr": "借鉴投机解码构建轨迹树预判代理未来行为，主动防御多轮代理攻击。",
           "related": [
             "2610.08678",
+            "2611.02516",
             "2609.30657",
-            "2608.27990",
-            "2609.11799",
-            "2609.28197"
+            "2611.02501",
+            "2608.27990"
           ]
         },
         {
@@ -12231,9 +13033,9 @@
           "repo": null,
           "upvotes": 0,
           "related": [
-            "2610.06122",
-            "2610.28381",
             "2609.23796",
+            "2610.28381",
+            "2610.06122",
             "2610.28955",
             "2608.30750"
           ]
@@ -12315,7 +13117,7 @@
             "2610.28707",
             "2609.33221",
             "2610.17062",
-            "2608.17776"
+            "2610.28303"
           ]
         },
         {
@@ -12363,8 +13165,8 @@
           "related": [
             "2610.38869",
             "2610.40227",
-            "2609.10036",
             "2609.30986",
+            "2609.10036",
             "2609.15849"
           ]
         },
@@ -12412,8 +13214,8 @@
             "2610.20941",
             "2609.30217",
             "2610.24052",
-            "2610.31985",
-            "2610.25707"
+            "2610.25707",
+            "2610.31985"
           ]
         },
         {
@@ -12500,8 +13302,8 @@
           "related": [
             "2610.13078",
             "2609.28197",
-            "2608.30750",
             "2609.37737",
+            "2608.30750",
             "2610.29555"
           ]
         },
@@ -12565,8 +13367,8 @@
             "2608.20991",
             "2609.28963",
             "2609.02967",
-            "2610.13886",
-            "2610.08951"
+            "2611.00420",
+            "2610.13886"
           ]
         },
         {
@@ -12596,9 +13398,9 @@
           "related": [
             "2610.12410",
             "2610.41793",
+            "2611.02503",
             "2610.19817",
-            "2609.28942",
-            "2609.16589"
+            "2609.28942"
           ]
         },
         {
@@ -12621,8 +13423,8 @@
           "related": [
             "2610.04169",
             "2608.27899",
-            "2610.32017",
             "2610.05323",
+            "2610.32017",
             "2610.08668"
           ]
         },
@@ -12685,9 +13487,9 @@
           "related": [
             "2610.38917",
             "2609.29995",
+            "2611.00748",
             "2609.04482",
-            "2610.03185",
-            "2610.15685"
+            "2610.03185"
           ]
         }
       ],
@@ -12732,7 +13534,7 @@
             "2609.33221",
             "2609.32720",
             "2609.12607",
-            "2609.36820"
+            "2609.39071"
           ]
         },
         {
@@ -12782,8 +13584,8 @@
           "related": [
             "2609.04533",
             "2606.31876",
-            "2609.09404",
             "2610.05453",
+            "2609.09404",
             "2610.38867"
           ]
         },
@@ -12866,9 +13668,9 @@
           "related": [
             "2609.39107",
             "2609.00051",
-            "2609.39243",
             "2610.05295",
-            "2608.27504"
+            "2608.27504",
+            "2609.39243"
           ]
         },
         {
@@ -13129,8 +13931,8 @@
             "2610.05640",
             "2610.23254",
             "2609.31039",
-            "2610.06966",
-            "2609.30830"
+            "2611.00729",
+            "2610.06966"
           ]
         },
         {
@@ -13146,7 +13948,7 @@
             "2609.35224",
             "2610.23525",
             "2610.05295",
-            "2610.18304"
+            "2610.00815"
           ]
         },
         {
@@ -13160,9 +13962,9 @@
           "related": [
             "2610.28325",
             "2610.37788",
+            "2611.02318",
             "2608.31079",
-            "2610.31579",
-            "2610.32055"
+            "2610.31579"
           ]
         },
         {
@@ -13302,9 +14104,9 @@
           "repo": null,
           "upvotes": 0,
           "related": [
+            "2610.26809",
             "2610.21189",
             "2609.39076",
-            "2610.26809",
             "2609.00051",
             "2608.29936"
           ]
@@ -13385,7 +14187,7 @@
             "2609.27620",
             "2610.34961",
             "2609.34514",
-            "2610.26474",
+            "2611.02516",
             "2608.21775"
           ]
         },
@@ -13467,8 +14269,8 @@
           "related": [
             "2609.32103",
             "2610.06966",
-            "2609.16305",
             "2610.31558",
+            "2609.16305",
             "2609.13534"
           ]
         },
@@ -13669,8 +14471,8 @@
             "2610.06064",
             "2610.31579",
             "2609.09404",
-            "2609.35659",
-            "2610.39062"
+            "2611.02741",
+            "2609.35659"
           ]
         },
         {
@@ -13701,7 +14503,7 @@
             "2606.31876",
             "2608.21100",
             "2610.23085",
-            "2610.38091"
+            "2610.24379"
           ]
         },
         {
@@ -13755,10 +14557,10 @@
           "tldr": "用行为水印追踪未授权智能体蒸馏，检测全准但属IP防护。",
           "related": [
             "2610.36445",
+            "2611.00748",
             "2610.38917",
             "2610.38579",
-            "2610.15685",
-            "2610.37266"
+            "2610.15685"
           ]
         },
         {
@@ -13781,8 +14583,8 @@
           "tldr": "免失真多比特水印配认证解码，保分布且可证明误报界。",
           "related": [
             "2610.18359",
-            "2609.02177",
             "2610.05712",
+            "2609.02177",
             "2610.30601",
             "2610.25032"
           ]
@@ -14001,8 +14803,8 @@
           "related": [
             "2610.26496",
             "2609.39533",
-            "2610.28303",
             "2609.32720",
+            "2610.28303",
             "2609.33803"
           ]
         },
@@ -14089,7 +14891,7 @@
             "2610.02588",
             "2610.40588",
             "2610.25707",
-            "2609.33017",
+            "2611.02332",
             "2609.09250"
           ]
         },
@@ -14153,8 +14955,8 @@
             "2610.12463",
             "2609.31282",
             "2609.09604",
-            "2610.22124",
-            "2609.28940"
+            "2611.00911",
+            "2610.22124"
           ]
         },
         {
@@ -14232,8 +15034,8 @@
           "related": [
             "2610.06454",
             "2610.19158",
-            "2609.32522",
             "2609.34790",
+            "2609.32522",
             "2610.28315"
           ]
         },
@@ -14280,11 +15082,11 @@
           "repo": null,
           "upvotes": 0,
           "related": [
-            "2610.37058",
             "2609.32720",
+            "2610.37058",
             "2609.06893",
-            "2610.01511",
-            "2609.12607"
+            "2609.12607",
+            "2610.01511"
           ]
         },
         {
@@ -14358,8 +15160,8 @@
             "2610.31862",
             "2609.35044",
             "2610.23256",
-            "2610.09891",
-            "2609.32720"
+            "2609.32720",
+            "2610.09891"
           ]
         },
         {
@@ -14387,8 +15189,8 @@
           "repo": null,
           "upvotes": 0,
           "related": [
-            "2610.29395",
             "2608.20820",
+            "2610.29395",
             "2608.30005",
             "2609.06972",
             "2610.16015"
@@ -14422,8 +15224,8 @@
             "2610.23256",
             "2609.12607",
             "2609.08082",
-            "2609.06893",
-            "2610.04845"
+            "2610.00715",
+            "2609.06893"
           ]
         },
         {
@@ -14598,9 +15400,9 @@
           "related": [
             "2610.18051",
             "2610.25604",
+            "2611.03233",
             "2609.32602",
-            "2610.08678",
-            "2610.26809"
+            "2610.08678"
           ]
         },
         {
@@ -14666,7 +15468,7 @@
             "2610.38091",
             "2610.22723",
             "2610.00400",
-            "2610.04467"
+            "2609.33898"
           ]
         },
         {
@@ -14694,10 +15496,10 @@
           "repo": null,
           "upvotes": 0,
           "related": [
+            "2611.02522",
             "2610.18614",
             "2610.33258",
             "2610.04269",
-            "2610.31579",
             "2609.01867"
           ]
         },
@@ -14789,7 +15591,7 @@
             "2609.33221",
             "2609.33803",
             "2609.33086",
-            "2609.39071"
+            "2609.35044"
           ]
         },
         {
@@ -14906,7 +15708,7 @@
             "2610.22124",
             "2609.15939",
             "2610.18457",
-            "2610.05163"
+            "2608.22868"
           ]
         },
         {
@@ -14962,7 +15764,7 @@
             "2609.39243",
             "2609.39549",
             "2609.35870",
-            "2610.35188"
+            "2610.31937"
           ]
         },
         {
@@ -15107,7 +15909,7 @@
             "2609.13534",
             "2609.16777",
             "2609.16305",
-            "2609.03999"
+            "2611.02516"
           ]
         },
         {
@@ -15131,10 +15933,10 @@
           "tldr": "揭示知识蒸馏中聊天模板会削弱学生模型安全对齐，提示模板选择至关重要。",
           "related": [
             "2610.40516",
+            "2611.00748",
             "2610.31331",
             "2609.32867",
-            "2610.36445",
-            "2610.38001"
+            "2610.36445"
           ]
         },
         {
@@ -15212,8 +16014,8 @@
           "tldr": "大规模评测中文大模型事实性谄媚,揭示信念诱导下的准确性变化。",
           "related": [
             "2610.18159",
-            "2610.28325",
             "2610.38869",
+            "2610.28325",
             "2610.17703",
             "2610.32531"
           ]
@@ -15278,7 +16080,7 @@
             "2608.27800",
             "2610.03213",
             "2609.39450",
-            "2610.16426"
+            "2611.01976"
           ]
         },
         {
@@ -15443,8 +16245,8 @@
             "2610.16761",
             "2609.24801",
             "2609.34790",
-            "2608.21570",
-            "2610.20907"
+            "2610.20907",
+            "2608.21570"
           ]
         },
         {
@@ -15493,8 +16295,8 @@
             "2610.39590",
             "2610.30436",
             "2609.09553",
-            "2609.04373",
-            "2610.26474"
+            "2610.26474",
+            "2609.04373"
           ]
         },
         {
@@ -15552,8 +16354,8 @@
             "2609.13873",
             "2609.39863",
             "2609.08331",
-            "2609.03815",
-            "2609.38899"
+            "2609.38899",
+            "2609.03815"
           ]
         },
         {
@@ -15576,9 +16378,9 @@
           "related": [
             "2608.30387",
             "2609.33671",
+            "2611.02310",
             "2610.14378",
-            "2610.30412",
-            "2609.36434"
+            "2610.30412"
           ]
         },
         {
@@ -15646,7 +16448,7 @@
             "2610.14270",
             "2609.37054",
             "2609.29775",
-            "2610.18304"
+            "2611.03627"
           ]
         },
         {
@@ -15791,10 +16593,10 @@
           "upvotes": 0,
           "related": [
             "2609.26900",
+            "2611.03233",
             "2609.09647",
             "2610.38882",
-            "2610.18457",
-            "2609.14079"
+            "2610.18457"
           ]
         },
         {
@@ -15867,9 +16669,9 @@
           "related": [
             "2610.22512",
             "2608.24114",
+            "2611.00748",
             "2609.37837",
-            "2610.38917",
-            "2610.03185"
+            "2610.38917"
           ]
         },
         {
@@ -15899,9 +16701,9 @@
           "related": [
             "2610.25269",
             "2609.38798",
-            "2610.18683",
             "2609.36178",
-            "2609.29050"
+            "2609.29050",
+            "2610.18683"
           ]
         },
         {
@@ -15916,8 +16718,8 @@
             "2610.19817",
             "2610.41793",
             "2610.12410",
-            "2609.16589",
-            "2609.06289"
+            "2611.02503",
+            "2609.16589"
           ]
         },
         {
@@ -15929,11 +16731,11 @@
           "repo": null,
           "upvotes": 0,
           "related": [
+            "2611.00911",
             "2610.20907",
             "2609.34862",
             "2609.29429",
-            "2610.38895",
-            "2609.16694"
+            "2610.38895"
           ]
         },
         {
@@ -15963,8 +16765,8 @@
           "related": [
             "2610.10742",
             "2609.15013",
-            "2610.20907",
             "2610.31695",
+            "2610.20907",
             "2610.03434"
           ]
         },
@@ -15977,11 +16779,11 @@
           "repo": null,
           "upvotes": 0,
           "related": [
+            "2611.02310",
             "2609.00495",
             "2610.31331",
             "2610.01058",
-            "2610.15177",
-            "2610.38595"
+            "2610.15177"
           ]
         },
         {
@@ -16009,11 +16811,11 @@
           "repo": null,
           "upvotes": 0,
           "related": [
+            "2611.00729",
             "2610.16426",
             "2610.28987",
             "2609.05901",
-            "2608.29942",
-            "2609.34358"
+            "2608.29942"
           ]
         },
         {
@@ -16026,10 +16828,10 @@
           "upvotes": 0,
           "related": [
             "2610.38917",
+            "2611.00748",
             "2610.03185",
             "2610.15685",
-            "2610.07654",
-            "2609.30802"
+            "2610.07654"
           ]
         },
         {
@@ -16042,10 +16844,10 @@
           "upvotes": 0,
           "related": [
             "2610.30727",
-            "2609.09798",
             "2610.16761",
+            "2609.09798",
             "2610.34961",
-            "2610.18304"
+            "2611.02516"
           ]
         },
         {
@@ -16202,8 +17004,8 @@
             "2609.34862",
             "2610.20907",
             "2609.28940",
-            "2610.38895",
-            "2610.03448"
+            "2611.00911",
+            "2610.38895"
           ]
         }
       ],
@@ -16242,11 +17044,11 @@
           "repo": null,
           "upvotes": 12,
           "related": [
+            "2611.03233",
             "2610.33451",
             "2610.28707",
             "2608.21570",
-            "2610.26809",
-            "2610.37788"
+            "2610.26809"
           ]
         }
       ],
@@ -16340,8 +17142,8 @@
             "2608.29461",
             "2610.06522",
             "2609.38909",
-            "2608.15445",
-            "2610.17659"
+            "2610.17659",
+            "2608.15445"
           ]
         }
       ],
@@ -16527,7 +17329,7 @@
             "2610.19817",
             "2609.28942",
             "2610.41793",
-            "2609.06289"
+            "2611.02503"
           ]
         },
         {
@@ -16580,10 +17382,10 @@
           "tldr": "系统分析自主渗透测试智能体的威胁面与防护栏，提出全生命周期威胁分类",
           "related": [
             "2609.03999",
+            "2611.02516",
             "2609.10780",
             "2609.30824",
-            "2610.00392",
-            "2610.06122"
+            "2610.00392"
           ]
         },
         {
@@ -16642,10 +17444,10 @@
           "upvotes": 0,
           "related": [
             "2609.04533",
+            "2611.01976",
             "2610.04269",
             "2610.06401",
-            "2609.12413",
-            "2609.33628"
+            "2609.12413"
           ]
         },
         {
@@ -16702,8 +17504,8 @@
           "related": [
             "2610.38917",
             "2609.24760",
-            "2608.15445",
             "2610.11959",
+            "2608.15445",
             "2610.10619"
           ]
         },
@@ -16743,8 +17545,8 @@
           "related": [
             "2610.28522",
             "2609.00638",
-            "2609.30266",
             "2609.37311",
+            "2609.30266",
             "2610.07403"
           ]
         },
@@ -16867,8 +17669,8 @@
           "ai_imp": 7,
           "tldr": "提出无需注入的代理隐私泄露攻击，并以信息流控制实现结构性防御。",
           "related": [
-            "2610.00392",
             "2610.19158",
+            "2610.00392",
             "2609.03815",
             "2610.18457",
             "2609.34790"
@@ -16921,9 +17723,9 @@
           "related": [
             "2609.16098",
             "2608.26008",
+            "2611.01976",
             "2610.30436",
-            "2610.02827",
-            "2609.03693"
+            "2610.02827"
           ]
         },
         {
@@ -16948,10 +17750,10 @@
           "tldr": "学习最优毒化集选择，揭示后门攻击最坏情况被严重低估。",
           "related": [
             "2610.37741",
+            "2611.00138",
             "2608.24354",
             "2610.12644",
-            "2610.07723",
-            "2609.11799"
+            "2610.07723"
           ]
         },
         {
@@ -17091,8 +17893,8 @@
             "2608.27512",
             "2610.15244",
             "2610.07510",
-            "2608.27800",
-            "2610.00392"
+            "2611.00138",
+            "2608.27800"
           ]
         },
         {
@@ -17181,7 +17983,7 @@
             "2610.32345",
             "2609.10854",
             "2610.26013",
-            "2610.38617"
+            "2609.31318"
           ]
         },
         {
@@ -17205,8 +18007,8 @@
           "related": [
             "2610.05162",
             "2610.13267",
-            "2610.21147",
             "2610.04083",
+            "2610.21147",
             "2610.18052"
           ]
         }
@@ -17240,10 +18042,10 @@
           "upvotes": 0,
           "related": [
             "2610.07532",
+            "2611.02815",
             "2610.06576",
             "2609.38389",
-            "2609.00495",
-            "2610.32205"
+            "2609.00495"
           ]
         },
         {
@@ -17272,10 +18074,10 @@
           "upvotes": 0,
           "related": [
             "2609.03920",
+            "2611.02611",
             "2610.18159",
             "2610.18052",
-            "2609.33634",
-            "2609.10036"
+            "2609.33634"
           ]
         },
         {
@@ -17306,8 +18108,8 @@
             "2609.28915",
             "2608.23185",
             "2610.10616",
-            "2609.38798",
-            "2610.00590"
+            "2610.00590",
+            "2609.38798"
           ]
         },
         {
@@ -17322,8 +18124,8 @@
             "2610.07723",
             "2609.07746",
             "2608.24354",
-            "2610.22871",
-            "2610.15244"
+            "2611.00748",
+            "2610.22871"
           ]
         },
         {
@@ -17410,8 +18212,8 @@
           "repo": null,
           "upvotes": 0,
           "related": [
-            "2610.09384",
             "2610.18159",
+            "2610.09384",
             "2610.33899",
             "2608.29198",
             "2610.14124"
@@ -17443,8 +18245,8 @@
           "upvotes": 0,
           "related": [
             "2610.00557",
-            "2610.29292",
             "2609.09076",
+            "2610.29292",
             "2610.00590",
             "2610.12361"
           ]
@@ -17512,9 +18314,9 @@
           "related": [
             "2610.03434",
             "2609.01572",
+            "2611.03233",
             "2609.13334",
-            "2610.03315",
-            "2610.22124"
+            "2610.03315"
           ]
         },
         {
@@ -17570,8 +18372,8 @@
             "2610.23601",
             "2610.27653",
             "2610.17655",
-            "2610.14378",
-            "2610.14289"
+            "2610.14289",
+            "2610.14378"
           ]
         },
         {
@@ -17677,8 +18479,8 @@
             "2609.39414",
             "2609.09798",
             "2610.33509",
-            "2609.39902",
-            "2610.09264"
+            "2610.09264",
+            "2609.39902"
           ]
         },
         {
@@ -17710,7 +18512,7 @@
             "2610.03213",
             "2610.19005",
             "2610.04378",
-            "2610.03434"
+            "2610.02432"
           ]
         }
       ],
@@ -17802,8 +18604,8 @@
           "related": [
             "2609.06972",
             "2610.38867",
-            "2610.23254",
             "2610.38579",
+            "2610.23254",
             "2609.33639"
           ]
         },
@@ -17859,7 +18661,7 @@
             "2610.08678",
             "2610.07723",
             "2610.07510",
-            "2610.12644"
+            "2611.00138"
           ]
         },
         {
@@ -17993,11 +18795,11 @@
           "repo": null,
           "upvotes": 0,
           "related": [
+            "2611.02611",
             "2610.36108",
             "2609.15939",
             "2608.23763",
-            "2610.03857",
-            "2610.29379"
+            "2610.03857"
           ]
         },
         {
@@ -18045,9 +18847,9 @@
           "related": [
             "2610.09906",
             "2609.03999",
-            "2610.41072",
+            "2611.02605",
             "2608.27990",
-            "2609.16694"
+            "2610.41072"
           ]
         }
       ],
@@ -18104,8 +18906,8 @@
             "2608.25390",
             "2610.29555",
             "2609.16204",
-            "2609.05794",
-            "2610.04245"
+            "2611.02318",
+            "2609.05794"
           ]
         },
         {
@@ -18154,8 +18956,8 @@
           "tldr": "证明前沿模型无需微调即可经提示学习密码通信绕过对齐，攻击面扩大。",
           "related": [
             "2610.25683",
-            "2610.18262",
             "2608.26008",
+            "2610.18262",
             "2609.05850",
             "2610.04467"
           ]
@@ -18250,8 +19052,8 @@
             "2610.28045",
             "2610.11464",
             "2610.15924",
-            "2609.35677",
-            "2609.36201"
+            "2611.01334",
+            "2609.35677"
           ]
         },
         {
@@ -18264,10 +19066,10 @@
           "upvotes": 0,
           "related": [
             "2609.30266",
+            "2611.01976",
             "2608.24017",
             "2609.16098",
-            "2610.06163",
-            "2610.35451"
+            "2610.06163"
           ]
         },
         {
@@ -18282,8 +19084,8 @@
             "2610.19817",
             "2610.04245",
             "2610.27295",
-            "2609.16589",
-            "2609.08410"
+            "2611.02503",
+            "2609.16589"
           ]
         },
         {
@@ -18308,7 +19110,7 @@
             "2608.21606",
             "2609.33639",
             "2610.21799",
-            "2610.10358"
+            "2610.41616"
           ]
         },
         {
@@ -18472,8 +19274,8 @@
             "2610.02844",
             "2610.26809",
             "2610.39802",
-            "2608.24192",
-            "2610.00715"
+            "2610.00715",
+            "2608.24192"
           ]
         },
         {
@@ -18499,7 +19301,7 @@
             "2610.36422",
             "2610.19422",
             "2610.34965",
-            "2609.16098"
+            "2611.02605"
           ]
         },
         {
@@ -18630,8 +19432,8 @@
             "2610.20941",
             "2610.24048",
             "2610.27620",
-            "2609.00264",
-            "2610.07089"
+            "2611.02522",
+            "2609.00264"
           ]
         },
         {
@@ -18799,8 +19601,8 @@
             "2608.30005",
             "2610.31695",
             "2610.17771",
-            "2610.30727",
-            "2609.02246"
+            "2609.02246",
+            "2610.30727"
           ]
         },
         {
@@ -18904,8 +19706,8 @@
           "upvotes": 0,
           "related": [
             "2609.00052",
-            "2610.41014",
             "2609.33371",
+            "2610.41014",
             "2610.40890",
             "2610.19384"
           ]
@@ -18961,10 +19763,10 @@
           "upvotes": 0,
           "related": [
             "2610.18095",
+            "2611.02605",
             "2610.09906",
             "2610.41072",
-            "2609.10707",
-            "2609.04159"
+            "2609.10707"
           ]
         },
         {
@@ -19014,7 +19816,7 @@
             "2609.11758",
             "2610.37058",
             "2609.06893",
-            "2608.29357"
+            "2610.00715"
           ]
         },
         {
@@ -19126,8 +19928,8 @@
           "related": [
             "2610.04169",
             "2610.30601",
-            "2610.14427",
             "2610.04860",
+            "2610.14427",
             "2609.12472"
           ]
         },
@@ -19177,8 +19979,8 @@
             "2609.11758",
             "2608.21656",
             "2609.14649",
-            "2610.14976",
-            "2610.25937"
+            "2610.25937",
+            "2610.14976"
           ]
         },
         {
@@ -19190,8 +19992,8 @@
           "repo": null,
           "upvotes": 0,
           "related": [
-            "2609.29014",
             "2610.11561",
+            "2609.29014",
             "2609.35870",
             "2609.39107",
             "2608.29326"
@@ -19317,10 +20119,10 @@
           "upvotes": 0,
           "related": [
             "2610.06966",
+            "2611.00729",
             "2609.34790",
             "2609.31282",
-            "2609.05901",
-            "2610.27620"
+            "2609.05901"
           ]
         },
         {
@@ -19332,11 +20134,11 @@
           "repo": null,
           "upvotes": 0,
           "related": [
+            "2611.00911",
+            "2611.02522",
             "2610.22937",
             "2610.37868",
-            "2610.20907",
-            "2610.40627",
-            "2610.12410"
+            "2610.20907"
           ]
         },
         {
@@ -19348,8 +20150,8 @@
           "repo": null,
           "upvotes": 0,
           "related": [
-            "2610.11188",
             "2610.23071",
+            "2610.11188",
             "2609.33803",
             "2609.00213",
             "2610.01349"
@@ -19422,10 +20224,10 @@
           "upvotes": 0,
           "related": [
             "2608.19729",
+            "2611.03184",
+            "2611.01643",
             "2610.18359",
-            "2608.30378",
-            "2609.06934",
-            "2609.35892"
+            "2608.30378"
           ]
         },
         {
@@ -19663,10 +20465,10 @@
           "upvotes": 0,
           "related": [
             "2610.41181",
+            "2611.00725",
             "2610.12823",
             "2610.31831",
-            "2609.16694",
-            "2610.41272"
+            "2609.16694"
           ]
         },
         {
@@ -19696,8 +20498,8 @@
           "related": [
             "2609.38798",
             "2610.09906",
-            "2608.20991",
             "2610.33318",
+            "2608.20991",
             "2608.30457"
           ]
         },
@@ -19721,9 +20523,9 @@
           "related": [
             "2610.08098",
             "2608.21656",
-            "2609.08188",
+            "2611.02643",
             "2609.16986",
-            "2610.21147"
+            "2609.08188"
           ]
         },
         {
@@ -19754,8 +20556,8 @@
             "2610.04596",
             "2610.00332",
             "2610.36445",
-            "2610.26496",
-            "2610.03185"
+            "2611.03627",
+            "2610.26496"
           ]
         },
         {
@@ -19811,8 +20613,8 @@
             "2609.08025",
             "2610.03213",
             "2610.23071",
-            "2608.21544",
-            "2610.13886"
+            "2610.13886",
+            "2608.21544"
           ]
         },
         {
@@ -19917,7 +20719,7 @@
             "2609.00595",
             "2610.28966",
             "2608.30842",
-            "2610.12410"
+            "2611.02611"
           ]
         }
       ],
@@ -19955,8 +20757,8 @@
           "tldr": "利用轨迹安全经验驱动harness与策略协同演化,形成智能体安全对齐闭环机制",
           "related": [
             "2609.36580",
-            "2610.32045",
             "2610.26809",
+            "2610.32045",
             "2610.19422",
             "2610.23085"
           ]
@@ -20020,11 +20822,11 @@
           "repo": null,
           "upvotes": 7,
           "related": [
+            "2611.01643",
             "2608.25580",
             "2609.36178",
             "2609.08025",
-            "2609.34563",
-            "2609.29775"
+            "2609.34563"
           ]
         },
         {
@@ -20037,8 +20839,8 @@
           "upvotes": 0,
           "related": [
             "2610.25126",
-            "2608.25091",
             "2610.06966",
+            "2608.25091",
             "2608.30429",
             "2610.21561"
           ]
@@ -20088,7 +20890,7 @@
             "2608.31035",
             "2609.30439",
             "2610.02986",
-            "2610.22928"
+            "2610.41445"
           ]
         },
         {
@@ -20192,8 +20994,8 @@
             "2609.04871",
             "2610.14487",
             "2610.15218",
-            "2608.19982",
-            "2610.28315"
+            "2611.03434",
+            "2608.19982"
           ]
         }
       ],
@@ -20230,8 +21032,8 @@
             "2610.21404",
             "2610.26496",
             "2609.39533",
-            "2609.33221",
-            "2609.39071"
+            "2609.39071",
+            "2609.33221"
           ]
         },
         {
@@ -20364,7 +21166,7 @@
             "2610.22873",
             "2609.07162",
             "2610.20941",
-            "2610.07089"
+            "2611.00407"
           ]
         },
         {
@@ -20378,8 +21180,8 @@
           "related": [
             "2610.24614",
             "2609.10144",
-            "2610.00715",
             "2610.05308",
+            "2610.00715",
             "2609.28614"
           ]
         },
@@ -20402,10 +21204,10 @@
           "upvotes": 0,
           "related": [
             "2609.30824",
+            "2611.00729",
             "2610.16426",
             "2609.05901",
-            "2608.23858",
-            "2610.28966"
+            "2608.23858"
           ]
         },
         {
@@ -20421,7 +21223,7 @@
             "2608.30842",
             "2610.02877",
             "2610.31862",
-            "2610.32415"
+            "2611.02815"
           ]
         },
         {
@@ -20493,8 +21295,8 @@
             "2610.09552",
             "2609.36434",
             "2610.01535",
-            "2608.17202",
-            "2609.05269"
+            "2609.05269",
+            "2609.38895"
           ]
         },
         {
@@ -20506,11 +21308,11 @@
           "repo": null,
           "upvotes": 0,
           "related": [
+            "2611.02815",
             "2610.12410",
             "2610.40379",
             "2609.01073",
-            "2610.19614",
-            "2610.40511"
+            "2610.19614"
           ]
         },
         {
@@ -20522,11 +21324,11 @@
           "repo": null,
           "upvotes": 0,
           "related": [
-            "2609.24801",
             "2609.33634",
             "2610.31695",
-            "2610.20907",
-            "2608.21570"
+            "2609.24801",
+            "2608.21570",
+            "2610.20907"
           ]
         },
         {
@@ -20734,7 +21536,7 @@
             "2610.23085",
             "2610.19349",
             "2610.22512",
-            "2610.40926"
+            "2611.03627"
           ]
         },
         {
@@ -20750,7 +21552,7 @@
             "2608.25580",
             "2610.11112",
             "2610.08137",
-            "2610.30202"
+            "2608.19598"
           ]
         },
         {
@@ -20901,7 +21703,7 @@
             "2610.04793",
             "2609.28614",
             "2608.22103",
-            "2610.26496"
+            "2611.02273"
           ]
         },
         {
@@ -20926,8 +21728,8 @@
           "tldr": "提出自进化代理技能注入威胁模型与红队框架及基准，揭示新攻击面。",
           "related": [
             "2609.30383",
-            "2610.18262",
             "2610.25126",
+            "2610.18262",
             "2610.08098",
             "2608.25091"
           ]
@@ -20985,10 +21787,10 @@
           "tldr": "提出自演化隐蔽提示注入框架,借工具链转向攻击长程智能体系统。",
           "related": [
             "2609.30657",
+            "2611.01976",
             "2610.38867",
             "2609.04533",
-            "2609.16098",
-            "2608.27800"
+            "2609.16098"
           ]
         },
         {
@@ -21126,8 +21928,8 @@
             "2608.27009",
             "2609.35870",
             "2610.16426",
-            "2610.27115",
-            "2609.14987"
+            "2611.00729",
+            "2610.27115"
           ]
         }
       ],
@@ -21178,8 +21980,8 @@
             "2609.08025",
             "2609.08188",
             "2610.25269",
-            "2610.05586",
-            "2610.23256"
+            "2610.23256",
+            "2610.05586"
           ]
         },
         {
@@ -21239,11 +22041,11 @@
           "repo": null,
           "upvotes": 0,
           "related": [
+            "2611.00748",
             "2610.04169",
             "2609.39076",
             "2610.37266",
-            "2610.00332",
-            "2610.36445"
+            "2610.00332"
           ]
         },
         {
@@ -21415,10 +22217,10 @@
           "upvotes": 0,
           "related": [
             "2608.19729",
+            "2611.03184",
             "2610.08993",
             "2610.17666",
-            "2608.30122",
-            "2609.33639"
+            "2608.30122"
           ]
         },
         {
@@ -21448,9 +22250,9 @@
           "related": [
             "2610.23256",
             "2610.04845",
+            "2610.00715",
             "2610.16458",
-            "2610.37058",
-            "2609.06893"
+            "2610.37058"
           ]
         },
         {
@@ -21482,7 +22284,7 @@
             "2610.10942",
             "2610.35743",
             "2610.03036",
-            "2610.06514"
+            "2611.00407"
           ]
         },
         {
@@ -21656,10 +22458,10 @@
           "repo": null,
           "upvotes": 0,
           "related": [
+            "2611.02791",
             "2610.34961",
             "2610.12813",
             "2610.06122",
-            "2610.03434",
             "2609.11799"
           ]
         },
@@ -21777,11 +22579,11 @@
           "ai_imp": 7,
           "tldr": "用强化学习生成恶意工具描述诱导代理泄露上下文，填补工具参数外泄攻击空白。",
           "related": [
+            "2611.01976",
             "2608.24017",
             "2610.19422",
             "2610.36108",
-            "2610.38209",
-            "2610.04378"
+            "2610.38209"
           ]
         },
         {
@@ -21807,8 +22609,8 @@
           "related": [
             "2608.27800",
             "2609.31039",
-            "2609.16098",
             "2610.23254",
+            "2609.16098",
             "2608.24017"
           ]
         },
@@ -21902,9 +22704,9 @@
           "related": [
             "2609.00051",
             "2610.09600",
+            "2611.00420",
             "2610.39509",
-            "2608.29936",
-            "2609.05850"
+            "2608.29936"
           ]
         },
         {
@@ -22141,7 +22943,7 @@
             "2609.00605",
             "2609.38929",
             "2610.17654",
-            "2609.06786"
+            "2609.33639"
           ]
         },
         {
@@ -22320,7 +23122,7 @@
             "2610.38091",
             "2608.25490",
             "2610.15207",
-            "2610.38595"
+            "2610.04470"
           ]
         },
         {
@@ -22389,9 +23191,9 @@
           "related": [
             "2610.24048",
             "2610.15924",
-            "2610.23362",
             "2610.15218",
-            "2610.11464"
+            "2610.23362",
+            "2611.00407"
           ]
         },
         {
@@ -22862,7 +23664,7 @@
             "2610.28381",
             "2609.38389",
             "2608.29942",
-            "2610.27115"
+            "2609.35870"
           ]
         },
         {
@@ -22892,9 +23694,9 @@
           "related": [
             "2608.21577",
             "2609.11799",
+            "2611.00138",
             "2610.12644",
-            "2610.07723",
-            "2610.20319"
+            "2610.07723"
           ]
         },
         {
@@ -22949,7 +23751,7 @@
             "2609.09404",
             "2609.36570",
             "2609.36121",
-            "2610.40627"
+            "2610.26438"
           ]
         },
         {
@@ -23113,8 +23915,8 @@
           "related": [
             "2609.03781",
             "2609.00051",
-            "2608.27844",
             "2608.27548",
+            "2608.27844",
             "2610.26809"
           ]
         },
@@ -23139,8 +23941,8 @@
             "2608.24354",
             "2609.14860",
             "2610.07510",
-            "2610.12644",
-            "2609.11799"
+            "2611.00138",
+            "2610.12644"
           ]
         },
         {
@@ -23193,10 +23995,10 @@
           "tldr": "针对图文对齐图基础模型的隐蔽后门攻击,属图学习领域,与LLM安全关联较弱。",
           "related": [
             "2609.38798",
+            "2611.00420",
             "2609.28963",
-            "2608.25727",
             "2608.24354",
-            "2610.07723"
+            "2608.25727"
           ]
         },
         {
@@ -23277,8 +24079,8 @@
           "related": [
             "2609.38899",
             "2610.27782",
-            "2610.38091",
             "2610.02019",
+            "2610.38091",
             "2610.14976"
           ]
         },
@@ -23757,8 +24559,8 @@
             "2610.29555",
             "2610.04245",
             "2609.35544",
-            "2610.04998",
-            "2608.29378"
+            "2611.01342",
+            "2610.04998"
           ]
         },
         {
@@ -23776,9 +24578,9 @@
           "related": [
             "2610.33258",
             "2610.18614",
+            "2611.02522",
             "2610.10947",
-            "2610.31579",
-            "2610.41401"
+            "2610.31579"
           ]
         },
         {
@@ -23866,10 +24668,10 @@
           "abstract": "The emerging W3C WebMCP proposal enables LLM agents to invoke tools exposed by web pages. In multi-party web environments, however, integrating agent execution into a browser security model centered on the Same-Origin Policy (SOP) leaves insufficient provenance and lifecycle guarantees for agent-accessible tools, creating three risks: subject-attribution spoofing, uncontrolled tool lifecycles, and semantic prompt injection. We propose WebMCP-Phalanx, a dual-layer agent runtime architecture. Its first layer provides a browser-native trust anchor that binds each tool to its registering principal through cryptographically protected capability credentials and propagates provenance labels throughout the tool lifecycle. Its second layer separates semantic inspection from privileged tool use. A Quarantine Agent (Q-LLM), without tool invocation authority, inspects tool metadata, outputs, and page-supplied content for prompt injection. Validated content is then forwarded to a Privileged Agent (P-LLM) for execution, while the Q-LLM's internal state remains hidden from page scripts. Empirical evaluation shows that the browser-native ownership mechanism reduces revocation and overwrite attack success from 100\\% to 0\\%. The dual-agent runtime blocks all 80 prompt-injection attempts embedded in tool descriptions and limits tool-return attacks to 2 successful cases out of 80. Across experiments, task utility remains statistically indistinguishable from the no-attack baseline. Under a white-box adaptive attacker, however, description-based filtering can be bypassed through malicious tool names invoked before inspection. This finding motivates a call-timing gate that delays tool invocation until all agent-visible tool metadata has been validated.",
           "related": [
             "2608.27800",
+            "2611.01976",
             "2610.13886",
             "2608.27496",
-            "2608.21544",
-            "2609.16098"
+            "2608.21544"
           ]
         },
         {
@@ -23882,11 +24684,11 @@
           "upvotes": 0,
           "abstract": "The Model Context Protocol (MCP) has emerged as the standard layer connecting Large Language Model agents to external tool backends. This openness introduces a severe server-side threat we term TrustShift: a compromised MCP server behaves benignly during an initial conditioning phase, building operational reliance and suppressing agent skepticism, before switching to an adversarial payload once an interaction threshold is reached. The evasion is temporal, not syntactic: benign at deploy time, the server's defection is invisible to predeployment static analysis, which sees only the honest phase. Switched payloads range from overt structural violations to schema-valid manipulations, the latter preserving outer protocol compliance to evade runtime middleware filters. Crucially, TrustShift originates in the server-controlled tool channel, not user prompts (unlike indirect prompt injection) or the transport (unlike man-in-the-middle): the adversary is the trusted server endpoint itself. We introduce TrustShiftProbe, an evaluation and defense framework with four contributions: (1) a stateful temporal threat model of the agent-server lifecycle as a benign conditioning phase followed by an adversarial defection at a trust horizon; (2) a language-agnostic attack engine that instantiates each variant as a compromised MCP server across four production domains; (3) SHIELD, a multi-tier, zero-oracle runtime defense at the MCP transport boundary that audits server payloads against behavioral baselines learned during clean trust windows; and (4) a taxonomy of nine TrustShift variants spanning three execution mechanisms (structural violation, semantic corruption, scope expansion) and three adversarial objectives (disruption, exfiltration, and their combination). Across frontier proprietary and open-weight models, TrustShift attacks achieve a 69.5% mean attack success rate that SHIELD mitigates to 42.7%.",
           "related": [
+            "2611.02611",
             "2610.36108",
             "2610.04378",
             "2609.10854",
-            "2608.23858",
-            "2610.06966"
+            "2608.23858"
           ]
         },
         {
@@ -23923,7 +24725,7 @@
             "2608.27800",
             "2610.06966",
             "2608.27496",
-            "2610.18457"
+            "2611.01976"
           ]
         },
         {
@@ -24123,7 +24925,7 @@
             "2610.04845",
             "2610.31862",
             "2609.06893",
-            "2608.30141"
+            "2610.00715"
           ]
         },
         {
@@ -24143,7 +24945,7 @@
             "2610.18614",
             "2610.17666",
             "2610.01161",
-            "2610.06401"
+            "2611.02414"
           ]
         },
         {
@@ -24241,8 +25043,8 @@
           "related": [
             "2610.17659",
             "2610.10358",
-            "2610.21799",
             "2608.29943",
+            "2610.21799",
             "2610.19613"
           ]
         },
@@ -24259,11 +25061,11 @@
           "ai_imp": 6,
           "tldr": "蒸馏小型安全分类器至CPU可部署,兼顾许可证合规与防过度拦截。",
           "related": [
+            "2611.00748",
             "2610.31695",
             "2610.02516",
             "2609.33634",
-            "2609.29421",
-            "2610.00332"
+            "2609.29421"
           ]
         },
         {
@@ -24340,10 +25142,10 @@
           "tldr": "系统评估LLM增强GNN的隐私泄露风险,性能增益伴随攻击面扩大。",
           "related": [
             "2610.06454",
-            "2608.20991",
-            "2609.38798",
             "2609.13873",
-            "2609.35233"
+            "2609.35233",
+            "2608.20991",
+            "2609.38798"
           ]
         },
         {
@@ -24363,7 +25165,7 @@
             "2609.03999",
             "2610.16458",
             "2609.01867",
-            "2609.32103"
+            "2610.30436"
           ]
         },
         {
@@ -24382,8 +25184,8 @@
             "2610.03955",
             "2609.02730",
             "2610.06122",
-            "2609.01572",
-            "2609.00052"
+            "2611.02791",
+            "2611.01334"
           ]
         },
         {
@@ -24413,11 +25215,11 @@
   "pending": [],
   "momentum": {
     "Jailbreaking & Red Teaming": -31,
-    "Prompt Injection & LLM Attacks": -15,
-    "Reward Hacking & Deceptive Alignment": -33,
-    "Agentic AI Safety": -44,
-    "Safety Training & Alignment": -14,
-    "Defenses, Privacy & Robustness": -28
+    "Prompt Injection & LLM Attacks": 15,
+    "Reward Hacking & Deceptive Alignment": 11,
+    "Agentic AI Safety": -6,
+    "Safety Training & Alignment": 0,
+    "Defenses, Privacy & Robustness": -6
   },
   "emerging": []
 }
